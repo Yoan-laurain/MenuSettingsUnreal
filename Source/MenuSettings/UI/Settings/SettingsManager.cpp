@@ -34,7 +34,22 @@ void USettingsManager::SaveChanges()
 void USettingsManager::OnInitialize(ULocalPlayer* Player)
 {
 	VideoSettings = InitializeVideoSettings(Player);
-	// AudioSettings = InitializeAudioSettings();
+	AudioSettings = InitializeAudioSettings();
+
+	SettingsMap.Add("Video", VideoSettings);
+	SettingsMap.Add("Audio", AudioSettings);
+}
+
+TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
+{
+	TArray<FString>* NavigationButtons = new TArray<FString>();
+
+	for (auto& Setting : SettingsMap)
+	{
+		NavigationButtons->Add(Setting.Key);
+	}
+
+	return NavigationButtons;
 }
 
 UGameSettingsCollection* USettingsManager::InitializeVideoSettings(ULocalPlayer* Player)
@@ -213,6 +228,52 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings(ULocalPlayer*
 	return Screen;
 }
 
-// UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
-// {
-// }
+UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
+{
+	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
+	Screen->SetTitle(FText::FromString("Audio"));
+
+	// Volume
+	////////////////////////////////////////////////////////////////////////////////////
+	{
+		UGameSettingsCollection* Volume = NewObject<UGameSettingsCollection>();
+		Volume->SetTitle(FText::FromString("Volume"));
+		
+		Screen->AddSettingCollection(Volume);
+
+		//----------------------------------------------------------------------------------
+		{
+			UGameSettingsItem* OverallItem = NewObject<UGameSettingsItem>();
+			OverallItem->SetNavigationText( FText::FromString("Overall Volume"));
+			OverallItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of everything."));
+
+			Volume->AddSetting(OverallItem);
+		}
+		//----------------------------------------------------------------------------------
+		{
+			UGameSettingsItem* MusicItem = NewObject<UGameSettingsItem>();
+			MusicItem->SetNavigationText( FText::FromString("Music Volume"));
+			MusicItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of music."));
+
+			Volume->AddSetting(MusicItem);
+		}
+		//----------------------------------------------------------------------------------
+		{
+			UGameSettingsItem* EffectsItem = NewObject<UGameSettingsItem>();
+			EffectsItem->SetNavigationText( FText::FromString("Effects Volume"));
+			EffectsItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of sound effects."));
+
+			Volume->AddSetting(EffectsItem);
+		}
+		//----------------------------------------------------------------------------------
+		{
+			UGameSettingsItem* VoiceItem = NewObject<UGameSettingsItem>();
+			VoiceItem->SetNavigationText( FText::FromString("Dialogue"));
+			VoiceItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of dialogue for game characters and voice overs."));
+
+			Volume->AddSetting(VoiceItem);
+		}
+	}
+
+	return Screen;
+}

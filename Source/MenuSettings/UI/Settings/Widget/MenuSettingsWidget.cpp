@@ -1,4 +1,7 @@
 #include "MenuSettingsWidget.h"
+
+#include "Components/HorizontalBox.h"
+#include "Components/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
 #include "Components/SettingsCategoryTitleWidget.h"
 #include "Components/SettingsWidget.h"
@@ -9,7 +12,7 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 {
 	if ( SettingsCollection )
 	{
-		CreateSubTitle(SettingsCollection->GetTitle());
+		CurrentMenuName = SettingsCollection->GetTitle().ToString();
 		
 		for ( const auto& SettingCol : SettingsCollection->GetChildSettingsCollection() )
 		{
@@ -49,6 +52,26 @@ void UMenuSettingsWidget::CreateSubTitle(const FText Title)
 	}
 }
 
+void UMenuSettingsWidget::CreateSectionsButtons(TArray<FString>* NavigationButtons)
+{
+	if ( NavigationButtons )
+	{
+		for ( const auto& Button : *NavigationButtons )
+		{
+			UNavigationButtonWidget* SettingsWidget = CreateWidget<UNavigationButtonWidget>(GetWorld(), SettingsNavigationWidgetClass);
+			
+			 if ( SettingsWidget )
+			 {
+			 	SettingsWidget->NavigationButtonClickedDelegate.BindLambda( [this, Button] () { OnNavigationButtonClicked(Button); } );
+			 	
+			 	NavigationButtonsBox->AddChild(SettingsWidget);
+			 	
+			 	SettingsWidget->InitWidget(Button);
+			 }
+		}
+	}
+}
+
 void UMenuSettingsWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -57,6 +80,25 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 	if ( SettingsManager )
 	{
+		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
+		
 		SetContent(SettingsManager->GetVideoSettings());
+	}
+}
+
+void UMenuSettingsWidget::OnNavigationButtonClicked(FString SettingsName)
+{
+	if ( CurrentMenuName == SettingsName )
+	{
+		return;
+	}
+	
+	SettingsScrollBox->ClearChildren();
+
+	const USettingsManager* SettingsManager = USettingsManager::Get(GetOwningLocalPlayer());
+
+	if ( SettingsManager )
+	{
+		SetContent(SettingsManager->GetSettings(SettingsName));
 	}
 }
