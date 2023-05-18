@@ -14,15 +14,20 @@ public :
 
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
-	class UVerticalBox* LeftSideBox;
+	class UScrollBox* SettingsScrollBox;
 
-	/** The widget class of a single settings */
-	UPROPERTY( EditAnywhere, BlueprintReadWrite, Category = "Menu Settings" )
-	TSubclassOf<class UUserWidget> SettingsWidgetClass;
+	/** The widget of a unique settings */
+	UPROPERTY( EditAnywhere )
+	TSubclassOf<UUserWidget> SettingsItemWidgetClass;
 
+	/** The widget of a category title */
+	UPROPERTY( EditAnywhere )
+	TSubclassOf<UUserWidget> SettingsCategoryTitleWidgetClass;
+	
 private :
 
 	void SetContent(UGameSettingsCollection* SettingsCollection);
+	void CreateSubTitle(FText Title);
 
 protected :
 

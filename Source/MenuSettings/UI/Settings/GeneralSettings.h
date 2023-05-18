@@ -5,13 +5,16 @@
 
 class UGameSettingsCollection;
 
-UCLASS(config=Game, defaultconfig)
+UCLASS()
 class MENUSETTINGS_API UGeneralSettings : public UGameUserSettings
 {
-public:
-
 	GENERATED_BODY()
+
+public:
+	
 	UGeneralSettings();
+
+	static UGeneralSettings* Get();
 
 	/** Returns true if this platform can run the auto benchmark */
 	UFUNCTION(BlueprintCallable, Category = Settings)
@@ -28,9 +31,6 @@ public:
 	/** Apply just the quality scalability settings */
 	void ApplyScalabilitySettings();
 	
-	static UGeneralSettings* Get();
-	
-	UGameSettingsCollection* InitializeVideoSettings();
 private :
 
 	// Does the platform support running the automatic quality benchmark (typically this should only be true if bSupportsGranularVideoQualitySettings is also true)

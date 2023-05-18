@@ -20,3 +20,8 @@ void UGameSettingsCollection::AddSetting(UGameSettingsItem* Setting)
 {
 	Settings.Add(Setting);
 }
+
+void UGameSettingsCollection::AddSettingCollection(UGameSettingsCollection* SettingCollection)
+{
+	SettingsCollection.Add(SettingCollection);
+}

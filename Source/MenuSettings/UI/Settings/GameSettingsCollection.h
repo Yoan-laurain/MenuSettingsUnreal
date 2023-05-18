@@ -43,13 +43,23 @@ public:
 	UGameSettingsCollection();
 	
 	TArray<UGameSettingsItem*> GetChildSettings() { return Settings; }
+	TArray<UGameSettingsCollection*> GetChildSettingsCollection() { return SettingsCollection; }
+	
 	void AddSetting(UGameSettingsItem* Setting);
+	void AddSettingCollection(UGameSettingsCollection* SettingCollection);
+	
 	bool IsSelectable() const { return false; }
 
 	FText GetTitle() const { return Title; }
 	void SetTitle(FText Value) { Title = Value; }
 
 protected :
+
+	UPROPERTY()
 	TArray<UGameSettingsItem*> Settings;
+
+	UPROPERTY()
+	TArray<UGameSettingsCollection*> SettingsCollection;
+	
 	FText Title;
 };
