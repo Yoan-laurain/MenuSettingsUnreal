@@ -26,18 +26,17 @@ public :
 	UPROPERTY(meta = (BindWidget))
 	UButton* IncreaseButton;
 
-	/** The image of the choices that the user can make */
-	UPROPERTY(meta = (BindWidget))
-	UImage* Image;
-
+	UPROPERTY( meta = (BindWidget) )
+	UTextBlock* CurrentValue;
+	
 	void SetSettingsText(FText NewText);
-	void SetImage(unsigned IndexImage);
-	void InitWidget(const UGameSettingsItem* SettingsItem);
+	void SetCurrentValue(FText NewText);
+	void InitWidget(UGameSettingsItem* SettingsItem);
 
 private :
-	
-	TMap<unsigned,UImage*> ImageMap;
-	unsigned CurrentImageIndex;
+
+	UPROPERTY()
+	UGameSettingsItem* SettingsItem;
 
 protected :
 	

@@ -1,11 +1,11 @@
 #include "MenuSettingsWidget.h"
-
 #include "Components/HorizontalBox.h"
 #include "Components/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
 #include "Components/SettingsCategoryTitleWidget.h"
 #include "Components/SettingsWidget.h"
 #include "MenuSettings/UI/Settings/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/SettingsManager.h"
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
@@ -76,10 +76,15 @@ void UMenuSettingsWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	const USettingsManager* SettingsManager = USettingsManager::Get(GetOwningLocalPlayer());
-
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	
 	if ( SettingsManager )
 	{
+		if (ULocalPlayerCustom* InLocalPlayer = Cast<ULocalPlayerCustom>(GetOwningLocalPlayer()) )
+		{
+			SettingsManager->OnInitialize(InLocalPlayer);
+		}
+		
 		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
 		
 		SetContent(SettingsManager->GetVideoSettings());
@@ -93,12 +98,11 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(FString SettingsName)
 		return;
 	}
 	
-	SettingsScrollBox->ClearChildren();
-
-	const USettingsManager* SettingsManager = USettingsManager::Get(GetOwningLocalPlayer());
+	const USettingsManager* SettingsManager = USettingsManager::Get();
 
 	if ( SettingsManager )
 	{
+		SettingsScrollBox->ClearChildren();
 		SetContent(SettingsManager->GetSettings(SettingsName));
 	}
 }

@@ -25,34 +25,50 @@ void USettingsWidget::SetSettingsText(FText NewText)
 	}
 }
 
-void USettingsWidget::SetImage(unsigned IndexImage)
+void USettingsWidget::SetCurrentValue(FText NewText)
 {
-	for (const auto& Elem : ImageMap)
+	if ( CurrentValue )
 	{
-		if ( Elem.Key == IndexImage )
-		{
-			Image = Elem.Value;
-			CurrentImageIndex = IndexImage;
-			break;
-		}
-	} 
+		CurrentValue->SetText(NewText);
+	}
 }
 
-void USettingsWidget::InitWidget(const UGameSettingsItem* SettingsItem)
+void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 {
-	CurrentImageIndex = 0;
-	SetImage(0);
+	SettingsItem = NewSettingsItem;
 	SetSettingsText(SettingsItem->GetNavigationText());
+	SetCurrentValue( SettingsItem->GetDefaultOption() );
+	DecreaseButton->SetIsEnabled(false);
 }
 
 void USettingsWidget::OnDecreaseButtonClicked()
 {
-	const unsigned NewIndex = CurrentImageIndex - 1;
-	SetImage(NewIndex);
+	SetCurrentValue( SettingsItem->GetPreviousOptions(CurrentValue->GetText() ) );
+
+	if ( SettingsItem->IsMinValue(CurrentValue->GetText() ) )
+	{
+		DecreaseButton->SetIsEnabled(false);
+	}
+	else
+	{
+		DecreaseButton->SetIsEnabled(true);
+	}
+
+	IncreaseButton->SetIsEnabled(true);
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
-	const unsigned NewIndex = CurrentImageIndex + 1;
-	SetImage(NewIndex);
+	SetCurrentValue( SettingsItem->GetNextOptions(CurrentValue->GetText() ) );
+
+	if ( SettingsItem->IsMaxValue(CurrentValue->GetText() ) )
+	{
+		IncreaseButton->SetIsEnabled(false);
+	}
+	else
+	{
+		IncreaseButton->SetIsEnabled(true);
+	}
+
+	DecreaseButton->SetIsEnabled(true);
 }
