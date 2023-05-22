@@ -1,13 +1,15 @@
 ﻿#pragma once
 
 #include "GameFramework/GameUserSettings.h"
-#include "MappableConfigPair.h"
+#include "BindingsWTF/MappableConfigPair.h"
 #include "LocalSettings.generated.h"
 
 DECLARE_EVENT_OneParam(ULocalSettings, FInputConfigDelegate, const FLoadedMappableConfigPair&);
 
 class ULocalPlayerCustom;
 class UPlayerMappableInputConfig;
+class USoundControlBus;
+class USoundControlBusMix;
 
 UCLASS()
 class ULocalSettings final : public UGameUserSettings
@@ -19,6 +21,60 @@ public:
 	ULocalSettings();
 
 	static ULocalSettings* Get();
+	
+	//////////////////////////////////////////////////////////////////
+	// Audio - Volume
+
+	UFUNCTION()
+	float GetOverallVolume() const;
+	UFUNCTION()
+	void SetOverallVolume(float InVolume);
+
+	UFUNCTION()
+	float GetMusicVolume() const;
+	UFUNCTION()
+	void SetMusicVolume(float InVolume);
+
+	UFUNCTION()
+	float GetSoundFXVolume() const;
+	UFUNCTION()
+	void SetSoundFXVolume(float InVolume);
+
+	UFUNCTION()
+	float GetDialogueVolume() const;
+	UFUNCTION()
+	void SetDialogueVolume(float InVolume);
+
+	void SetVolumeSettings( FName VolumeStringName, float Volume );
+
+private :
+
+	void LoadUserControlBusMix();
+
+	void SetVolumeForControlBus(USoundControlBus* InSoundControlBus, float InVolume);
+
+	UPROPERTY(Config)
+	float OverallVolume = 1.0f;
+	UPROPERTY(Config)
+	float MusicVolume = 1.0f;
+	UPROPERTY(Config)
+	float SoundFXVolume = 1.0f;
+	UPROPERTY(Config)
+	float DialogueVolume = 1.0f;
+	
+	UPROPERTY(Transient)
+	bool bSoundControlBusMixLoaded;
+
+	UPROPERTY(Transient)
+	TMap<FName, TObjectPtr<USoundControlBus>> ControlBusMap;
+
+	UPROPERTY(Transient)
+	TObjectPtr<USoundControlBusMix> ControlBusMix = nullptr;
+	
+public :
+	
+	//////////////////////////////////////////////////////////////////
+	// KeyBindings
 	
 	/** Delegate called when a new input config has been registered */
 	FInputConfigDelegate OnInputConfigRegistered;

@@ -31,6 +31,10 @@ public:
 	bool IsMaxValue(const FText& CurrentOption) const { return Options[Options.Num() - 1].EqualTo(CurrentOption); }
 	bool IsMinValue(const FText& CurrentOption) const { return Options[0].EqualTo(CurrentOption); }
 
+	virtual void SetOptionValue(double Value)										PURE_VIRTUAL(, );
+	virtual double GetOptionValue() const											PURE_VIRTUAL(, return 0;);
+	virtual double GetOptionSourceStep() const										PURE_VIRTUAL(, return 0.01;);
+
 private:
 	FText NavigationText;
 	FText DescriptionRichText;

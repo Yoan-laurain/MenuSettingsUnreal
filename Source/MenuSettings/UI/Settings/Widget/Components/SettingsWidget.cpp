@@ -1,6 +1,8 @@
 #include "SettingsWidget.h"
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "MenuSettings/UI/Settings/SettingsManager.h"
 
 void USettingsWidget::NativeOnInitialized()
 {
@@ -41,6 +43,12 @@ void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 	DecreaseButton->SetIsEnabled(false);
 }
 
+void USettingsWidget::ApplySettings()
+{
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->GetLocalPlayer()->GetLocalSettings()->ApplySettings(false);
+}
+
 void USettingsWidget::OnDecreaseButtonClicked()
 {
 	SetCurrentValue( SettingsItem->GetPreviousOptions(CurrentValue->GetText() ) );
@@ -55,6 +63,10 @@ void USettingsWidget::OnDecreaseButtonClicked()
 	}
 
 	IncreaseButton->SetIsEnabled(true);
+
+	SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() - SettingsItem->GetOptionSourceStep() );
+
+	ApplySettings();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
@@ -71,4 +83,7 @@ void USettingsWidget::OnIncreaseButtonClicked()
 	}
 
 	DecreaseButton->SetIsEnabled(true);
+	SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() + SettingsItem->GetOptionSourceStep() );
+	
+	ApplySettings();
 }

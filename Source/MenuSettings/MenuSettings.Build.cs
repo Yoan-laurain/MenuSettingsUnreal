@@ -11,7 +11,11 @@ public class MenuSettings : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] { 
 			"EnhancedInput", 
 			"CommonUI",
-			"CommonInput"
+			"CommonInput",
+			"AudioMixer",
+			"AudioModulation",
+			"DeveloperSettings",
+			"PropertyPath"
 		});
 
 		// Uncomment if you are using Slate UI

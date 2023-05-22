@@ -15,7 +15,7 @@ ULocalSettings* ULocalSettings::Get()
 }
 
 void ULocalSettings::RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig,
-	const bool bIsActive)
+                                         const bool bIsActive)
 {
 	if (NewConfig)
 	{

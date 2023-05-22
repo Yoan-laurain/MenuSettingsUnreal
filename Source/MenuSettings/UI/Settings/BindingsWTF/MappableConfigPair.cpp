@@ -1,7 +1,7 @@
 #include "MappableConfigPair.h"
 #include "PlayerMappableInputConfig.h"
 #include "AssetManagerCustom.h"
-#include "LocalSettings.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 
 bool FMappableConfigPair::RegisterPair(const FMappableConfigPair& Pair)
 {
