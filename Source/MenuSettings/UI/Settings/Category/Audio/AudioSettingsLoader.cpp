@@ -1,6 +1,6 @@
-﻿#include "../../SettingsManager.h"
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+﻿#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 #include "MenuSettings/UI/Settings/Scalar/GameSettingValueScalarDynamic.h"
 
 UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
@@ -19,7 +19,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingValueScalarDynamic* OverallItem = NewObject<UGameSettingValueScalarDynamic>();
-			OverallItem->SetNavigationText( FText::FromString("Overall Volume"));
+			OverallItem->SetOptionName( FText::FromString("Overall Volume"));
 			OverallItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of everything."));
 			
 			OverallItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetOverallVolume));
@@ -32,7 +32,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingValueScalarDynamic* MusicItem = NewObject<UGameSettingValueScalarDynamic>();
-			MusicItem->SetNavigationText( FText::FromString("Music Volume"));
+			MusicItem->SetOptionName( FText::FromString("Music Volume"));
 			MusicItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of music."));
 
 			MusicItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetMusicVolume));
@@ -45,7 +45,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingValueScalarDynamic* EffectsItem = NewObject<UGameSettingValueScalarDynamic>();
-			EffectsItem->SetNavigationText( FText::FromString("Effects Volume"));
+			EffectsItem->SetOptionName( FText::FromString("Effects Volume"));
 			EffectsItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of sound effects."));
 
 			EffectsItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetSoundFXVolume));
@@ -58,7 +58,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingValueScalarDynamic* VoiceItem = NewObject<UGameSettingValueScalarDynamic>();
-			VoiceItem->SetNavigationText( FText::FromString("Dialogue"));
+			VoiceItem->SetOptionName( FText::FromString("Dialogue"));
 			VoiceItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of dialogue for game characters and voice overs."));
 
 			VoiceItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetDialogueVolume));

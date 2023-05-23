@@ -3,7 +3,7 @@
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
-void UNavigationButtonWidget::InitWidget(FString Text)
+void UNavigationButtonWidget::InitWidget(const FString Text)
 {
 	if ( NavigationText )
 	{

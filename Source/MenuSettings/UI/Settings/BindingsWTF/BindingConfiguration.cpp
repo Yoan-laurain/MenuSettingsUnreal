@@ -1,7 +1,7 @@
 ﻿#include "BindingConfiguration.h"
 #include "PlayerMappableInputConfig.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void FKeyboardOption::ResetToDefault()
 {

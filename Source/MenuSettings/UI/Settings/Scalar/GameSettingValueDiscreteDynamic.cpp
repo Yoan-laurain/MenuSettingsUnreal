@@ -1,7 +1,7 @@
 ﻿#include "GameSettingValueDiscreteDynamic.h"
 
 #include "GameSettingDataSource.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 UGameSettingValueDiscreteDynamic::UGameSettingValueDiscreteDynamic()
 {
@@ -196,15 +196,5 @@ void UGameSettingValueDiscreteDynamic_Enum::OnInitialized()
 
 	ensure(OptionValues.Num() > 0);
 }
-
-//////////////////////////////////////////////////////////////////////////
-// UGameSettingValueDiscreteDynamic_Color
-//////////////////////////////////////////////////////////////////////////
-
-UGameSettingValueDiscreteDynamic_Color::UGameSettingValueDiscreteDynamic_Color()
-{
-
-}
-
 
 #undef LOCTEXT_NAMESPACE

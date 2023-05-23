@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "Misc/AssertionMacros.h"
 #include "GameSettingValue.generated.h"
 

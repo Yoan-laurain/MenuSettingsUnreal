@@ -12,8 +12,8 @@ public:
 
 	UGameSettingsItem();
 	
-	FText GetNavigationText() const { return NavigationText; }
-	void SetNavigationText(FText Value) { NavigationText = Value; }
+	FText GetOptionName() const { return OptionsName; }
+	void SetOptionName(FText Value) { OptionsName = Value; }
 
 	FText GetDescriptionRichText() const { return DescriptionRichText; }
 	void SetDescriptionRichText(FText Value) { DescriptionRichText = Value; }
@@ -36,7 +36,7 @@ public:
 	virtual double GetOptionSourceStep() const										PURE_VIRTUAL(, return 0.01;);
 
 private:
-	FText NavigationText;
+	FText OptionsName;
 	FText DescriptionRichText;
 	TArray<FText> Options;
 };

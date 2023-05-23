@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "LocalPlayerCustom.h"
-#include "Scalar/GameSettingDataSourceDynamic.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
+#include "../Scalar/GameSettingDataSourceDynamic.h"
 #include "SettingsManager.generated.h"
 
 class UGameSettingsCollection;

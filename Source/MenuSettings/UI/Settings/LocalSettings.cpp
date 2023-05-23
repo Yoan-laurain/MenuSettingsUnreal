@@ -1,8 +1,7 @@
 ﻿#include "LocalSettings.h"
-
 #include "EnhancedActionKeyMapping.h"
 #include "EnhancedInputSubsystems.h"
-#include "LocalPlayerCustom.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "PlayerMappableInputConfig.h"
 
 ULocalSettings::ULocalSettings()

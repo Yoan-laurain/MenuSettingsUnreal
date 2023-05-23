@@ -21,10 +21,24 @@ public:
 	ULocalSettings();
 
 	static ULocalSettings* Get();
-	
-	//////////////////////////////////////////////////////////////////
-	// Audio - Volume
 
+#pragma region Audio
+	
+	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBusMix"))
+	FSoftObjectPath UserSettingsControlBusMix;
+	
+	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
+	FSoftObjectPath OverallVolumeControlBus;
+	
+	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
+	FSoftObjectPath MusicVolumeControlBus;
+	
+	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
+	FSoftObjectPath SoundFXVolumeControlBus;
+	
+	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
+	FSoftObjectPath DialogueVolumeControlBus;
+	
 	UFUNCTION()
 	float GetOverallVolume() const;
 	UFUNCTION()
@@ -70,6 +84,10 @@ private :
 
 	UPROPERTY(Transient)
 	TObjectPtr<USoundControlBusMix> ControlBusMix = nullptr;
+
+#pragma endregion Audio
+
+#pragma region KeyBindings
 	
 public :
 	
@@ -164,4 +182,53 @@ public :
 	/** Array of custom key mappings that have been set by the player. Empty by default. */
 	UPROPERTY(Config)
 	TMap<FName, FKey> CustomKeyboardConfig;
+
+#pragma endregion KeyBindings
+
+#pragma region Video
+
+public :
+
+	UFUNCTION()
+	FString GetDesiredDeviceProfileQualitySuffix() const;
+	
+	UFUNCTION()
+	void SetDesiredDeviceProfileQualitySuffix(const FString& InDesiredSuffix);
+	
+private :
+
+	UPROPERTY(Transient)
+	FString DesiredUserChosenDeviceProfileSuffix;
+
+protected : 
+
+#pragma endregion Video
+
+#pragma region GeneralSettings
+
+public :
+	
+	/** Returns true if this platform can run the auto benchmark */
+	UFUNCTION(BlueprintCallable, Category = Settings)
+	bool CanRunAutoBenchmark() const;
+
+	/** Returns true if this user should run the auto benchmark as it has never been run */
+	UFUNCTION(BlueprintCallable, Category = Settings)
+	bool ShouldRunAutoBenchmarkAtStartup() const;
+
+	/** Run the auto benchmark, optionally saving right away */
+	UFUNCTION(BlueprintCallable, Category = Settings)
+	void RunAutoBenchmark(bool bSaveImmediately);
+
+	/** Apply just the quality scalability settings */
+	void ApplyScalabilitySettings();
+
+private :
+
+	// Does the platform support running the automatic quality benchmark (typically this should only be true if bSupportsGranularVideoQualitySettings is also true)
+	UPROPERTY(EditAnywhere, Config, Category=VideoSettings)
+	bool bSupportsAutomaticVideoQualityBenchmark = true;
+
+#pragma endregion GeneralSettings
+	
 };

@@ -1,12 +1,12 @@
 #include "MenuSettingsWidget.h"
 #include "Components/HorizontalBox.h"
-#include "Components/NavigationButtonWidget.h"
+#include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
-#include "Components/SettingsCategoryTitleWidget.h"
+#include "Components/Title/SettingsCategoryTitleWidget.h"
 #include "Components/SettingsWidget.h"
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/LocalPlayerCustom.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/Player//LocalPlayerCustom.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
 {

@@ -2,7 +2,7 @@
 
 #include "CommonInputBaseTypes.h"
 #include "EnhancedActionKeyMapping.h"
-#include "../GameSettingsCollection.h"
+#include "../Category/GameSettingsCollection.h"
 #include "BindingConfiguration.generated.h"
 
 class UPlayerMappableInputConfig;

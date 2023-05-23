@@ -180,47 +180,6 @@ protected:
 };
 
 //////////////////////////////////////////////////////////////////////////
-// UGameSettingValueDiscreteDynamic_Color
-//////////////////////////////////////////////////////////////////////////
-
-UCLASS()
-class MENUSETTINGS_API UGameSettingValueDiscreteDynamic_Color : public UGameSettingValueDiscreteDynamic
-{
-	GENERATED_BODY()
-
-public:
-	UGameSettingValueDiscreteDynamic_Color();
-
-public:
-	void SetDefaultValue(FLinearColor InColor)
-	{
-		SetDefaultValueFromString(InColor.ToString());
-	}
-
-	void AddColorOption(FLinearColor InColor)
-	{
-		const FColor SRGBColor = InColor.ToFColor(true);
-		AddDynamicOption(InColor.ToString(), FText::FromString(FString::Printf(TEXT("#%02X%02X%02X"), SRGBColor.R, SRGBColor.G, SRGBColor.B)));
-	}
-
-	FLinearColor GetValue() const
-	{
-		const FString Value = GetValueAsString();
-		
-		FLinearColor ColorValue;
-		bool bSuccess = ColorValue.InitFromString(Value);
-		ensure(bSuccess);
-
-		return ColorValue;
-	}
-
-	void SetValue(FLinearColor InColor)
-	{
-		SetValueFromString(InColor.ToString());
-	}
-};
-
-//////////////////////////////////////////////////////////////////////////
 // UGameSettingValueDiscreteDynamic_Vector2D
 //////////////////////////////////////////////////////////////////////////
 

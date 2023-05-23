@@ -1,10 +1,10 @@
 ﻿#include "PlayerMappableInputConfig.h"
 #include "MenuSettings/UI/Settings/BindingsWTF/BindingConfiguration.h"
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/LocalPlayerCustom.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void AddPlayerMappableKey(TSet<FName>& AddedSettings, const TMap<FName, FKey>& CustomKeyMap, const FLoadedMappableConfigPair& InputConfigPair, TArray<FEnhancedActionKeyMapping> ConfigMappings, UGameSettingsCollection* ConfigSettingCollection)
 {
@@ -60,7 +60,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 		Screen->AddSettingCollection(Volume);
 
 		//----------------------------------------------------------------------------------
-		{
+		{ 
 			static TSet<FName> AddedSettings;
 			AddedSettings.Reset();
 

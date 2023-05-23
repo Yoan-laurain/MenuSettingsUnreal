@@ -2,7 +2,7 @@
 
 #include "Internationalization/Text.h"
 #include "Math/Range.h"
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "Misc/Optional.h"
 #include "Templates/Function.h"
 #include "Templates/SharedPointer.h"

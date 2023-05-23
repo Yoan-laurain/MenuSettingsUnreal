@@ -14,7 +14,7 @@ public :
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
 	class UButton* NavigationButton;
 
-	/** The text of teh button */
+	/** The text of the button */
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
 	class UTextBlock* NavigationText;
 

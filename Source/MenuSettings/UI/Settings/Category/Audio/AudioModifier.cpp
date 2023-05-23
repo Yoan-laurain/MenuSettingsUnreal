@@ -1,7 +1,6 @@
 ﻿#include "../../LocalSettings.h"
 #include "SoundControlBus.h"
 #include "AudioModulationStatics.h"
-#include "AudioSettingsManager.h"
 
 float ULocalSettings::GetOverallVolume() const
 {
@@ -73,76 +72,73 @@ void ULocalSettings::LoadUserControlBusMix()
 	{
 		if (const UWorld* World = GEngine->GetCurrentPlayWorld())
 		{
-			if (const UAudioSettingsManager* AudioSettings = GetDefault<UAudioSettingsManager>())
-			{
-				USoundControlBus* OverallControlBus = nullptr;
-				USoundControlBus* MusicControlBus = nullptr;
-				USoundControlBus* SoundFXControlBus = nullptr;
-				USoundControlBus* DialogueControlBus = nullptr;
-	
-				ControlBusMap.Empty();
-	
-				if (UObject* ObjPath = AudioSettings->OverallVolumeControlBus.TryLoad())
-				{
-					if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
-					{
-						OverallControlBus = SoundControlBus;
-						ControlBusMap.Add(TEXT("Overall"), OverallControlBus);
-					}
-				}
-	
-				if (UObject* ObjPath = AudioSettings->MusicVolumeControlBus.TryLoad())
-				{
-					if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
-					{
-						MusicControlBus = SoundControlBus;
-						ControlBusMap.Add(TEXT("Music"), MusicControlBus);
-					}
-				}
-	
-				if (UObject* ObjPath = AudioSettings->SoundFXVolumeControlBus.TryLoad())
-				{
-					if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
-					{
-						SoundFXControlBus = SoundControlBus;
-						ControlBusMap.Add(TEXT("SoundFX"), SoundFXControlBus);
-					}
-				}
-	
-				if (UObject* ObjPath = AudioSettings->DialogueVolumeControlBus.TryLoad())
-				{
-					if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
-					{
-						DialogueControlBus = SoundControlBus;
-						ControlBusMap.Add(TEXT("Dialogue"), DialogueControlBus);
-					}
-				}
-				
-				if (UObject* ObjPath = AudioSettings->UserSettingsControlBusMix.TryLoad())
-				{
-					if (USoundControlBusMix* SoundControlBusMix = Cast<USoundControlBusMix>(ObjPath))
-					{
-						ControlBusMix = SoundControlBusMix;
-	
-						const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, OverallVolume);
-						const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, MusicVolume);
-						const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, SoundFXVolume);
-						const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, DialogueVolume);
+			USoundControlBus* OverallControlBus = nullptr;
+			USoundControlBus* MusicControlBus = nullptr;
+			USoundControlBus* SoundFXControlBus = nullptr;
+			USoundControlBus* DialogueControlBus = nullptr;
 
-						TArray<FSoundControlBusMixStage> ControlBusMixStageArray;
-						ControlBusMixStageArray.Add(OverallControlBusMixStage);
-						ControlBusMixStageArray.Add(MusicControlBusMixStage);
-						ControlBusMixStageArray.Add(SoundFXControlBusMixStage);
-						ControlBusMixStageArray.Add(DialogueControlBusMixStage);
-	
-						UAudioModulationStatics::UpdateMix(World, ControlBusMix, ControlBusMixStageArray);
-	
-						bSoundControlBusMixLoaded = true;
-					}
-					else
-					{
-						ensureMsgf(SoundControlBusMix, TEXT("User Settings Control Bus Mix reference missing from Lyra Audio Settings."));
-					}
+			ControlBusMap.Empty();
+
+			if (UObject* ObjPath = OverallVolumeControlBus.TryLoad())
+			{
+				if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
+				{
+					OverallControlBus = SoundControlBus;
+					ControlBusMap.Add(TEXT("Overall"), OverallControlBus);
+				}
+			}
+
+			if (UObject* ObjPath = MusicVolumeControlBus.TryLoad())
+			{
+				if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
+				{
+					MusicControlBus = SoundControlBus;
+					ControlBusMap.Add(TEXT("Music"), MusicControlBus);
+				}
+			}
+
+			if (UObject* ObjPath = SoundFXVolumeControlBus.TryLoad())
+			{
+				if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
+				{
+					SoundFXControlBus = SoundControlBus;
+					ControlBusMap.Add(TEXT("SoundFX"), SoundFXControlBus);
+				}
+			}
+
+			if (UObject* ObjPath = DialogueVolumeControlBus.TryLoad())
+			{
+				if (USoundControlBus* SoundControlBus = Cast<USoundControlBus>(ObjPath))
+				{
+					DialogueControlBus = SoundControlBus;
+					ControlBusMap.Add(TEXT("Dialogue"), DialogueControlBus);
+				}
+			}
+			
+			if (UObject* ObjPath = UserSettingsControlBusMix.TryLoad())
+			{
+				if (USoundControlBusMix* SoundControlBusMix = Cast<USoundControlBusMix>(ObjPath))
+				{
+					ControlBusMix = SoundControlBusMix;
+
+					const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, OverallVolume);
+					const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, MusicVolume);
+					const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, SoundFXVolume);
+					const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, DialogueVolume);
+
+					TArray<FSoundControlBusMixStage> ControlBusMixStageArray;
+					ControlBusMixStageArray.Add(OverallControlBusMixStage);
+					ControlBusMixStageArray.Add(MusicControlBusMixStage);
+					ControlBusMixStageArray.Add(SoundFXControlBusMixStage);
+					ControlBusMixStageArray.Add(DialogueControlBusMixStage);
+
+					UAudioModulationStatics::UpdateMix(World, ControlBusMix, ControlBusMixStageArray);
+
+					bSoundControlBusMixLoaded = true;
+				}
+				else
+				{
+					ensureMsgf(SoundControlBusMix, TEXT("User Settings Control Bus Mix reference missing from Lyra Audio Settings."));
 				}
 			}
 		}

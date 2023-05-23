@@ -1,8 +1,8 @@
 #include "SettingsWidget.h"
 #include "Components/TextBlock.h"
-#include "MenuSettings/UI/Settings/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void USettingsWidget::NativeOnInitialized()
 {
@@ -38,7 +38,7 @@ void USettingsWidget::SetCurrentValue(FText NewText)
 void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 {
 	SettingsItem = NewSettingsItem;
-	SetSettingsText(SettingsItem->GetNavigationText());
+	SetSettingsText(SettingsItem->GetOptionName());
 	SetCurrentValue( SettingsItem->GetDefaultOption() );
 	DecreaseButton->SetIsEnabled(false);
 }

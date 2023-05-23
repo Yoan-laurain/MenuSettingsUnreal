@@ -1,5 +1,5 @@
 #include "LocalPlayerCustom.h"
-#include "LocalSettings.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 
 ULocalPlayerCustom::ULocalPlayerCustom()
 : Super(FObjectInitializer::Get())

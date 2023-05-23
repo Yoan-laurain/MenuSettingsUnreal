@@ -1,6 +1,5 @@
 ﻿#include "SettingsManager.h"
-#include "GeneralSettings.h"
-#include "LocalPlayerCustom.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 
 USettingsManager::USettingsManager()
 {
@@ -27,12 +26,12 @@ USettingsManager* USettingsManager::Get()
 
 void USettingsManager::SaveChanges()
 {
-	UGeneralSettings* GeneralSettings = UGeneralSettings::Get();
+	ULocalSettings* LocalSettings = ULocalSettings::Get();
 
-	if ( GeneralSettings )
+	if ( LocalSettings )
 	{
-		GeneralSettings->ApplySettings(false);
-		GeneralSettings->SaveSettings();
+		LocalSettings->ApplySettings(false);
+		LocalSettings->SaveSettings();
 	}
 }
 

@@ -1,6 +1,6 @@
 ﻿#include "GameSettingValueScalarDynamic.h"
 #include "GameSettingDataSource.h"
-#include "MenuSettings/UI/Settings/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 #define LOCTEXT_NAMESPACE "GameSetting"
 
