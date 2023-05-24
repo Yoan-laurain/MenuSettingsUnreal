@@ -64,7 +64,9 @@ void USettingsWidget::OnDecreaseButtonClicked()
 
 	IncreaseButton->SetIsEnabled(true);
 
-	SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() - SettingsItem->GetOptionSourceStep() );
+	// SettingsItem->SetCurrentValue( SettingsItem->GetCurrentValue() - SettingsItem->GetOptionSourceStep() );
+	
+	// SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() - SettingsItem->GetOptionSourceStep() );
 
 	ApplySettings();
 }
@@ -83,7 +85,7 @@ void USettingsWidget::OnIncreaseButtonClicked()
 	}
 
 	DecreaseButton->SetIsEnabled(true);
-	SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() + SettingsItem->GetOptionSourceStep() );
+	// SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() + SettingsItem->GetOptionSourceStep() );
 	
 	ApplySettings();
 }

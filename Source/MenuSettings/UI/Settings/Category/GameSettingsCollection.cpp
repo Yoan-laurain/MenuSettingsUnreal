@@ -50,6 +50,11 @@ FText UGameSettingsItem::GetNextOptions(const FText CurrentOption)
 	return Options[0];
 }
 
+UGameSettingsItem::FSetCurrentOptionValueDelegate UGameSettingsItem::SetCurrentOptionValueDelegate()
+{
+	return CurrentOptionValueDelegateSet;
+}
+
 void UGameSettingsCollection::AddSetting(UGameSettingsItem* Setting)
 {
 	Settings.Add(Setting);

@@ -1,16 +1,9 @@
 ﻿#pragma once
 
 #include "MenuSettings/Player/LocalPlayerCustom.h"
-#include "../Scalar/GameSettingDataSourceDynamic.h"
 #include "SettingsManager.generated.h"
 
 class UGameSettingsCollection;
-
-#define GET_LOCAL_SETTINGS_FUNCTION_PATH(FunctionOrPropertyName)							\
-	MakeShared<FGameSettingDataSourceDynamic>(TArray<FString>({								\
-		GET_FUNCTION_NAME_STRING_CHECKED(ULocalPlayerCustom, GetLocalSettings),				\
-		GET_FUNCTION_NAME_STRING_CHECKED(ULocalSettings, FunctionOrPropertyName)		    \
-		}))
 
 UCLASS()
 class USettingsManager final : public UObject

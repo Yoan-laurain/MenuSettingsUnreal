@@ -1,10 +1,10 @@
 ﻿#include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
-#include "MenuSettings/UI/Settings/Scalar/GameSettingValueDiscreteDynamic.h"
 
 UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 {
+	ULocalSettings* LocalSettings = ULocalSettings::Get();
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(FText::FromString("Video"));
 
@@ -17,14 +17,18 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Enum* WindowModeItem = NewObject<UGameSettingValueDiscreteDynamic_Enum>();
+			UGameSettingsItem* WindowModeItem = NewObject<UGameSettingsItem>();
 			WindowModeItem->SetOptionName( FText::FromString("Window Mode"));
 			WindowModeItem->SetDescriptionRichText(FText::FromString(
 				"In Windowed mode you can interact with other windows more easily, and drag the edges of the window to set the size. In Windowed Fullscreen mode you can easily switch between applications. In Fullscreen mode you cannot interact with other windows as easily, but the game will run slightly faster."));
 			
-			WindowModeItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetFullscreenMode));
-			WindowModeItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetFullscreenMode));
+			WindowModeItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,WindowModeItem] ()
+			{
+				LocalSettings->SetFullscreenMode(WindowModeItem->GetCurrentValue<EWindowMode::Type>());
+			} );
 			
+			WindowModeItem->SetDefaultValue( LocalSettings->GetFullscreenMode() );
+				
 			WindowModeItem->ClearOptions();
 			WindowModeItem->AddOption( FText::FromString("Fullscreen"));
 			WindowModeItem->AddOption( FText::FromString("Windowed Fullscreen"));
@@ -55,13 +59,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic* GraphicsItem = NewObject<UGameSettingValueDiscreteDynamic>();
+			UGameSettingsItem* GraphicsItem = NewObject<UGameSettingsItem>();
 			GraphicsItem->SetOptionName(FText::FromString("Quality Presets"));
 			GraphicsItem->SetDescriptionRichText(FText::FromString("Choose between different quality presets to make a trade off between quality and speed."));
-
-			// TODO : Verify this may not work stuff removed
-			GraphicsItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetDesiredDeviceProfileQualitySuffix));
-			GraphicsItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetDesiredDeviceProfileQualitySuffix));
+			
+			GraphicsItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,GraphicsItem] ()
+			{
+				LocalSettings->SetDesiredDeviceProfileQualitySuffix(GraphicsItem->GetCurrentValue<FString>());
+			} );
+			
+			GraphicsItem->SetDefaultValue( LocalSettings->GetDesiredDeviceProfileQualitySuffix() );
 			
 			GraphicsItem->AddOption(FText::FromString("Custom"));
 			
@@ -94,12 +101,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* LightingQualityItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
+			UGameSettingsItem* LightingQualityItem = NewObject<UGameSettingsItem>();
 			LightingQualityItem->SetOptionName(FText::FromString("Lighting Quality"));
 			LightingQualityItem->SetDescriptionRichText(FText::FromString("Lighting Quality affects the quality of lighting and shadows. Lower settings can improve performance."));
-
-			LightingQualityItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetGlobalIlluminationQuality));
-			LightingQualityItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetGlobalIlluminationQuality));
+			
+			LightingQualityItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,LightingQualityItem] ()
+			{
+				LocalSettings->SetGlobalIlluminationQuality(LightingQualityItem->GetCurrentValue<float>() );
+			} );
+			
+			LightingQualityItem->SetDefaultValue( LocalSettings->GetGlobalIlluminationQuality() );
 			
 			GraphicsQuality->AddSetting(LightingQualityItem);
 		}
@@ -107,12 +118,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* ShadowsItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
+			UGameSettingsItem* ShadowsItem = NewObject<UGameSettingsItem>();
 			ShadowsItem->SetOptionName(FText::FromString("Shadows"));
 			ShadowsItem->SetDescriptionRichText(FText::FromString("Shadows affect the quality of shadows cast by lights. Lower settings can improve performance."));
-
-			ShadowsItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetShadowQuality));
-			ShadowsItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetShadowQuality));
+			
+			ShadowsItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ShadowsItem] ()
+			{
+				LocalSettings->SetShadowQuality(ShadowsItem->GetCurrentValue<float>());
+			} );
+			
+			ShadowsItem->SetDefaultValue( LocalSettings->GetShadowQuality() );
 			
 			GraphicsQuality->AddSetting(ShadowsItem);
 		}
@@ -120,25 +135,33 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* AntiAliasingItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
+			UGameSettingsItem* AntiAliasingItem = NewObject<UGameSettingsItem>();
 			AntiAliasingItem->SetOptionName(FText::FromString("Anti-Aliasing"));
 			AntiAliasingItem->SetDescriptionRichText(FText::FromString("Anti-Aliasing affects the smoothness of edges. Lower settings can improve performance."));
-
-			AntiAliasingItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetAntiAliasingQuality));
-			AntiAliasingItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetAntiAliasingQuality));
 			
+			AntiAliasingItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,AntiAliasingItem] ()
+			{
+				LocalSettings->SetAntiAliasingQuality(AntiAliasingItem->GetCurrentValue<float>());
+			} );
+			
+			AntiAliasingItem->SetDefaultValue( LocalSettings->GetAntiAliasingQuality() );
+				
 			GraphicsQuality->AddSetting(AntiAliasingItem);
 		}
 		//----------------------------------------------------------------------------------
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* ViewDistanceItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
+			UGameSettingsItem* ViewDistanceItem = NewObject<UGameSettingsItem>();
 			ViewDistanceItem->SetOptionName(FText::FromString("View Distance"));
 			ViewDistanceItem->SetDescriptionRichText(FText::FromString("View Distance affects the distance at which objects are drawn. Lower settings can improve performance."));
-
-			ViewDistanceItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetViewDistanceQuality));
-			ViewDistanceItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetViewDistanceQuality));
+			
+			ViewDistanceItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ViewDistanceItem] ()
+			{
+				LocalSettings->SetViewDistanceQuality(ViewDistanceItem->GetCurrentValue<float>());
+			} );
+			
+			ViewDistanceItem->SetDefaultValue( LocalSettings->GetViewDistanceQuality() );
 			
 			GraphicsQuality->AddSetting(ViewDistanceItem);
 		}
@@ -146,51 +169,67 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* PostProcessingItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
-			PostProcessingItem->SetOptionName(FText::FromString("Textures"));
-			PostProcessingItem->SetDescriptionRichText(FText::FromString("Texture quality determines the resolution of textures in game. Increasing this setting will make objects more detailed, but can reduce performance."));
-
-			PostProcessingItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetTextureQuality));
-			PostProcessingItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetTextureQuality));
+			UGameSettingsItem* TexturesItem = NewObject<UGameSettingsItem>();
+			TexturesItem->SetOptionName(FText::FromString("Textures"));
+			TexturesItem->SetDescriptionRichText(FText::FromString("Texture quality determines the resolution of textures in game. Increasing this setting will make objects more detailed, but can reduce performance."));
 			
-			GraphicsQuality->AddSetting(PostProcessingItem);
+			TexturesItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,TexturesItem] ()
+			{
+				LocalSettings->SetTextureQuality(TexturesItem->GetCurrentValue<float>());
+			} );
+			
+			TexturesItem->SetDefaultValue( LocalSettings->GetTextureQuality() );
+			
+			GraphicsQuality->AddSetting(TexturesItem);
 		}
 		//----------------------------------------------------------------------------------
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* PostProcessingItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
-			PostProcessingItem->SetOptionName(FText::FromString("Effects"));
-			PostProcessingItem->SetDescriptionRichText(FText::FromString("Effects quality affects the quality of particle effects. Lower settings can improve performance."));
-
-			PostProcessingItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetVisualEffectQuality));
-			PostProcessingItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetVisualEffectQuality));
+			UGameSettingsItem* EffectItem = NewObject<UGameSettingsItem>();
+			EffectItem->SetOptionName(FText::FromString("Effects"));
+			EffectItem->SetDescriptionRichText(FText::FromString("Effects quality affects the quality of particle effects. Lower settings can improve performance."));
 			
-			GraphicsQuality->AddSetting(PostProcessingItem);
+			EffectItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectItem] ()
+			{
+				LocalSettings->SetVisualEffectQuality(EffectItem->GetCurrentValue<float>());
+			} );
+			
+			EffectItem->SetDefaultValue( LocalSettings->GetVisualEffectQuality() );
+			
+			GraphicsQuality->AddSetting(EffectItem);
 		}
 		//----------------------------------------------------------------------------------
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* PostProcessingItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
-			PostProcessingItem->SetOptionName(FText::FromString("Reflections"));
-			PostProcessingItem->SetDescriptionRichText(FText::FromString("Reflection quality determines the resolution and accuracy of reflections.  Settings of 'High' and above use more accurate ray tracing methods to solve reflections, but can reduce performance."));
-
-			PostProcessingItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetReflectionQuality));
-			PostProcessingItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetReflectionQuality));
+			UGameSettingsItem* ReflectionsItem = NewObject<UGameSettingsItem>();
+			ReflectionsItem->SetOptionName(FText::FromString("Reflections"));
+			ReflectionsItem->SetDescriptionRichText(FText::FromString("Reflection quality determines the resolution and accuracy of reflections.  Settings of 'High' and above use more accurate ray tracing methods to solve reflections, but can reduce performance."));
 			
-			GraphicsQuality->AddSetting(PostProcessingItem);
+			ReflectionsItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ReflectionsItem] ()
+			{
+				LocalSettings->SetReflectionQuality(ReflectionsItem->GetCurrentValue<float>());
+			} );
+			
+			ReflectionsItem->SetDefaultValue( LocalSettings->GetReflectionQuality() );
+			
+			GraphicsQuality->AddSetting(ReflectionsItem);
 		}
 		//----------------------------------------------------------------------------------
 		
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Number* PostProcessingItem = NewObject<UGameSettingValueDiscreteDynamic_Number>();
+			UGameSettingsItem* PostProcessingItem = NewObject<UGameSettingsItem>();
 			PostProcessingItem->SetOptionName(FText::FromString("Post Processing"));
 			PostProcessingItem->SetDescriptionRichText(FText::FromString("Post Processing effects include Motion Blur, Depth of Field and Bloom. Increasing this setting improves the quality of post process effects, but can reduce performance."));
 			
-			PostProcessingItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(GetPostProcessingQuality));
-			PostProcessingItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetPostProcessingQuality));
+			PostProcessingItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,PostProcessingItem] ()
+			{
+				LocalSettings->SetPostProcessingQuality(PostProcessingItem->GetCurrentValue<float>());
+			} );
+			
+			PostProcessingItem->SetDefaultValue( LocalSettings->GetPostProcessingQuality() );
 			
 			GraphicsQuality->AddSetting(PostProcessingItem);
 		}
@@ -204,12 +243,17 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingValueDiscreteDynamic_Bool* VerticalSyncItem = NewObject<UGameSettingValueDiscreteDynamic_Bool>();
+			UGameSettingsItem* VerticalSyncItem = NewObject<UGameSettingsItem>();
 			VerticalSyncItem->SetOptionName(FText::FromString("Vertical Sync"));
-			VerticalSyncItem->SetDescriptionRichText(FText::FromString("Vertical Sync synchronizes the game's framerate with the monitor's refresh rate. This can reduce screen tearing, but can also reduce performance."));
+			VerticalSyncItem->SetDescriptionRichText(FText::FromString(
+				"Vertical Sync synchronizes the game's framerate with the monitor's refresh rate. This can reduce screen tearing, but can also reduce performance."));
 
-			VerticalSyncItem->SetDynamicGetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(IsVSyncEnabled));
-			VerticalSyncItem->SetDynamicSetter(GET_LOCAL_SETTINGS_FUNCTION_PATH(SetVSyncEnabled));
+			VerticalSyncItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,VerticalSyncItem] ()
+			{
+				LocalSettings->SetVSyncEnabled(VerticalSyncItem->GetCurrentValue<float>() > 0.0f);
+			} );
+			
+			VerticalSyncItem->SetDefaultValue( LocalSettings->IsVSyncEnabled() ? 1.0f : 0.0f );
 			
 			AdvancedGraphics->AddSetting(VerticalSyncItem);
 		}
