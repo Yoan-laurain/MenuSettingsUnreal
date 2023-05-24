@@ -5,8 +5,38 @@
 #include "Components/Title/SettingsCategoryTitleWidget.h"
 #include "Components/SettingsWidget.h"
 #include "MenuSettings/Player//LocalPlayerCustom.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
+
+void UMenuSettingsWidget::NativeOnInitialized()
+{
+	Super::NativeOnInitialized();
+
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	
+	if ( SettingsManager )
+	{
+		if (ULocalPlayerCustom* InLocalPlayer = Cast<ULocalPlayerCustom>(GetOwningLocalPlayer()) )
+		{
+			SettingsManager->OnInitialize(InLocalPlayer);
+		}
+		
+		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
+		
+		SetContent(SettingsManager->GetVideoSettings());
+	}
+
+	if ( ApplyButton )
+	{
+		ApplyButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::ApplySettings);
+	}
+
+	if ( CancelButton )
+	{
+		CancelButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::RemoveFromParent);
+	}
+}
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
 {
@@ -72,26 +102,7 @@ void UMenuSettingsWidget::CreateSectionsButtons(TArray<FString>* NavigationButto
 	}
 }
 
-void UMenuSettingsWidget::NativeOnInitialized()
-{
-	Super::NativeOnInitialized();
-
-	USettingsManager* SettingsManager = USettingsManager::Get();
-	
-	if ( SettingsManager )
-	{
-		if (ULocalPlayerCustom* InLocalPlayer = Cast<ULocalPlayerCustom>(GetOwningLocalPlayer()) )
-		{
-			SettingsManager->OnInitialize(InLocalPlayer);
-		}
-		
-		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
-		
-		SetContent(SettingsManager->GetVideoSettings());
-	}
-}
-
-void UMenuSettingsWidget::OnNavigationButtonClicked(FString SettingsName)
+void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 {
 	if ( CurrentMenuName == SettingsName )
 	{
@@ -105,4 +116,16 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(FString SettingsName)
 		SettingsScrollBox->ClearChildren();
 		SetContent(SettingsManager->GetSettings(SettingsName));
 	}
+}
+
+void UMenuSettingsWidget::ApplySettings()
+{
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->SaveChanges();
+}
+
+void UMenuSettingsWidget::Cancel()
+{
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->CancelChanges();
 }

@@ -65,8 +65,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			GraphicsItem->SetCurrentOptionValueDelegate().BindLambda( [LocalSettings,GraphicsItem] ()
 			{
-				LocalSettings->SetDesiredDeviceProfileQualitySuffix(GraphicsItem->GetCurrentValue<FString>());
-			} );
+				LocalSettings->SetOverallScalabilityLevel(GraphicsItem->GetCurrentValue<int32>());
+			});
 			
 			GraphicsItem->SetDefaultValue( LocalSettings->GetDesiredDeviceProfileQualitySuffix() );
 			

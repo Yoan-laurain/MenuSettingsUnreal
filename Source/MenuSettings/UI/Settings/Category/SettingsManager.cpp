@@ -1,4 +1,5 @@
 ﻿#include "SettingsManager.h"
+#include "GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 
 USettingsManager::USettingsManager()
@@ -27,11 +28,24 @@ USettingsManager* USettingsManager::Get()
 void USettingsManager::SaveChanges()
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
+	
+	for (const auto& Setting : SettingsMap)
+	{
+		Setting.Value->SetCurrentOptionValueDelegate();
+	}
 
 	if ( LocalSettings )
 	{
 		LocalSettings->ApplySettings(false);
 		LocalSettings->SaveSettings();
+	}
+}
+
+void USettingsManager::CancelChanges()
+{
+	for (const auto& Setting : SettingsMap)
+	{
+		Setting.Value->CancelChanges();
 	}
 }
 

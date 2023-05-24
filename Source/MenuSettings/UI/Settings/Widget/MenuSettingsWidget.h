@@ -4,6 +4,9 @@
 #include "MenuSettingsWidget.generated.h"
 
 class UGameSettingsCollection;
+class UButton;
+class UScrollBox;
+class UHorizontalBox;
 
 UCLASS()
 class MENUSETTINGS_API UMenuSettingsWidget : public UUserWidget
@@ -14,11 +17,17 @@ public :
 
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
-	class UScrollBox* SettingsScrollBox;
+	UScrollBox* SettingsScrollBox;
 
 	/** Where the navigations buttons are put */
 	UPROPERTY(meta = (BindWidget))
-	class UHorizontalBox* NavigationButtonsBox;
+	UHorizontalBox* NavigationButtonsBox;
+	
+	UPROPERTY( meta = (BindWidget) )
+	UButton* ApplyButton;
+
+	UPROPERTY( meta = (BindWidget) )
+	UButton* CancelButton;
 
 	/** The widget of a unique settings */
 	UPROPERTY( EditAnywhere )
@@ -33,6 +42,9 @@ public :
 	TSubclassOf<UUserWidget> SettingsNavigationWidgetClass;
 	
 	void OnNavigationButtonClicked(FString SettingsName);
+
+	void ApplySettings();
+	void Cancel();
 	
 private :
 

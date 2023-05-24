@@ -40,22 +40,14 @@ public:
 	FSoftObjectPath DialogueVolumeControlBus;
 	
 	UFUNCTION()
-	float GetOverallVolume() const;
-	UFUNCTION()
 	void SetOverallVolume(float InVolume);
-
-	UFUNCTION()
-	float GetMusicVolume() const;
+	
 	UFUNCTION()
 	void SetMusicVolume(float InVolume);
-
-	UFUNCTION()
-	float GetSoundFXVolume() const;
+	
 	UFUNCTION()
 	void SetSoundFXVolume(float InVolume);
-
-	UFUNCTION()
-	float GetDialogueVolume() const;
+	
 	UFUNCTION()
 	void SetDialogueVolume(float InVolume);
 
@@ -66,15 +58,6 @@ private :
 	void LoadUserControlBusMix();
 
 	void SetVolumeForControlBus(USoundControlBus* InSoundControlBus, float InVolume);
-
-	UPROPERTY(Config)
-	float OverallVolume = 1.0f;
-	UPROPERTY(Config)
-	float MusicVolume = 1.0f;
-	UPROPERTY(Config)
-	float SoundFXVolume = 1.0f;
-	UPROPERTY(Config)
-	float DialogueVolume = 1.0f;
 	
 	UPROPERTY(Transient)
 	bool bSoundControlBusMixLoaded;

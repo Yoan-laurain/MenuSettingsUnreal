@@ -5,18 +5,17 @@
 #include "SettingsCategoryTitleWidget.generated.h"
 
 UCLASS()
-class MENUSETTINGS_API USettingsCategoryTitleWidget : public UUserWidget
+class MENUSETTINGS_API USettingsCategoryTitleWidget final : public UUserWidget
 {
 	GENERATED_BODY()
 
 public :
 
 	UPROPERTY( meta = (BindWidget) )
-	class UTextBlock* TitleTextBlock;
+	UTextBlock* TitleTextBlock;
 	
-	void SetTitle(FText NewTitle) { TitleTextBlock->SetText(NewTitle); }
+	void SetTitle(const FText NewTitle) const { TitleTextBlock->SetText(NewTitle); }
 
 protected :
 	FText Title;
-	
 };

@@ -56,6 +56,11 @@ public:
 	DECLARE_DELEGATE(FSetCurrentOptionValueDelegate)
 	FSetCurrentOptionValueDelegate SetCurrentOptionValueDelegate();
 
+	void IncreaseCurrentValue();
+	void DecreaseCurrentValue();
+
+	void CancelChanges();
+
 private:
 	
 	FText OptionsName;
@@ -65,7 +70,7 @@ private:
 	template<class T>
 	inline static T CurrentValue = T();
 
-	template<typename  M>
+	template<typename M>
 	inline static M DefaultValue = M();
 	
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;

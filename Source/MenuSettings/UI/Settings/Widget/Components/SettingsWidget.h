@@ -32,7 +32,6 @@ public :
 	void SetSettingsText(FText NewText);
 	void SetCurrentValue(FText NewText);
 	void InitWidget(UGameSettingsItem* SettingsItem);
-	void ApplySettings();
 
 private :
 

@@ -3,8 +3,11 @@
 #include "Blueprint/UserWidget.h"
 #include "NavigationButtonWidget.generated.h"
 
+class UButton;
+class UTextBlock;
+
 UCLASS()
-class MENUSETTINGS_API UNavigationButtonWidget : public UUserWidget
+class MENUSETTINGS_API UNavigationButtonWidget final : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -12,11 +15,11 @@ public :
 
 	/** The button to navigate */
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
-	class UButton* NavigationButton;
+	UButton* NavigationButton;
 
 	/** The text of the button */
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
-	class UTextBlock* NavigationText;
+	UTextBlock* NavigationText;
 
 	void InitWidget(FString Text);
 	

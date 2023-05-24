@@ -2,48 +2,23 @@
 #include "SoundControlBus.h"
 #include "AudioModulationStatics.h"
 
-float ULocalSettings::GetOverallVolume() const
+void ULocalSettings::SetOverallVolume(const float InVolume)
 {
-	return OverallVolume;
+	SetVolumeSettings( TEXT("Overall"), InVolume );
 }
 
-void ULocalSettings::SetOverallVolume(float InVolume)
+void ULocalSettings::SetMusicVolume(const float InVolume)
 {
-	OverallVolume = InVolume;
-	SetVolumeSettings( TEXT("Overall"), OverallVolume );
+	SetVolumeSettings( TEXT("Music"), InVolume );
+}
+void ULocalSettings::SetSoundFXVolume(const float InVolume)
+{
+	SetVolumeSettings(TEXT("SoundFX"), InVolume);
 }
 
-float ULocalSettings::GetMusicVolume() const
+void ULocalSettings::SetDialogueVolume(const float InVolume)
 {
-	return MusicVolume;
-}
-
-void ULocalSettings::SetMusicVolume(float InVolume)
-{
-	MusicVolume = InVolume;
-	SetVolumeSettings( TEXT("Music"), MusicVolume );
-}
-
-float ULocalSettings::GetSoundFXVolume() const
-{
-	return SoundFXVolume;
-}
-
-void ULocalSettings::SetSoundFXVolume(float InVolume)
-{
-	SoundFXVolume = InVolume;
-	SetVolumeSettings(TEXT("SoundFX"), SoundFXVolume);
-}
-
-float ULocalSettings::GetDialogueVolume() const
-{
-	return DialogueVolume;
-}
-
-void ULocalSettings::SetDialogueVolume(float InVolume)
-{
-	DialogueVolume = InVolume; 
-	SetVolumeSettings(TEXT("Dialogue"), DialogueVolume);
+	SetVolumeSettings(TEXT("Dialogue"), InVolume);
 }
 
 void ULocalSettings::SetVolumeSettings(const FName VolumeStringName, const float Volume)
@@ -121,10 +96,10 @@ void ULocalSettings::LoadUserControlBusMix()
 				{
 					ControlBusMix = SoundControlBusMix;
 
-					const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, OverallVolume);
-					const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, MusicVolume);
-					const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, SoundFXVolume);
-					const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, DialogueVolume);
+					const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, 1.f);
+					const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, 1.f);
+					const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, 1.f);
+					const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, 1.f);
 
 					TArray<FSoundControlBusMixStage> ControlBusMixStageArray;
 					ControlBusMixStageArray.Add(OverallControlBusMixStage);

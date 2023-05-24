@@ -5,10 +5,6 @@ UGameSettingsItem::UGameSettingsItem()
 	SetBaseOptions();
 }
 
-UGameSettingsCollection::UGameSettingsCollection()
-{
-}
-
 void UGameSettingsItem::SetBaseOptions()
 {
 	const TArray OptionsToAdd = { FText::FromString("Low"), FText::FromString("Medium"), FText::FromString("High"), FText::FromString("Epic") };
@@ -53,6 +49,27 @@ FText UGameSettingsItem::GetNextOptions(const FText CurrentOption)
 UGameSettingsItem::FSetCurrentOptionValueDelegate UGameSettingsItem::SetCurrentOptionValueDelegate()
 {
 	return CurrentOptionValueDelegateSet;
+}
+
+void UGameSettingsItem::IncreaseCurrentValue()
+{
+	//TODO - Implement this
+	//CurrentValue = CurrentValue + 1;
+}
+
+void UGameSettingsItem::DecreaseCurrentValue()
+{
+	//TODO - Implement this
+	//CurrentValue = CurrentValue - 1;
+}
+
+void UGameSettingsItem::CancelChanges()
+{
+	//TODO - Implement this
+}
+
+UGameSettingsCollection::UGameSettingsCollection()
+{
 }
 
 void UGameSettingsCollection::AddSetting(UGameSettingsItem* Setting)

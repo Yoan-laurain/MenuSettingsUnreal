@@ -1,8 +1,6 @@
 #include "SettingsWidget.h"
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void USettingsWidget::NativeOnInitialized()
 {
@@ -19,7 +17,7 @@ void USettingsWidget::NativeOnInitialized()
 	}
 }
 
-void USettingsWidget::SetSettingsText(FText NewText)
+void USettingsWidget::SetSettingsText(const FText NewText)
 {
 	if ( SettingsText )
 	{
@@ -27,7 +25,7 @@ void USettingsWidget::SetSettingsText(FText NewText)
 	}
 }
 
-void USettingsWidget::SetCurrentValue(FText NewText)
+void USettingsWidget::SetCurrentValue(const FText NewText)
 {
 	if ( CurrentValue )
 	{
@@ -43,49 +41,24 @@ void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 	DecreaseButton->SetIsEnabled(false);
 }
 
-void USettingsWidget::ApplySettings()
-{
-	USettingsManager* SettingsManager = USettingsManager::Get();
-	SettingsManager->GetLocalPlayer()->GetLocalSettings()->ApplySettings(false);
-}
-
 void USettingsWidget::OnDecreaseButtonClicked()
 {
 	SetCurrentValue( SettingsItem->GetPreviousOptions(CurrentValue->GetText() ) );
-
-	if ( SettingsItem->IsMinValue(CurrentValue->GetText() ) )
-	{
-		DecreaseButton->SetIsEnabled(false);
-	}
-	else
-	{
-		DecreaseButton->SetIsEnabled(true);
-	}
+	
+	SettingsItem->DecreaseCurrentValue();
+	
+	DecreaseButton->SetIsEnabled( SettingsItem->IsMinValue(CurrentValue->GetText() ) );
 
 	IncreaseButton->SetIsEnabled(true);
-
-	// SettingsItem->SetCurrentValue( SettingsItem->GetCurrentValue() - SettingsItem->GetOptionSourceStep() );
-	
-	// SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() - SettingsItem->GetOptionSourceStep() );
-
-	ApplySettings();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
 	SetCurrentValue( SettingsItem->GetNextOptions(CurrentValue->GetText() ) );
-
-	if ( SettingsItem->IsMaxValue(CurrentValue->GetText() ) )
-	{
-		IncreaseButton->SetIsEnabled(false);
-	}
-	else
-	{
-		IncreaseButton->SetIsEnabled(true);
-	}
-
-	DecreaseButton->SetIsEnabled(true);
-	// SettingsItem->SetOptionValue( SettingsItem->GetOptionValue() + SettingsItem->GetOptionSourceStep() );
 	
-	ApplySettings();
+	SettingsItem->IncreaseCurrentValue();
+	
+	IncreaseButton->SetIsEnabled( SettingsItem->IsMaxValue(CurrentValue->GetText() ) );
+	
+	DecreaseButton->SetIsEnabled(true);
 }

@@ -1,5 +1,6 @@
 ﻿#include "BindingConfiguration.h"
 #include "PlayerMappableInputConfig.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 

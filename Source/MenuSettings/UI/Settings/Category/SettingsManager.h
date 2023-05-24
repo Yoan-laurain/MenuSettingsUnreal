@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "SettingsManager.generated.h"
 
 class UGameSettingsCollection;
+class ULocalPlayerCustom;
 
 UCLASS()
 class USettingsManager final : public UObject
@@ -18,6 +18,8 @@ public:
 	static USettingsManager* Get();
 
 	void SaveChanges();
+	void CancelChanges();
+	
 	TArray<FString>* InitializeNavigationsButtons() const;
 	
 	UGameSettingsCollection* GetVideoSettings() const { return VideoSettings; }
@@ -41,7 +43,8 @@ protected :
 
 	UPROPERTY()
 	TObjectPtr<UGameSettingsCollection> MouseAndKeyboardSettings;
-	
+
+	UPROPERTY()
 	TMap<FString, UGameSettingsCollection*> SettingsMap;
 
 	UPROPERTY()
