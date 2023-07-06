@@ -51,6 +51,11 @@ public:
 	UFUNCTION()
 	void SetDialogueVolume(float InVolume);
 
+	float GetOverallVolume() const;
+	float GetMusicVolume() const;
+	float GetSoundFXVolume() const;
+	float GetDialogueVolume() const;
+
 	void SetVolumeSettings( FName VolumeStringName, float Volume );
 
 private :
@@ -67,6 +72,15 @@ private :
 
 	UPROPERTY(Transient)
 	TObjectPtr<USoundControlBusMix> ControlBusMix = nullptr;
+
+	UPROPERTY(Config)
+	float OverallVolume = 1.0f;
+	UPROPERTY(Config)
+	float MusicVolume = 1.0f;
+	UPROPERTY(Config)
+	float SoundFXVolume = 1.0f;
+	UPROPERTY(Config)
+	float DialogueVolume = 1.0f;
 
 #pragma endregion Audio
 

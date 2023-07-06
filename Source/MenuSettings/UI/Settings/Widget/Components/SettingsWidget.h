@@ -32,7 +32,7 @@ public :
 	void SetSettingsText(FText NewText);
 	void SetCurrentValue(FText NewText);
 	void InitWidget(UGameSettingsItem* SettingsItem);
-
+	void SetStateButtons();
 private :
 
 	UPROPERTY()

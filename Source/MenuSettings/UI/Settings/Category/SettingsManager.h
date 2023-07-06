@@ -28,7 +28,7 @@ public:
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
 
 	ULocalPlayerCustom* GetLocalPlayer() const { return LocalPlayer; }
-	
+
 protected :
 	
 	UGameSettingsCollection* InitializeVideoSettings();

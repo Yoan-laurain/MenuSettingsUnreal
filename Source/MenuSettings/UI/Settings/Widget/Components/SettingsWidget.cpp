@@ -37,28 +37,33 @@ void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 {
 	SettingsItem = NewSettingsItem;
 	SetSettingsText(SettingsItem->GetOptionName());
-	SetCurrentValue( SettingsItem->GetDefaultOption() );
-	DecreaseButton->SetIsEnabled(false);
+	SetCurrentValue( SettingsItem->GetCurrentOption() ); 
+	SetStateButtons();
+}
+
+void USettingsWidget::SetStateButtons()
+{
+	DecreaseButton->SetIsEnabled( !SettingsItem->IsMinValue(CurrentValue->GetText() ) );
+	IncreaseButton->SetIsEnabled( !SettingsItem->IsMaxValue(CurrentValue->GetText() ) );
 }
 
 void USettingsWidget::OnDecreaseButtonClicked()
 {
+	// Change current value
 	SetCurrentValue( SettingsItem->GetPreviousOptions(CurrentValue->GetText() ) );
-	
-	SettingsItem->DecreaseCurrentValue();
-	
-	DecreaseButton->SetIsEnabled( SettingsItem->IsMinValue(CurrentValue->GetText() ) );
 
-	IncreaseButton->SetIsEnabled(true);
+	// Change the real settings value
+	SettingsItem->SetPreviousTechnicalOption<int>();
+	
+	// enable/disable buttons
+	SetStateButtons();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
 	SetCurrentValue( SettingsItem->GetNextOptions(CurrentValue->GetText() ) );
 	
-	SettingsItem->IncreaseCurrentValue();
+	SettingsItem->SetNextTechnicalOption<int>();
 	
-	IncreaseButton->SetIsEnabled( SettingsItem->IsMaxValue(CurrentValue->GetText() ) );
-	
-	DecreaseButton->SetIsEnabled(true);
+	SetStateButtons();
 }

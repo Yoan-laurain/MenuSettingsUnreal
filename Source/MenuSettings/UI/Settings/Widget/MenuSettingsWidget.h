@@ -43,7 +43,10 @@ public :
 	
 	void OnNavigationButtonClicked(FString SettingsName);
 
+	UFUNCTION()
 	void ApplySettings();
+
+	UFUNCTION()
 	void Cancel();
 	
 private :

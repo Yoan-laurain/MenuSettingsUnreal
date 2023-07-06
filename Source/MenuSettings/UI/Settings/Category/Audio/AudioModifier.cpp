@@ -4,11 +4,13 @@
 
 void ULocalSettings::SetOverallVolume(const float InVolume)
 {
+	OverallVolume = InVolume;
 	SetVolumeSettings( TEXT("Overall"), InVolume );
 }
 
 void ULocalSettings::SetMusicVolume(const float InVolume)
 {
+	MusicVolume = InVolume;
 	SetVolumeSettings( TEXT("Music"), InVolume );
 }
 void ULocalSettings::SetSoundFXVolume(const float InVolume)
@@ -18,7 +20,28 @@ void ULocalSettings::SetSoundFXVolume(const float InVolume)
 
 void ULocalSettings::SetDialogueVolume(const float InVolume)
 {
+	DialogueVolume = InVolume;
 	SetVolumeSettings(TEXT("Dialogue"), InVolume);
+}
+
+float ULocalSettings::GetOverallVolume() const
+{
+	return OverallVolume;
+}
+
+float ULocalSettings::GetMusicVolume() const
+{
+	return MusicVolume;
+}
+
+float ULocalSettings::GetSoundFXVolume() const
+{
+	return SoundFXVolume;
+}
+
+float ULocalSettings::GetDialogueVolume() const
+{
+	return DialogueVolume;
 }
 
 void ULocalSettings::SetVolumeSettings(const FName VolumeStringName, const float Volume)

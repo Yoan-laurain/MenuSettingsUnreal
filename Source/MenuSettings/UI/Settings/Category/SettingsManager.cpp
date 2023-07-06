@@ -25,20 +25,39 @@ USettingsManager* USettingsManager::Get()
 	return Registry;
 }
 
+void CallLambdas(UGameSettingsCollection* Setting)
+{
+	if ( Setting->GetChildSettingsCollection().Num() > 0 )
+	{
+		for (const auto& Option : Setting->GetChildSettingsCollection())
+		{
+			CallLambdas(Cast<UGameSettingsCollection>(Option));
+		}
+	}
+	else
+	{
+		for ( const auto& Option : Setting->GetChildSettings() )
+		{
+			Option->ExecCurrentOptionValueDelegate();
+		}
+	}
+}
+
 void USettingsManager::SaveChanges()
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
 	
 	for (const auto& Setting : SettingsMap)
 	{
-		Setting.Value->SetCurrentOptionValueDelegate();
+		CallLambdas(Setting.Value);
 	}
-
+	
 	if ( LocalSettings )
 	{
 		LocalSettings->ApplySettings(false);
 		LocalSettings->SaveSettings();
 	}
+
 }
 
 void USettingsManager::CancelChanges()

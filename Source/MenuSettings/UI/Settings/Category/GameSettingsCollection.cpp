@@ -7,7 +7,7 @@ UGameSettingsItem::UGameSettingsItem()
 
 void UGameSettingsItem::SetBaseOptions()
 {
-	const TArray OptionsToAdd = { FText::FromString("Low"), FText::FromString("Medium"), FText::FromString("High"), FText::FromString("Epic") };
+	const TArray OptionsToAdd = { FText::FromString("Low"), FText::FromString("Medium"), FText::FromString("High"), FText::FromString("Epic"), FText::FromString("Cinematic") };
 	
 	SetOptions(OptionsToAdd);
 }
@@ -46,21 +46,15 @@ FText UGameSettingsItem::GetNextOptions(const FText CurrentOption)
 	return Options[0];
 }
 
-UGameSettingsItem::FSetCurrentOptionValueDelegate UGameSettingsItem::SetCurrentOptionValueDelegate()
+UGameSettingsItem::FSetCurrentOptionValueDelegate& UGameSettingsItem::GetCurrentOptionValueDelegate()
 {
 	return CurrentOptionValueDelegateSet;
 }
 
-void UGameSettingsItem::IncreaseCurrentValue()
+void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 {
-	//TODO - Implement this
-	//CurrentValue = CurrentValue + 1;
-}
-
-void UGameSettingsItem::DecreaseCurrentValue()
-{
-	//TODO - Implement this
-	//CurrentValue = CurrentValue - 1;
+	const bool Res = CurrentOptionValueDelegateSet.ExecuteIfBound();
+	//ensure(Res);
 }
 
 void UGameSettingsItem::CancelChanges()

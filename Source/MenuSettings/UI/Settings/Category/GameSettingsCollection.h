@@ -1,5 +1,5 @@
 #pragma once
-
+#include "CoreMinimal.h"
 #include "GameSettingsCollection.generated.h"
 
 class UGameSettingsItem;
@@ -24,17 +24,32 @@ public:
 	TArray<FText> GetOptions() const { return Options; }
 	void SetOptions(const TArray<FText> Value) { Options = Value; }
 
-	template<class  T>
-	T GetCurrentValue() const { return CurrentValue<T>; }
+	template <typename TypeOption>
+	void SetNextTechnicalOption()
+	{
+		if (  TechnicalOption<TypeOption>[TechnicalOption<TypeOption>.Num() - 1 ] != IndexCurrentOption )
+		{
+			IndexCurrentOption++;
+		}
+	}
+	
+	template <typename TypeOption>
+	void SetPreviousTechnicalOption()
+	{
+		if ( TechnicalOption<TypeOption>[0] != IndexCurrentOption )
+		{
+			IndexCurrentOption--;
+		}
+	}
 
-	template<class  T>
-	void SetCurrentValue(T Value) { CurrentValue<T> = Value; }
+	template <typename TypeOption>
+	TypeOption GetTechnicalOption() const { return TechnicalOption<TypeOption>[IndexCurrentOption]; }
+	
+	template <typename TypeOption>
+	void SetTechnicalOption(const TArray<TypeOption> Value) { TechnicalOption<TypeOption> = Value; }
 
-	template<class  M>
-	M GetDefaultValue() const { return DefaultValue<M>; }
-
-	template<class  M>
-	void SetDefaultValue(M Value) { DefaultValue<M> = Value; }
+	int GetIndexCurrentOption() const { return IndexCurrentOption; }
+	void SetIndexCurrentOption(const int Value) { IndexCurrentOption = Value; }
 
 #pragma endregion GettersSetters
 
@@ -44,7 +59,7 @@ public:
 	void ClearOptions() { Options.Empty(); }
 	
 	void AddOption(const FText Option) { Options.Add(Option); }
-	FText GetDefaultOption() const { return Options[0]; }
+	FText GetCurrentOption() const { return Options[IndexCurrentOption]; }
 	FText GetPreviousOptions(const FText& CurrentOption);
 	FText GetNextOptions(const FText CurrentOption);
 	
@@ -54,10 +69,9 @@ public:
 #pragma endregion Options
 	
 	DECLARE_DELEGATE(FSetCurrentOptionValueDelegate)
-	FSetCurrentOptionValueDelegate SetCurrentOptionValueDelegate();
+	FSetCurrentOptionValueDelegate& GetCurrentOptionValueDelegate();
 
-	void IncreaseCurrentValue();
-	void DecreaseCurrentValue();
+	void ExecCurrentOptionValueDelegate();
 
 	void CancelChanges();
 
@@ -67,11 +81,10 @@ private:
 	FText DescriptionRichText;
 	TArray<FText> Options;
 
-	template<class T>
-	inline static T CurrentValue = T();
+	int IndexCurrentOption;
 
-	template<typename M>
-	inline static M DefaultValue = M();
+	template <typename TypeOption>
+	static TArray<TypeOption> TechnicalOption; 
 	
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
 };
