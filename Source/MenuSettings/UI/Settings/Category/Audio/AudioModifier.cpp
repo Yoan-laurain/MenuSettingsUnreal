@@ -5,6 +5,7 @@
 void ULocalSettings::SetOverallVolume(const float InVolume)
 {
 	OverallVolume = InVolume;
+	
 	SetVolumeSettings( TEXT("Overall"), InVolume );
 }
 
@@ -15,6 +16,7 @@ void ULocalSettings::SetMusicVolume(const float InVolume)
 }
 void ULocalSettings::SetSoundFXVolume(const float InVolume)
 {
+	SoundFXVolume = InVolume;
 	SetVolumeSettings(TEXT("SoundFX"), InVolume);
 }
 
@@ -84,6 +86,10 @@ void ULocalSettings::LoadUserControlBusMix()
 					OverallControlBus = SoundControlBus;
 					ControlBusMap.Add(TEXT("Overall"), OverallControlBus);
 				}
+				else
+				{
+					ensureMsgf(SoundControlBus, TEXT("Overall Control Bus reference missing from Lyra Audio Settings."));
+				}
 			}
 
 			if (UObject* ObjPath = MusicVolumeControlBus.TryLoad())
@@ -119,10 +125,10 @@ void ULocalSettings::LoadUserControlBusMix()
 				{
 					ControlBusMix = SoundControlBusMix;
 
-					const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, 1.f);
-					const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, 1.f);
-					const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, 1.f);
-					const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, 1.f);
+					const FSoundControlBusMixStage OverallControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, OverallControlBus, OverallVolume);
+					const FSoundControlBusMixStage MusicControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, MusicControlBus, MusicVolume);
+					const FSoundControlBusMixStage SoundFXControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, SoundFXControlBus, SoundFXVolume);
+					const FSoundControlBusMixStage DialogueControlBusMixStage = UAudioModulationStatics::CreateBusMixStage(World, DialogueControlBus, DialogueVolume);
 
 					TArray<FSoundControlBusMixStage> ControlBusMixStageArray;
 					ControlBusMixStageArray.Add(OverallControlBusMixStage);

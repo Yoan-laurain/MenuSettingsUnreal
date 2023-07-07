@@ -10,7 +10,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 	Screen->SetTitle(FText::FromString("Audio"));
 	
 	TArray<float> TechnicalOption;
-	for (float i = 0; i <= 1; i+=0.1)
+	for (float i = 0; i < 1.1; i+=0.1)
 	{
 		TechnicalOption.Add(i);
 	}
@@ -21,7 +21,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		UGameSettingsCollection* Volume = NewObject<UGameSettingsCollection>();
 		Volume->SetTitle(FText::FromString("Volume"));
 		
-		//Screen->AddSettingCollection(Volume);
+		Screen->AddSettingCollection(Volume);
 
 		//----------------------------------------------------------------------------------
 		{

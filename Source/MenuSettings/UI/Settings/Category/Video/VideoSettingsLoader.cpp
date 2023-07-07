@@ -64,8 +64,25 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->SetDescriptionRichText(FText::FromString(
 				"Display Resolution determines the size of the window in Windowed mode. In Fullscreen mode, Display Resolution determines the graphics card output resolution, which can result in black bars depending on monitor and graphics card. Display Resolution is inactive in Windowed Fullscreen mode."));
 
-			// TODO : Implement this
-			// ????
+			ResolutionItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ResolutionItem] ()
+			{
+				LocalSettings->SetScreenResolution(ResolutionItem->GetTechnicalOption<FIntPoint>());
+			} );
+
+			ResolutionItem->ClearOptions();
+			ResolutionItem->AddOption(FText::FromString("1280x720"));
+			ResolutionItem->AddOption(FText::FromString("1920x1080"));
+			ResolutionItem->AddOption(FText::FromString("2560x1440"));
+			ResolutionItem->AddOption(FText::FromString("3840x2160"));
+
+			TArray<FIntPoint> ResolutionOptions;
+			ResolutionOptions.Add(FIntPoint(1280, 720));
+			ResolutionOptions.Add(FIntPoint(1920, 1080));
+			ResolutionOptions.Add(FIntPoint(2560, 1440));
+			ResolutionOptions.Add(FIntPoint(3840, 2160));
+
+			ResolutionItem->SetTechnicalOption(ResolutionOptions);
+			ResolutionItem->SetIndexCurrentOption(ResolutionOptions.Find(LocalSettings->GetScreenResolution()));
 			
 			Display->AddSetting(ResolutionItem);
 		}
@@ -84,8 +101,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			UGameSettingsItem* GraphicsItem = NewObject<UGameSettingsItem>();
 			GraphicsItem->SetOptionName(FText::FromString("Quality Presets"));
 			GraphicsItem->SetDescriptionRichText(FText::FromString("Choose between different quality presets to make a trade off between quality and speed."));
-
-			// Bon setter ? pas sur 
+			
 			GraphicsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,GraphicsItem] ()
 			{
 				LocalSettings->SetOverallScalabilityLevel(GraphicsItem->GetTechnicalOption<int32>());
@@ -146,12 +162,12 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			AutoSetQuality->SetDescriptionRichText(FText::FromString("Automatically configure the graphics quality options based on a benchmark of the hardware."));
 
 			// TODO : Implement this
-			// setter
-
-			// const ULyraLocalPlayer* LyraLocalPlayer = CastChecked<ULyraLocalPlayer>(LocalPlayer);
-			// constexpr bool bImmediatelySaveState = false;
-			// LyraLocalPlayer->GetLocalSettings()->RunAutoBenchmark(bImmediatelySaveState);
-
+		
+			AutoSetQuality->GetCurrentOptionValueDelegate().BindLambda( [=] ()
+			{
+				LocalSettings->RunAutoBenchmark(false);
+			});
+			
 			AutoSetQuality->ClearOptions();
 			AutoSetQuality->AddOption(FText::FromString("On"));
 			AutoSetQuality->AddOption(FText::FromString("Off"));
