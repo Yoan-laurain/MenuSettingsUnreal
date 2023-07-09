@@ -17,6 +17,7 @@ USettingsManager* USettingsManager::Get()
 	}
 	
 	USettingsManager* Registry = FindObject<USettingsManager>(LocalPlayer, TEXT("SettingsManager"), true);
+	 
 	if (Registry == nullptr)
 	{
 		Registry = NewObject<USettingsManager>(LocalPlayer, TEXT("SettingsManager"));
@@ -54,6 +55,8 @@ void USettingsManager::SaveChanges()
 	{
 		CallLambdas(Setting.Value);
 	}
+
+	ensure(SettingsMap.Num() > 0);
 	
 	if ( LocalSettings )
 	{

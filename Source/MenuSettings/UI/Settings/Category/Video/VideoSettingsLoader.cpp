@@ -2,9 +2,6 @@
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
-template<typename TypeOption>
-TArray<TypeOption> UGameSettingsItem::TechnicalOption;
-
 UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
@@ -34,7 +31,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			WindowModeItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,WindowModeItem] ()
 			{
-				LocalSettings->SetFullscreenMode(WindowModeItem->GetTechnicalOption<EWindowMode::Type>());
+				int Index = WindowModeItem->GetIndexCurrentOption();
+				const EWindowMode::Type WindowMode = static_cast<EWindowMode::Type>(Index);
+				LocalSettings->SetFullscreenMode(WindowMode);
 			} );
 				
 			WindowModeItem->ClearOptions();
@@ -45,10 +44,10 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			WindowModeItem->AddOption( FText::FromString("Windowed"));
 
 			// For technical
-			TArray<EWindowMode::Type> WindowModeOptions;
-			WindowModeOptions.Add(EWindowMode::Fullscreen);
-			WindowModeOptions.Add(EWindowMode::WindowedFullscreen);
-			WindowModeOptions.Add(EWindowMode::Windowed);
+			TArray<int> WindowModeOptions;
+			WindowModeOptions.Add(0);
+			WindowModeOptions.Add(1);
+			WindowModeOptions.Add(2);
 			
 			WindowModeItem->SetTechnicalOption(WindowModeOptions);
 			
@@ -66,7 +65,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 			ResolutionItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ResolutionItem] ()
 			{
-				LocalSettings->SetScreenResolution(ResolutionItem->GetTechnicalOption<FIntPoint>());
+				const FIntPoint Resolution = ResolutionItem->ConvertIntToFIntPoint(ResolutionItem->GetIndexCurrentOption());
+				LocalSettings->SetScreenResolution(Resolution);
 			} );
 
 			ResolutionItem->ClearOptions();
@@ -74,15 +74,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->AddOption(FText::FromString("1920x1080"));
 			ResolutionItem->AddOption(FText::FromString("2560x1440"));
 			ResolutionItem->AddOption(FText::FromString("3840x2160"));
-
-			TArray<FIntPoint> ResolutionOptions;
-			ResolutionOptions.Add(FIntPoint(1280, 720));
-			ResolutionOptions.Add(FIntPoint(1920, 1080));
-			ResolutionOptions.Add(FIntPoint(2560, 1440));
-			ResolutionOptions.Add(FIntPoint(3840, 2160));
-
+			
+			TArray<int> ResolutionOptions;
+			ResolutionOptions.Add(0);
+			ResolutionOptions.Add(1);
+			ResolutionOptions.Add(2);
+			ResolutionOptions.Add(3);
+			
 			ResolutionItem->SetTechnicalOption(ResolutionOptions);
-			ResolutionItem->SetIndexCurrentOption(ResolutionOptions.Find(LocalSettings->GetScreenResolution()));
+			int Index = ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution());
+			ResolutionItem->SetIndexCurrentOption(Index);
 			
 			Display->AddSetting(ResolutionItem);
 		}
@@ -104,7 +105,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			GraphicsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,GraphicsItem] ()
 			{
-				LocalSettings->SetOverallScalabilityLevel(GraphicsItem->GetTechnicalOption<int32>());
+				LocalSettings->SetOverallScalabilityLevel(GraphicsItem->GetTechnicalOption());
 			});
 			
 			GraphicsItem->AddOption(FText::FromString("Custom"));
@@ -132,7 +133,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 			FrameRateLimitItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,FrameRateLimitItem] ()
 			{
-				LocalSettings->SetFrameRateLimit(FrameRateLimitItem->GetTechnicalOption<float>());
+				LocalSettings->SetFrameRateLimit(FrameRateLimitItem->GetTechnicalOption());
 			});
 
 			FrameRateLimitItem->ClearOptions();
@@ -141,12 +142,12 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 				FrameRateLimitItem->AddOption(FText::FromString(FString::Printf(TEXT("%d"), 30 * i )));
 			}
 
-			TArray<float> FrameRateLimitOptions;
-			FrameRateLimitOptions.Add(0.0f);
-			FrameRateLimitOptions.Add(30.0f);
-			FrameRateLimitOptions.Add(60.0f);
-			FrameRateLimitOptions.Add(90.0f);
-			FrameRateLimitOptions.Add(120.0f);
+			TArray<int> FrameRateLimitOptions;
+			FrameRateLimitOptions.Add(0);
+			FrameRateLimitOptions.Add(30);
+			FrameRateLimitOptions.Add(60);
+			FrameRateLimitOptions.Add(90);
+			FrameRateLimitOptions.Add(120);
 
 			FrameRateLimitItem->SetTechnicalOption(FrameRateLimitOptions);
 			FrameRateLimitItem->SetIndexCurrentOption(LocalSettings->GetFrameRateLimit());
@@ -172,9 +173,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			AutoSetQuality->AddOption(FText::FromString("On"));
 			AutoSetQuality->AddOption(FText::FromString("Off"));
 			
-			TArray<bool> AutoSetQualityOptions;
-			AutoSetQualityOptions.Add(true);
-			AutoSetQualityOptions.Add(false);
+			TArray<int> AutoSetQualityOptions;
+			AutoSetQualityOptions.Add(1);
+			AutoSetQualityOptions.Add(0);
 
 			AutoSetQuality->SetTechnicalOption(AutoSetQualityOptions);
 			AutoSetQuality->SetIndexCurrentOption(1);
@@ -191,9 +192,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			LightingQualityItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,LightingQualityItem] ()
 			{
-				// log technical option value
-				UE_LOG(LogTemp, Warning, TEXT("LightingQualityItem->GetCurrentOptionValueDelegate() : %d"), LightingQualityItem->GetTechnicalOption<int32>());
-				LocalSettings->SetGlobalIlluminationQuality(LightingQualityItem->GetTechnicalOption<int32>() );
+				LocalSettings->SetGlobalIlluminationQuality(LightingQualityItem->GetTechnicalOption() );
 			} );
 			
 			LightingQualityItem->SetTechnicalOption(GenericQualityOptions);
@@ -214,7 +213,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ShadowsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ShadowsItem] ()
 			{
-				LocalSettings->SetShadowQuality(ShadowsItem->GetTechnicalOption<int32>());
+				LocalSettings->SetShadowQuality(ShadowsItem->GetTechnicalOption());
 			} );
 			
 			ShadowsItem->SetTechnicalOption(GenericQualityOptions);
@@ -235,7 +234,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			AntiAliasingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,AntiAliasingItem] ()
 			{
-				LocalSettings->SetAntiAliasingQuality(AntiAliasingItem->GetTechnicalOption<int32>());
+				LocalSettings->SetAntiAliasingQuality(AntiAliasingItem->GetTechnicalOption());
 			} );
 			
 			AntiAliasingItem->SetTechnicalOption(GenericQualityOptions);
@@ -256,7 +255,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ViewDistanceItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ViewDistanceItem] ()
 			{
-				LocalSettings->SetViewDistanceQuality(ViewDistanceItem->GetTechnicalOption<int32>());
+				LocalSettings->SetViewDistanceQuality(ViewDistanceItem->GetTechnicalOption());
 			} );
 			
 			ViewDistanceItem->SetTechnicalOption(GenericQualityOptions);
@@ -277,7 +276,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			TexturesItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,TexturesItem] ()
 			{
-				LocalSettings->SetTextureQuality(TexturesItem->GetTechnicalOption<int32>());
+				LocalSettings->SetTextureQuality(TexturesItem->GetTechnicalOption());
 			});
 			
 			TexturesItem->SetTechnicalOption(GenericQualityOptions);
@@ -298,7 +297,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			EffectItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectItem] ()
 			{
-				LocalSettings->SetVisualEffectQuality(EffectItem->GetTechnicalOption<int32>());
+				LocalSettings->SetVisualEffectQuality(EffectItem->GetTechnicalOption());
 			} );
 			
 			EffectItem->SetTechnicalOption(GenericQualityOptions);
@@ -319,7 +318,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ReflectionsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ReflectionsItem] ()
 			{
-				LocalSettings->SetReflectionQuality(ReflectionsItem->GetTechnicalOption<int32>());
+				LocalSettings->SetReflectionQuality(ReflectionsItem->GetTechnicalOption());
 			} );
 
 			ReflectionsItem->SetTechnicalOption(GenericQualityOptions);
@@ -340,7 +339,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			PostProcessingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,PostProcessingItem] ()
 			{
-				LocalSettings->SetPostProcessingQuality(PostProcessingItem->GetTechnicalOption<int32>());
+				LocalSettings->SetPostProcessingQuality(PostProcessingItem->GetTechnicalOption());
 			} );
 			
 			PostProcessingItem->SetTechnicalOption(GenericQualityOptions);
@@ -368,16 +367,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			VerticalSyncItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,VerticalSyncItem] ()
 			{
-				LocalSettings->SetVSyncEnabled(VerticalSyncItem->GetTechnicalOption<float>() > 0.0f);
+				LocalSettings->SetVSyncEnabled(VerticalSyncItem->GetTechnicalOption() > 0);
 			});
 
 			VerticalSyncItem->ClearOptions();
 			VerticalSyncItem->AddOption(FText::FromString("Off"));
 			VerticalSyncItem->AddOption(FText::FromString("On"));
 
-			TArray<float> VerticalSyncOptions;
-			VerticalSyncOptions.Add(0.0f);
-			VerticalSyncOptions.Add(1.0f);
+			TArray<int> VerticalSyncOptions;
+			VerticalSyncOptions.Add(0);
+			VerticalSyncOptions.Add(1);
 			
 			VerticalSyncItem->SetTechnicalOption(VerticalSyncOptions);
 			VerticalSyncItem->SetIndexCurrentOption(LocalSettings->IsVSyncEnabled() ? 1 : 0);

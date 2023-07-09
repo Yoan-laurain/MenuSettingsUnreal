@@ -1,6 +1,7 @@
 #include "SettingsWidget.h"
 #include "Components/HorizontalBox.h"
 #include "Components/TextBlock.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
@@ -104,14 +105,26 @@ void USettingsWidget::SetParentWidget(UMenuSettingsWidget* NewParentWidget)
 	ParentWidget = NewParentWidget;
 }
 
+void USettingsWidget::ApplySetting()
+{
+	SettingsItem->ExecCurrentOptionValueDelegate();
+	ULocalSettings* LocalSettings = ULocalSettings::Get();
+	if ( LocalSettings )
+	{
+		LocalSettings->ApplySettings(false);
+	}
+}
+
 void USettingsWidget::OnDecreaseButtonClicked()
 {
 	SettingsItem->SetPreviousTechnicalOption<int>();
 	UpdateHUD();
+	ApplySetting();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
 	SettingsItem->SetNextTechnicalOption<int>();
 	UpdateHUD();
+	ApplySetting();
 }

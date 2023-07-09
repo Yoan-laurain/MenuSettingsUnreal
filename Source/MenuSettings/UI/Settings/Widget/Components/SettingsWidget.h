@@ -44,6 +44,7 @@ public :
 	void UpdateChildOption();
 	void UpdateHUD();
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
+	void ApplySetting();
 
 private :
 

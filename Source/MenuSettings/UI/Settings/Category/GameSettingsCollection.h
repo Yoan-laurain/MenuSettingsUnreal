@@ -28,7 +28,7 @@ public:
 	template <typename TypeOption>
 	void SetNextTechnicalOption()
 	{
-		if (  TechnicalOption<TypeOption>.Num() - 1  != IndexCurrentOption )
+		if (  TechnicalOption.Num() - 1  != IndexCurrentOption )
 		{
 			IndexCurrentOption++;
 		}
@@ -43,11 +43,11 @@ public:
 		}
 	}
 
-	template <typename TypeOption>
-	TypeOption GetTechnicalOption() const { return TechnicalOption<TypeOption>[IndexCurrentOption]; }
+	FIntPoint ConvertIntToFIntPoint(int Value);
+	int ConvertFIntPointToInt(FIntPoint Value);
 	
-	template <typename TypeOption>
-	void SetTechnicalOption(const TArray<TypeOption> Value) { TechnicalOption<TypeOption> = Value; }
+	int GetTechnicalOption() const { return TechnicalOption[IndexCurrentOption]; }
+	void SetTechnicalOption(const TArray<int> Value) { TechnicalOption = Value; }
 
 	int GetIndexCurrentOption() const { return IndexCurrentOption; }
 	void SetIndexCurrentOption(const int Value) { IndexCurrentOption = Value; }
@@ -85,7 +85,7 @@ public:
 	void SetWidget(USettingsWidget* Value) { Widget = Value; }
 	
 	TArray<UGameSettingsItem*> GetDependentOptions() const { return DependentOptions; }
-	
+
 private:
 	
 	FText OptionsName;
@@ -99,15 +99,13 @@ private:
 	UGameSettingsItem* ParentOption;
 
 	int IndexCurrentOption;
-
-	template <typename TypeOption>
-	TArray<TypeOption> TechnicalOption; 
+	
+	TArray<int> TechnicalOption; 
 	
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
 	
 	UPROPERTY()
 	USettingsWidget* Widget;
-	
 };
 
 UCLASS(config=Game, defaultconfig)

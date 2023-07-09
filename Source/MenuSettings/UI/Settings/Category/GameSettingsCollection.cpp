@@ -7,6 +7,44 @@ UGameSettingsItem::UGameSettingsItem()
 	SetBaseOptions();
 }
 
+FIntPoint UGameSettingsItem::ConvertIntToFIntPoint(const int Value)
+{
+	switch (Value)
+	{
+		case 0:
+			return FIntPoint(1280, 720);
+		case 1:
+			return FIntPoint(1920, 1080);
+		case 2:
+			return FIntPoint(2560, 1440);
+		case 3:
+			return FIntPoint(3840, 2160);
+		default:
+			return FIntPoint(1920, 1080);
+	}
+}
+
+int UGameSettingsItem::ConvertFIntPointToInt(FIntPoint Value)
+{
+	if ( Value == FIntPoint(1280, 720) )
+	{
+		return 0;
+	}
+	if ( Value == FIntPoint(1920, 1080) )
+	{
+		return 1;
+	}
+	if ( Value == FIntPoint(2560, 1440) )
+	{
+		return 2;
+	}
+	if ( Value == FIntPoint(3840, 2160) )
+	{
+		return 3;
+	}
+	return 1;
+}
+
 void UGameSettingsItem::SetBaseOptions()
 {
 	const TArray OptionsToAdd = { FText::FromString("Low"), FText::FromString("Medium"), FText::FromString("High"), FText::FromString("Epic"), FText::FromString("Cinematic") };
