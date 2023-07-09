@@ -3,6 +3,7 @@
 #include "GameSettingsCollection.generated.h"
 
 class UGameSettingsItem;
+class USettingsWidget;
 
 UCLASS()
 class MENUSETTINGS_API UGameSettingsItem : public UObject
@@ -27,7 +28,7 @@ public:
 	template <typename TypeOption>
 	void SetNextTechnicalOption()
 	{
-		if (  TechnicalOption<TypeOption>[TechnicalOption<TypeOption>.Num() - 1 ] != IndexCurrentOption )
+		if (  TechnicalOption<TypeOption>.Num() - 1  != IndexCurrentOption )
 		{
 			IndexCurrentOption++;
 		}
@@ -36,7 +37,7 @@ public:
 	template <typename TypeOption>
 	void SetPreviousTechnicalOption()
 	{
-		if ( TechnicalOption<TypeOption>[0] != IndexCurrentOption )
+		if ( 0 != IndexCurrentOption )
 		{
 			IndexCurrentOption--;
 		}
@@ -50,6 +51,9 @@ public:
 
 	int GetIndexCurrentOption() const { return IndexCurrentOption; }
 	void SetIndexCurrentOption(const int Value) { IndexCurrentOption = Value; }
+
+	UGameSettingsItem* GetParentOption() const { return ParentOption; }
+	void SetParentOption(UGameSettingsItem* Value) { ParentOption = Value; }
 
 #pragma endregion GettersSetters
 
@@ -75,18 +79,35 @@ public:
 
 	void CancelChanges();
 
+	void AddDependentOption(UGameSettingsItem* DependentOption);
+	
+	USettingsWidget* GetWidget() const { return Widget; }
+	void SetWidget(USettingsWidget* Value) { Widget = Value; }
+	
+	TArray<UGameSettingsItem*> GetDependentOptions() const { return DependentOptions; }
+	
 private:
 	
 	FText OptionsName;
 	FText DescriptionRichText;
 	TArray<FText> Options;
 
+	UPROPERTY()
+	TArray<UGameSettingsItem*> DependentOptions;
+
+	UPROPERTY()
+	UGameSettingsItem* ParentOption;
+
 	int IndexCurrentOption;
 
 	template <typename TypeOption>
-	static TArray<TypeOption> TechnicalOption; 
+	TArray<TypeOption> TechnicalOption; 
 	
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
+	
+	UPROPERTY()
+	USettingsWidget* Widget;
+	
 };
 
 UCLASS(config=Game, defaultconfig)

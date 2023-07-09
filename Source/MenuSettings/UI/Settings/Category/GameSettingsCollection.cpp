@@ -1,5 +1,7 @@
 #include "GameSettingsCollection.h"
 
+#include "MenuSettings/UI/Settings/Widget/Components/SettingsWidget.h"
+
 UGameSettingsItem::UGameSettingsItem()
 {
 	SetBaseOptions();
@@ -60,6 +62,11 @@ void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 void UGameSettingsItem::CancelChanges()
 {
 	//TODO - Implement this
+}
+
+void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
+{
+	DependentOptions.Add(DependentOption);
 }
 
 UGameSettingsCollection::UGameSettingsCollection()

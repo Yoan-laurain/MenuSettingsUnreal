@@ -38,7 +38,10 @@ void CallLambdas(UGameSettingsCollection* Setting)
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			Option->ExecCurrentOptionValueDelegate();
+			if ( !Option->GetCurrentOption().ToString().Equals("Custom") )
+			{
+				Option->ExecCurrentOptionValueDelegate();
+			}
 		}
 	}
 }

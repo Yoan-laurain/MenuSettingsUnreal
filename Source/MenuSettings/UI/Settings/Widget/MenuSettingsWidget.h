@@ -3,13 +3,15 @@
 #include "Blueprint/UserWidget.h"
 #include "MenuSettingsWidget.generated.h"
 
+class UVerticalBox;
 class UGameSettingsCollection;
 class UButton;
 class UScrollBox;
 class UHorizontalBox;
+class USettingsDescription;
 
 UCLASS()
-class MENUSETTINGS_API UMenuSettingsWidget : public UUserWidget
+class MENUSETTINGS_API UMenuSettingsWidget final : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -18,6 +20,10 @@ public :
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
 	UScrollBox* SettingsScrollBox;
+
+	/** The container for description */
+	UPROPERTY(meta = (BindWidget))
+	UVerticalBox* VB_Right;
 
 	/** Where the navigations buttons are put */
 	UPROPERTY(meta = (BindWidget))
@@ -40,8 +46,13 @@ public :
 	/** The widget for navigations */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsNavigationWidgetClass;
+
+	/** The widget for description */
+	UPROPERTY( EditAnywhere )
+	TSubclassOf<UUserWidget> SettingsDescriptionWidgetClass;
 	
 	void OnNavigationButtonClicked(FString SettingsName);
+	void ChangeDescription(FText Description);
 
 	UFUNCTION()
 	void ApplySettings();
@@ -56,6 +67,9 @@ private :
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
+
+	UPROPERTY()
+	USettingsDescription* SettingsDescriptionWidget;
 
 protected :
 

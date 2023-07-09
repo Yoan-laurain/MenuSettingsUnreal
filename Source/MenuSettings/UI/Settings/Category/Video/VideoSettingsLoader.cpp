@@ -11,7 +11,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(FText::FromString("Video"));
 
-	TArray<float> GenericQualityOptions;
+	TArray<int32> GenericQualityOptions;
 			
 	for (int32 i = 0; i < 5; ++i)
 	{
@@ -96,9 +96,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		GraphicsQuality->SetTitle(FText::FromString("Graphics Quality"));
 		Screen->AddSettingCollection(GraphicsQuality);
 
+		UGameSettingsItem* GraphicsItem = NewObject<UGameSettingsItem>();
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingsItem* GraphicsItem = NewObject<UGameSettingsItem>();
 			GraphicsItem->SetOptionName(FText::FromString("Quality Presets"));
 			GraphicsItem->SetDescriptionRichText(FText::FromString("Choose between different quality presets to make a trade off between quality and speed."));
 			
@@ -191,11 +191,16 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			LightingQualityItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,LightingQualityItem] ()
 			{
-				LocalSettings->SetGlobalIlluminationQuality(LightingQualityItem->GetTechnicalOption<int>() );
+				// log technical option value
+				UE_LOG(LogTemp, Warning, TEXT("LightingQualityItem->GetCurrentOptionValueDelegate() : %d"), LightingQualityItem->GetTechnicalOption<int32>());
+				LocalSettings->SetGlobalIlluminationQuality(LightingQualityItem->GetTechnicalOption<int32>() );
 			} );
 			
 			LightingQualityItem->SetTechnicalOption(GenericQualityOptions);
 			LightingQualityItem->SetIndexCurrentOption(LocalSettings->GetGlobalIlluminationQuality());
+
+			GraphicsItem->AddDependentOption(LightingQualityItem);
+			LightingQualityItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(LightingQualityItem);
 		}
@@ -209,11 +214,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ShadowsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ShadowsItem] ()
 			{
-				LocalSettings->SetShadowQuality(ShadowsItem->GetTechnicalOption<int>());
+				LocalSettings->SetShadowQuality(ShadowsItem->GetTechnicalOption<int32>());
 			} );
 			
 			ShadowsItem->SetTechnicalOption(GenericQualityOptions);
 			ShadowsItem->SetIndexCurrentOption( LocalSettings->GetShadowQuality() );
+
+			GraphicsItem->AddDependentOption(ShadowsItem);
+			ShadowsItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(ShadowsItem);
 		}
@@ -227,11 +235,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			AntiAliasingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,AntiAliasingItem] ()
 			{
-				LocalSettings->SetAntiAliasingQuality(AntiAliasingItem->GetTechnicalOption<int>());
+				LocalSettings->SetAntiAliasingQuality(AntiAliasingItem->GetTechnicalOption<int32>());
 			} );
 			
 			AntiAliasingItem->SetTechnicalOption(GenericQualityOptions);
 			AntiAliasingItem->SetIndexCurrentOption(LocalSettings->GetAntiAliasingQuality());
+
+			GraphicsItem->AddDependentOption(AntiAliasingItem);
+			AntiAliasingItem->SetParentOption(GraphicsItem);
 				
 			GraphicsQuality->AddSetting(AntiAliasingItem);
 		}
@@ -245,11 +256,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ViewDistanceItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ViewDistanceItem] ()
 			{
-				LocalSettings->SetViewDistanceQuality(ViewDistanceItem->GetTechnicalOption<int>());
+				LocalSettings->SetViewDistanceQuality(ViewDistanceItem->GetTechnicalOption<int32>());
 			} );
 			
 			ViewDistanceItem->SetTechnicalOption(GenericQualityOptions);
 			ViewDistanceItem->SetIndexCurrentOption(LocalSettings->GetViewDistanceQuality());
+
+			GraphicsItem->AddDependentOption(ViewDistanceItem);
+			ViewDistanceItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(ViewDistanceItem);
 		}
@@ -263,11 +277,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			TexturesItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,TexturesItem] ()
 			{
-				LocalSettings->SetTextureQuality(TexturesItem->GetTechnicalOption<int>());
+				LocalSettings->SetTextureQuality(TexturesItem->GetTechnicalOption<int32>());
 			});
 			
 			TexturesItem->SetTechnicalOption(GenericQualityOptions);
 			TexturesItem->SetIndexCurrentOption(LocalSettings->GetTextureQuality());
+
+			GraphicsItem->AddDependentOption(TexturesItem);
+			TexturesItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(TexturesItem);
 		}
@@ -281,11 +298,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			EffectItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectItem] ()
 			{
-				LocalSettings->SetVisualEffectQuality(EffectItem->GetTechnicalOption<int>());
+				LocalSettings->SetVisualEffectQuality(EffectItem->GetTechnicalOption<int32>());
 			} );
 			
 			EffectItem->SetTechnicalOption(GenericQualityOptions);
 			EffectItem->SetIndexCurrentOption(LocalSettings->GetVisualEffectQuality());
+
+			GraphicsItem->AddDependentOption(EffectItem);
+			EffectItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(EffectItem);
 		}
@@ -299,11 +319,15 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			ReflectionsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ReflectionsItem] ()
 			{
-				LocalSettings->SetReflectionQuality(ReflectionsItem->GetTechnicalOption<int>());
+				LocalSettings->SetReflectionQuality(ReflectionsItem->GetTechnicalOption<int32>());
 			} );
 
 			ReflectionsItem->SetTechnicalOption(GenericQualityOptions);
 			ReflectionsItem->SetIndexCurrentOption(LocalSettings->GetReflectionQuality());
+
+			GraphicsItem->AddDependentOption(ReflectionsItem);
+			ReflectionsItem->SetParentOption(GraphicsItem);
+			
 			GraphicsQuality->AddSetting(ReflectionsItem);
 		}
 		//----------------------------------------------------------------------------------
@@ -316,11 +340,14 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			PostProcessingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,PostProcessingItem] ()
 			{
-				LocalSettings->SetPostProcessingQuality(PostProcessingItem->GetTechnicalOption<int>());
+				LocalSettings->SetPostProcessingQuality(PostProcessingItem->GetTechnicalOption<int32>());
 			} );
 			
 			PostProcessingItem->SetTechnicalOption(GenericQualityOptions);
 			PostProcessingItem->SetIndexCurrentOption(LocalSettings->GetPostProcessingQuality());
+
+			GraphicsItem->AddDependentOption(PostProcessingItem);
+			PostProcessingItem->SetParentOption(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(PostProcessingItem);
 		}

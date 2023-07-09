@@ -4,13 +4,14 @@
 #include "Components/Button.h"
 #include "SettingsWidget.generated.h"
 
+class UHorizontalBox;
 class UTextBlock;
 class UGameSettingsItem;
 class UImage;
 class FText;
 
 UCLASS()
-class MENUSETTINGS_API USettingsWidget : public UUserWidget
+class MENUSETTINGS_API USettingsWidget final : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -28,15 +29,29 @@ public :
 
 	UPROPERTY( meta = (BindWidget) )
 	UTextBlock* CurrentValue;
+
+	UPROPERTY( meta = (BindWidget) )
+	UHorizontalBox* HorizontalBox;
+
+	UPROPERTY( meta = (BindWidget) )
+	UButton* HoverButton;
 	
 	void SetSettingsText(FText NewText);
 	void SetCurrentValue(FText NewText);
 	void InitWidget(UGameSettingsItem* SettingsItem);
 	void SetStateButtons();
+	void UpdateParentOption();
+	void UpdateChildOption();
+	void UpdateHUD();
+	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
+
 private :
 
 	UPROPERTY()
 	UGameSettingsItem* SettingsItem;
+
+	UPROPERTY()
+	UMenuSettingsWidget* ParentWidget;
 
 protected :
 	
@@ -47,4 +62,7 @@ protected :
 	void OnIncreaseButtonClicked();
 	
 	virtual void NativeOnInitialized() override;
+
+	UFUNCTION()
+	void OnHovered();
 };

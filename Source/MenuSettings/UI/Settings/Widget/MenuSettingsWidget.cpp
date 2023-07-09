@@ -2,8 +2,10 @@
 #include "Components/HorizontalBox.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
+#include "Components/SettingsDescription.h"
 #include "Components/Title/SettingsCategoryTitleWidget.h"
 #include "Components/SettingsWidget.h"
+#include "Components/VerticalBox.h"
 #include "MenuSettings/Player//LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
@@ -26,6 +28,10 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		
 		SetContent(SettingsManager->GetVideoSettings());
 	}
+
+	SettingsDescriptionWidget = CreateWidget<USettingsDescription>(GetWorld(), SettingsDescriptionWidgetClass);
+
+	VB_Right->AddChild(SettingsDescriptionWidget);
 
 	if ( ApplyButton )
 	{
@@ -61,6 +67,7 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 							if ( SettingsWidget )
 							{
 								SettingsWidget->InitWidget(Setting);
+								SettingsWidget->SetParentWidget(this);
 								SettingsScrollBox->AddChild(SettingsWidget);
 							}
 						}
@@ -108,14 +115,19 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 	{
 		return;
 	}
-	
-	const USettingsManager* SettingsManager = USettingsManager::Get();
 
+	const USettingsManager* SettingsManager = USettingsManager::Get();
 	if ( SettingsManager )
 	{
 		SettingsScrollBox->ClearChildren();
 		SetContent(SettingsManager->GetSettings(SettingsName));
 	}
+
+}
+
+void UMenuSettingsWidget::ChangeDescription(const FText Description)
+{
+	SettingsDescriptionWidget->SetDescriptionText(Description);
 }
 
 void UMenuSettingsWidget::ApplySettings()

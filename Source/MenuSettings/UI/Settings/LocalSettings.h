@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "GameFramework/GameUserSettings.h"
+#include "Engine/DeveloperSettings.h"
 #include "BindingsWTF/MappableConfigPair.h"
 #include "LocalSettings.generated.h"
 
@@ -11,18 +12,15 @@ class UPlayerMappableInputConfig;
 class USoundControlBus;
 class USoundControlBusMix;
 
-UCLASS()
-class ULocalSettings final : public UGameUserSettings
+UCLASS(config = Game, defaultconfig, meta = (DisplayName = "AudioSettingsStaff"))
+class MENUSETTINGS_API UAudioSettingsStaff final : public UDeveloperSettings
 {
 	GENERATED_BODY()
+
+public :
 	
-public:
-
-	ULocalSettings();
-
-	static ULocalSettings* Get();
-
-#pragma region Audio
+	UPROPERTY(config, EditAnywhere, Category = MixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBusMix"))
+	FSoftObjectPath DefaultControlBusMix;
 	
 	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBusMix"))
 	FSoftObjectPath UserSettingsControlBusMix;
@@ -38,6 +36,20 @@ public:
 	
 	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
 	FSoftObjectPath DialogueVolumeControlBus;
+};
+
+UCLASS()
+class ULocalSettings final : public UGameUserSettings
+{
+	GENERATED_BODY()
+	
+public:
+
+	ULocalSettings();
+
+	static ULocalSettings* Get();
+
+#pragma region Audio
 	
 	UFUNCTION()
 	void SetOverallVolume(float InVolume);
