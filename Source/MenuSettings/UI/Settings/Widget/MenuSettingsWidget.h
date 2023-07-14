@@ -54,9 +54,15 @@ public :
 	/** The widget for description */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsDescriptionWidgetClass;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> ValidationPopUpWidgetClass;
 	
 	void OnNavigationButtonClicked(FString SettingsName);
 	void ChangeDescription(FText Description);
+
+	UFUNCTION()
+	void CreatePopUpValidation();
 
 	UFUNCTION()
 	void ApplySettings();

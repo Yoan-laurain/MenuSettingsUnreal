@@ -1,4 +1,6 @@
 #include "MenuSettingsWidget.h"
+
+#include "ValidationPopUpWidget.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
@@ -36,7 +38,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 	if ( ApplyButton )
 	{
-		ApplyButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::ApplySettings);
+		ApplyButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::CreatePopUpValidation);
 	}
 
 	if ( CancelButton )
@@ -138,6 +140,12 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 void UMenuSettingsWidget::ChangeDescription(const FText Description)
 {
 	SettingsDescriptionWidget->SetDescriptionText(Description);
+}
+
+void UMenuSettingsWidget::CreatePopUpValidation()
+{
+	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
+	ValidationPopUpWidget->AddToViewport();
 }
 
 void UMenuSettingsWidget::ApplySettings()
