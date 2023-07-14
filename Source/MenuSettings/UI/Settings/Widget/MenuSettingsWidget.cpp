@@ -1,5 +1,4 @@
 #include "MenuSettingsWidget.h"
-
 #include "ValidationPopUpWidget.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
@@ -43,7 +42,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 	if ( CancelButton )
 	{
-		CancelButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::RemoveFromParent);
+		CancelButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::Cancel);
 	}
 }
 
@@ -158,4 +157,6 @@ void UMenuSettingsWidget::Cancel()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->CancelChanges();
+	ApplySettings();
+	RemoveFromParent();
 }

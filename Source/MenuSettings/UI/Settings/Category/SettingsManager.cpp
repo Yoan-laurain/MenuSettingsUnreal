@@ -45,7 +45,7 @@ void CallLambdas(UGameSettingsCollection* Setting)
 			}
 		}
 	}
-}
+} 
 
 void USettingsManager::SaveChanges()
 {
@@ -66,11 +66,29 @@ void USettingsManager::SaveChanges()
 
 }
 
+void CancelLocalSettings( UGameSettingsCollection* Setting )
+{
+	if ( Setting->GetChildSettingsCollection().Num() > 0 )
+	{
+		for (const auto& Option : Setting->GetChildSettingsCollection())
+		{
+			CancelLocalSettings(Cast<UGameSettingsCollection>(Option));
+		}
+	}
+	else
+	{
+		for ( const auto& Option : Setting->GetChildSettings() )
+		{
+			Option->CancelChanges();
+		}
+	}
+}
+
 void USettingsManager::CancelChanges()
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		Setting.Value->CancelChanges();
+		CancelLocalSettings(Setting.Value);
 	}
 }
 

@@ -92,22 +92,17 @@ UGameSettingsItem::FSetCurrentOptionValueDelegate& UGameSettingsItem::GetCurrent
 
 void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 {
-	const bool Res = CurrentOptionValueDelegateSet.ExecuteIfBound();
-	//ensure(Res);
+	CurrentOptionValueDelegateSet.ExecuteIfBound();
 }
 
 void UGameSettingsItem::CancelChanges()
 {
-	//TODO - Implement this
+	IndexCurrentOption = BaseOption;
 }
 
 void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
 {
 	DependentOptions.Add(DependentOption);
-}
-
-UGameSettingsCollection::UGameSettingsCollection()
-{
 }
 
 void UGameSettingsCollection::AddSetting(UGameSettingsItem* Setting)

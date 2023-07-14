@@ -51,7 +51,18 @@ public:
 	void SetTechnicalOption(const TArray<int> Value) { TechnicalOption = Value; }
 
 	int GetIndexCurrentOption() const { return IndexCurrentOption; }
-	void SetIndexCurrentOption(const int Value) { IndexCurrentOption = Value; }
+	void SetIndexCurrentOption(const int Value)
+	{
+		IndexCurrentOption = Value;
+
+		if ( BaseOption == 0 )
+		{
+			BaseOption = Value;
+		}
+	}
+
+	int GetBaseOption() const { return BaseOption; }
+	void SetBaseOption(const int Value) { BaseOption = Value; }
 
 	UGameSettingsItem* GetParentOption() const { return ParentOption; }
 	void SetParentOption(UGameSettingsItem* Value) { ParentOption = Value; }
@@ -80,9 +91,7 @@ public:
 	FSetCurrentOptionValueDelegate& GetCurrentOptionValueDelegate();
 
 	void ExecCurrentOptionValueDelegate();
-
 	void CancelChanges();
-
 	void AddDependentOption(UGameSettingsItem* DependentOption);
 	
 	USettingsWidget* GetWidget() const { return Widget; }
@@ -105,6 +114,7 @@ private:
 	UGameSettingsItem* ParentOption;
 
 	int IndexCurrentOption;
+	int BaseOption;
 	
 	TArray<int> TechnicalOption; 
 	
@@ -120,7 +130,6 @@ class MENUSETTINGS_API UGameSettingsCollection final : public UGameSettingsItem
 	GENERATED_BODY()
 	
 public:
-	UGameSettingsCollection();
 	
 	TArray<UGameSettingsItem*> GetChildSettings() { return Settings; }
 	TArray<UGameSettingsCollection*> GetChildSettingsCollection() { return SettingsCollection; }
