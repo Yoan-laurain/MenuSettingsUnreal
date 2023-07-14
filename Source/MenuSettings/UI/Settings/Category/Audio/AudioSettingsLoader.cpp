@@ -10,7 +10,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 	Screen->SetTitle(FText::FromString("Audio"));
 	
 	TArray<int> TechnicalOption;
-	for (int i = 0; i < 110; i+=10)
+	for (int i = 0; i <= 100; i++)
 	{
 		TechnicalOption.Add(i);
 	}
@@ -28,6 +28,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			UGameSettingsItem* OverallItem = NewObject<UGameSettingsItem>();
 			OverallItem->SetOptionName( FText::FromString("Overall Volume"));
 			OverallItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of everything."));
+			OverallItem->SetType(ESettingsType::Slider);
 			
 			OverallItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,OverallItem] ()
 			{
@@ -35,13 +36,13 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			} );
 			
 			OverallItem->ClearOptions();
-			for (int i = 0; i <= 100; i+=10)
+			for (int i = 0; i <= 100; i++)
 			{
 				OverallItem->AddOption(FText::FromString(FString::FromInt(i)));
 			}
 			
 			OverallItem->SetTechnicalOption(TechnicalOption);
-			OverallItem->SetIndexCurrentOption(LocalSettings->GetOverallVolume() * 10);
+			OverallItem->SetIndexCurrentOption(LocalSettings->GetOverallVolume() * 100);
 
 			Volume->AddSetting(OverallItem);
 		}
@@ -50,6 +51,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			UGameSettingsItem* MusicItem = NewObject<UGameSettingsItem>();
 			MusicItem->SetOptionName( FText::FromString("Music Volume"));
 			MusicItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of music."));
+			MusicItem->SetType(ESettingsType::Slider);
 			
 			MusicItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,MusicItem] ()
 			{
@@ -57,13 +59,13 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			} );
 			
 			MusicItem->ClearOptions();
-			for (int i = 0; i <= 100; i+=10)
+			for (int i = 0; i <= 100; i++)
 			{
 				MusicItem->AddOption(FText::FromString(FString::FromInt(i)));
 			}
 			MusicItem->SetTechnicalOption(TechnicalOption);
 			
-			MusicItem->SetIndexCurrentOption(LocalSettings->GetMusicVolume() * 10);
+			MusicItem->SetIndexCurrentOption(LocalSettings->GetMusicVolume() * 100);
 			
 			Volume->AddSetting(MusicItem);
 		}
@@ -72,6 +74,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			UGameSettingsItem* EffectsItem = NewObject<UGameSettingsItem>();
 			EffectsItem->SetOptionName( FText::FromString("Effects Volume"));
 			EffectsItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of sound effects."));
+			EffectsItem->SetType(ESettingsType::Slider);
 			
 			EffectsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectsItem] ()
 			{
@@ -79,12 +82,12 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			} );
 			
 			EffectsItem->ClearOptions();
-			for (int i = 0; i <= 100; i+=10)
+			for (int i = 0; i <= 100; i++)
 			{
 				EffectsItem->AddOption(FText::FromString(FString::FromInt(i)));
 			}
 			EffectsItem->SetTechnicalOption(TechnicalOption);
-			EffectsItem->SetIndexCurrentOption(LocalSettings->GetSoundFXVolume() * 10);
+			EffectsItem->SetIndexCurrentOption(LocalSettings->GetSoundFXVolume() * 100);
 			
 			Volume->AddSetting(EffectsItem);
 		}
@@ -93,6 +96,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			UGameSettingsItem* VoiceItem = NewObject<UGameSettingsItem>();
 			VoiceItem->SetOptionName( FText::FromString("Dialogue"));
 			VoiceItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of dialogue for game characters and voice overs."));
+			VoiceItem->SetType(ESettingsType::Slider);
 			
 			VoiceItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,VoiceItem] ()
 			{
@@ -100,12 +104,12 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			} );
 			
 			VoiceItem->ClearOptions();
-			for (int i = 0; i <= 100; i+=10)
+			for (int i = 0; i <= 100; i++)
 			{
 				VoiceItem->AddOption(FText::FromString(FString::FromInt(i)));
 			}
 			VoiceItem->SetTechnicalOption(TechnicalOption);
-			VoiceItem->SetIndexCurrentOption(LocalSettings->GetDialogueVolume() * 10);
+			VoiceItem->SetIndexCurrentOption(LocalSettings->GetDialogueVolume() * 100);
 			
 			Volume->AddSetting(VoiceItem);
 		}

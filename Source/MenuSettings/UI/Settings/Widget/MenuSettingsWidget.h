@@ -39,6 +39,10 @@ public :
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsItemWidgetClass;
 
+	/** The widget for progress bar settings */
+	UPROPERTY( EditAnywhere )
+	TSubclassOf<UUserWidget> SettingsProgressBarWidgetClass;
+
 	/** The widget of a category title */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsCategoryTitleWidgetClass;

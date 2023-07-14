@@ -1,5 +1,6 @@
 #pragma once
-#include "CoreMinimal.h"
+
+#include "MenuSettings/ProjectEnumerations.h"
 #include "GameSettingsCollection.generated.h"
 
 class UGameSettingsItem;
@@ -55,6 +56,9 @@ public:
 	UGameSettingsItem* GetParentOption() const { return ParentOption; }
 	void SetParentOption(UGameSettingsItem* Value) { ParentOption = Value; }
 
+	void SetType(const ESettingsType Value) { Type = Value; }
+	ESettingsType GetType() const { return Type; }
+
 #pragma endregion GettersSetters
 
 #pragma region Options
@@ -91,6 +95,8 @@ private:
 	FText OptionsName;
 	FText DescriptionRichText;
 	TArray<FText> Options;
+
+	ESettingsType Type;
 
 	UPROPERTY()
 	TArray<UGameSettingsItem*> DependentOptions;

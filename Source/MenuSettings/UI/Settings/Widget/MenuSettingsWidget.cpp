@@ -2,9 +2,10 @@
 #include "Components/HorizontalBox.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
-#include "Components/SettingsDescription.h"
+#include "Components/Description/SettingsDescription.h"
+#include "Components/ProgressBar/SettingsProgressBarWidget.h"
 #include "Components/Title/SettingsCategoryTitleWidget.h"
-#include "Components/SettingsWidget.h"
+#include "Components/Basic/SettingsWidget.h"
 #include "Components/VerticalBox.h"
 #include "MenuSettings/Player//LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
@@ -62,8 +63,17 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 					{
 						if ( Setting )
 						{
-							USettingsWidget* SettingsWidget = CreateWidget<USettingsWidget>(GetWorld(), SettingsItemWidgetClass);
-					
+							UiSettingsParentClass* SettingsWidget = NULL;
+							
+							if ( Setting->GetType() == ESettingsType::Normal )
+							{
+								SettingsWidget = CreateWidget<USettingsWidget>(GetWorld(), SettingsItemWidgetClass);
+							}
+							else
+							{
+								SettingsWidget = CreateWidget<USettingsProgressBarWidget>(GetWorld(), SettingsProgressBarWidgetClass);
+							}
+
 							if ( SettingsWidget )
 							{
 								SettingsWidget->InitWidget(Setting);
