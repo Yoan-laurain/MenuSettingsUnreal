@@ -2,6 +2,8 @@
 #include "GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 
+USettingsManager* USettingsManager::Registry = nullptr;
+
 USettingsManager::USettingsManager()
 {
 
@@ -9,18 +11,10 @@ USettingsManager::USettingsManager()
 
 USettingsManager* USettingsManager::Get()
 {
-	ULocalPlayer* LocalPlayer = Cast<ULocalPlayer>(GEngine->GetFirstGamePlayer(GWorld));
-
-	if (LocalPlayer == nullptr)
+	if ( !Registry )
 	{
-		return nullptr;
-	}
-	
-	USettingsManager* Registry = FindObject<USettingsManager>(LocalPlayer, TEXT("SettingsManager"), true);
-	 
-	if (Registry == nullptr)
-	{
-		Registry = NewObject<USettingsManager>(LocalPlayer, TEXT("SettingsManager"));
+		Registry = NewObject<USettingsManager>();
+		Registry->AddToRoot();
 	}
 
 	return Registry;

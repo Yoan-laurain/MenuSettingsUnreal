@@ -50,4 +50,5 @@ protected :
 	UPROPERTY()
 	ULocalPlayerCustom* LocalPlayer;
 	
+	static USettingsManager* Registry;
 };

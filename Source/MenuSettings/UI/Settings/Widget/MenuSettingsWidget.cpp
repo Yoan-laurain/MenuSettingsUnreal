@@ -128,6 +128,7 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 	}
 
 	const USettingsManager* SettingsManager = USettingsManager::Get();
+	
 	if ( SettingsManager )
 	{
 		SettingsScrollBox->ClearChildren();

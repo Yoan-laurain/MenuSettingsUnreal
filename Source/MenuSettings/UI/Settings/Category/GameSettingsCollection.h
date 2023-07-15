@@ -118,6 +118,7 @@ private:
 	
 	TArray<int> TechnicalOption; 
 	
+	DECLARE_DELEGATE(FSetCurrentOptionValueDelegate)
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
 	
 	UPROPERTY()
