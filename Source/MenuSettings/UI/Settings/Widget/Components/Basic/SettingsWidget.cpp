@@ -18,19 +18,6 @@ void USettingsWidget::NativeOnInitialized()
 	{
 		IncreaseButton->OnClicked.AddDynamic(this, &USettingsWidget::OnIncreaseButtonClicked);
 	}
-
-	if ( HoverButton )
-	{
-		HoverButton->OnHovered.AddDynamic(this, &USettingsWidget::OnHovered);
-	}
-}
-
-void USettingsWidget::OnHovered()
-{
-	if (ParentWidget)
-	{
-		ParentWidget->ChangeDescription(SettingsItem->GetDescriptionRichText());
-	}
 }
 
 void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
@@ -92,5 +79,5 @@ void USettingsWidget::OnIncreaseButtonClicked()
 {
 	SettingsItem->SetNextTechnicalOption<int>();
 	UpdateHUD();
-	ApplySetting();
+	ApplySetting(); 
 }

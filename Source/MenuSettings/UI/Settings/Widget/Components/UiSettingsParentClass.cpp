@@ -1,7 +1,9 @@
 ﻿#include "UiSettingsParentClass.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 void UiSettingsParentClass::SetSettingsText(FText NewText)
 {
@@ -48,4 +50,12 @@ void UiSettingsParentClass::SetStateButtons()
 
 void UiSettingsParentClass::UpdateHUD()
 {
+}
+
+void UiSettingsParentClass::OnHover()
+{
+	if (ParentWidget)
+	{
+		ParentWidget->ChangeDescription(SettingsItem->GetDescriptionRichText());
+	}
 }

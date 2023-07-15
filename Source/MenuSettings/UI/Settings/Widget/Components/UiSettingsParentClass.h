@@ -6,6 +6,7 @@
 class UTextBlock;
 class UGameSettingsItem;
 class FText;
+class UButton;
 
 UCLASS()
 class UiSettingsParentClass : public UUserWidget
@@ -29,6 +30,9 @@ public:
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
 	virtual void SetStateButtons();
 	virtual void UpdateHUD();
+
+	UFUNCTION(BlueprintCallable)
+	void OnHover();
 
 protected :
 

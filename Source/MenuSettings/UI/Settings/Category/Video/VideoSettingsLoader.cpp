@@ -70,6 +70,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ResolutionItem] ()
 			{
 				const FIntPoint Resolution = ResolutionItem->ConvertIntToFIntPoint(ResolutionItem->GetIndexCurrentOption());
+
+				UE_LOG(LogTemp, Warning, TEXT("Resolution: %s"), *Resolution.ToString());
 				LocalSettings->SetScreenResolution(Resolution);
 			} );
 

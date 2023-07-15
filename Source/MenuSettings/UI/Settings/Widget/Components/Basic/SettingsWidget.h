@@ -25,9 +25,6 @@ public :
 	UPROPERTY( meta = (BindWidget) )
 	UHorizontalBox* HorizontalBox;
 
-	UPROPERTY( meta = (BindWidget) )
-	UButton* HoverButton;
-
 	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
 	void SetStateButtons();
 	void UpdateParentOption();
@@ -43,7 +40,4 @@ protected :
 	void OnIncreaseButtonClicked();
 	
 	virtual void NativeOnInitialized() override;
-
-	UFUNCTION()
-	void OnHovered();
 };
