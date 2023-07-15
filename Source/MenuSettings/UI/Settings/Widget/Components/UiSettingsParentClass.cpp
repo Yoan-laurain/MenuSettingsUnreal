@@ -22,6 +22,7 @@ void UiSettingsParentClass::SetCurrentValue(FText NewText)
 void UiSettingsParentClass::InitWidget(UGameSettingsItem* NewSettingsItem)
 {
 	SettingsItem = NewSettingsItem;
+	SettingsItem->SetWidget(this);
 	SetSettingsText(SettingsItem->GetOptionName());
 	SetCurrentValue( SettingsItem->GetCurrentOption() ); 
 }
@@ -39,4 +40,12 @@ void UiSettingsParentClass::ApplySetting()
 void UiSettingsParentClass::SetParentWidget(UMenuSettingsWidget* NewParentWidget)
 {
 	ParentWidget = NewParentWidget;
+}
+
+void UiSettingsParentClass::SetStateButtons()
+{
+}
+
+void UiSettingsParentClass::UpdateHUD()
+{
 }

@@ -27,6 +27,8 @@ public:
 	virtual void InitWidget(UGameSettingsItem* SettingsItem);
 	void ApplySetting();
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
+	virtual void SetStateButtons();
+	virtual void UpdateHUD();
 
 protected :
 

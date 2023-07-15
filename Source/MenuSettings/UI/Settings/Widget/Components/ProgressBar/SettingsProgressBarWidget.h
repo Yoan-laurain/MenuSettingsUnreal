@@ -19,6 +19,7 @@ public :
 	class USlider* Slider;
 
 	virtual void InitWidget(UGameSettingsItem* NewSettingsItem) override;
+	virtual void UpdateHUD() override;
 
 protected:
 	

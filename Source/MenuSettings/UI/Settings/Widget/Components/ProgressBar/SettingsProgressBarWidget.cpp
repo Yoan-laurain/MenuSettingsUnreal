@@ -16,7 +16,15 @@ void USettingsProgressBarWidget::NativeOnInitialized()
 void USettingsProgressBarWidget::InitWidget(UGameSettingsItem* NewSettingsItem)
 {
 	Super::InitWidget(NewSettingsItem);
+	UpdateHUD();
+}
+
+void USettingsProgressBarWidget::UpdateHUD()
+{
+	Super::UpdateHUD();
 	ProgressBar->SetPercent(SettingsItem->GetTechnicalOption() / 100.0f);
+	Slider->SetValue(SettingsItem->GetTechnicalOption() / 100.0f);
+	SetCurrentValue( FText::FromString(FString::FromInt(SettingsItem->GetTechnicalOption())) );
 }
 
 void USettingsProgressBarWidget::OnValueChanged(float Value)

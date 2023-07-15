@@ -30,11 +30,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		
 		SetContent(SettingsManager->GetVideoSettings());
 	}
-
-	SettingsDescriptionWidget = CreateWidget<USettingsDescription>(GetWorld(), SettingsDescriptionWidgetClass);
-
-	VB_Right->AddChild(SettingsDescriptionWidget);
-
+	
 	if ( ApplyButton )
 	{
 		ApplyButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::CreatePopUpValidation);
@@ -145,6 +141,7 @@ void UMenuSettingsWidget::ChangeDescription(const FText Description)
 void UMenuSettingsWidget::CreatePopUpValidation()
 {
 	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
+	ValidationPopUpWidget->SetMenuSettingsWidget(this);
 	ValidationPopUpWidget->AddToViewport();
 }
 
@@ -158,6 +155,4 @@ void UMenuSettingsWidget::Cancel()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->CancelChanges();
-	ApplySettings();
-	RemoveFromParent();
 }

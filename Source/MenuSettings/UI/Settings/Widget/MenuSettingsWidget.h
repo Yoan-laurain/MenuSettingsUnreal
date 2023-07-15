@@ -35,6 +35,9 @@ public :
 	UPROPERTY( meta = (BindWidget) )
 	UButton* CancelButton;
 
+	UPROPERTY(meta=(BindWidget) )
+	USettingsDescription* SettingsDescriptionWidget;
+
 	/** The widget of a unique settings */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsItemWidgetClass;
@@ -77,10 +80,7 @@ private :
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
-
-	UPROPERTY()
-	USettingsDescription* SettingsDescriptionWidget;
-
+	
 protected :
 
 	virtual void NativeOnInitialized() override;

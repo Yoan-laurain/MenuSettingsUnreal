@@ -36,7 +36,6 @@ void USettingsWidget::OnHovered()
 void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 {
 	Super::InitWidget(NewSettingsItem);
-	SettingsItem->SetWidget(this);
 	SetStateButtons();
 }
 

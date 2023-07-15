@@ -1,6 +1,7 @@
 ﻿#include "SettingsManager.h"
 #include "GameSettingsCollection.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h"
 
 USettingsManager* USettingsManager::Registry = nullptr;
 
@@ -20,44 +21,30 @@ USettingsManager* USettingsManager::Get()
 	return Registry;
 }
 
-void CallLambdas(UGameSettingsCollection* Setting)
+void SetOptionToBase(UGameSettingsCollection* Setting)
 {
 	if ( Setting->GetChildSettingsCollection().Num() > 0 )
 	{
 		for (const auto& Option : Setting->GetChildSettingsCollection())
 		{
-			CallLambdas(Cast<UGameSettingsCollection>(Option));
+			SetOptionToBase(Cast<UGameSettingsCollection>(Option));
 		}
 	}
 	else
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( !Option->GetCurrentOption().ToString().Equals("Custom") )
-			{
-				Option->ExecCurrentOptionValueDelegate();
-			}
+			Option->SetBaseOption(Option->GetIndexCurrentOption());
 		}
 	}
 } 
 
 void USettingsManager::SaveChanges()
 {
-	ULocalSettings* LocalSettings = ULocalSettings::Get();
-	
 	for (const auto& Setting : SettingsMap)
 	{
-		CallLambdas(Setting.Value);
+		SetOptionToBase(Setting.Value);
 	}
-
-	ensure(SettingsMap.Num() > 0);
-	
-	if ( LocalSettings )
-	{
-		LocalSettings->ApplySettings(false);
-		LocalSettings->SaveSettings();
-	}
-
 }
 
 void CancelLocalSettings( UGameSettingsCollection* Setting )
@@ -73,7 +60,12 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			Option->CancelChanges();
+			if ( Option->GetIndexCurrentOption() != Option->GetBaseOption() )
+			{
+				Option->CancelChanges();
+				Option->ExecCurrentOptionValueDelegate();
+				Option->GetWidget()->UpdateHUD();
+			}
 		}
 	}
 }
@@ -84,6 +76,8 @@ void USettingsManager::CancelChanges()
 	{
 		CancelLocalSettings(Setting.Value);
 	}
+
+	ULocalSettings::Get()->ApplySettings(false);
 }
 
 void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)

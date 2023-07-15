@@ -3,6 +3,7 @@
 #include "MenuSettings/ProjectEnumerations.h"
 #include "GameSettingsCollection.generated.h"
 
+class UiSettingsParentClass;
 class UGameSettingsItem;
 class USettingsWidget;
 
@@ -94,8 +95,8 @@ public:
 	void CancelChanges();
 	void AddDependentOption(UGameSettingsItem* DependentOption);
 	
-	USettingsWidget* GetWidget() const { return Widget; }
-	void SetWidget(USettingsWidget* Value) { Widget = Value; }
+	UiSettingsParentClass* GetWidget() const { return Widget; }
+	void SetWidget(UiSettingsParentClass* Value) { Widget = Value; }
 	
 	TArray<UGameSettingsItem*> GetDependentOptions() const { return DependentOptions; }
 
@@ -122,7 +123,7 @@ private:
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
 	
 	UPROPERTY()
-	USettingsWidget* Widget;
+	UiSettingsParentClass* Widget;
 };
 
 UCLASS(config=Game, defaultconfig)

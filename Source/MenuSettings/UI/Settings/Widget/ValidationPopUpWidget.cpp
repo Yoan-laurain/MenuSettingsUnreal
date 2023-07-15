@@ -23,6 +23,7 @@ void UValidationPopUpWidget::OnValidateButtonClicked()
 	if (MenuSettingsWidget)
 	{
 		MenuSettingsWidget->ApplySettings();
+		RemoveFromParent();
 	}
 }
 
