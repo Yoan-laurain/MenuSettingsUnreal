@@ -7,13 +7,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e7eb8cf6-33f4-4933-8aeb-b271f4866f38" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Description.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Description.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Settings.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsProgressBarWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsProgressBarWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +164,7 @@
       <option name="presentableId" value="Default" />
       <updated>1689429666855</updated>
       <workItem from="1689429669127" duration="2694000" />
-      <workItem from="1689505873097" duration="5144000" />
+      <workItem from="1689505873097" duration="9854000" />
     </task>
     <servers />
   </component>
