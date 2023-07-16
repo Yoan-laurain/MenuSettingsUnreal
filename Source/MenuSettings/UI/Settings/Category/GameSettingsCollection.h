@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 #include "MenuSettings/ProjectEnumerations.h"
 #include "GameSettingsCollection.generated.h"
 
@@ -65,11 +67,14 @@ public:
 	int GetBaseOption() const { return BaseOption; }
 	void SetBaseOption(const int Value) { BaseOption = Value; }
 
-	UGameSettingsItem* GetParentOption() const { return ParentOption; }
-	void SetParentOption(UGameSettingsItem* Value) { ParentOption = Value; }
+	TArray<UGameSettingsItem*> GetParentOptions() const { return ParentOptions; }
+	void SetParentOptions(const TArray<UGameSettingsItem*> Value) { ParentOptions = Value; }
 
 	void SetType(const ESettingsType Value) { Type = Value; }
 	ESettingsType GetType() const { return Type; }
+
+	void SetParentUniqueOption(const int Value) { ParentUniqueBaseOption = Value; }
+	int GetParentUniqueOption() const { return ParentUniqueBaseOption; }
 
 #pragma endregion GettersSetters
 
@@ -100,6 +105,10 @@ public:
 	
 	TArray<UGameSettingsItem*> GetDependentOptions() const { return DependentOptions; }
 
+	int GetIndexFromFile() const;
+	
+	void SetMethodToGetIndexFromFile(std::function<int()> Method);
+
 private:
 	
 	FText OptionsName;
@@ -110,17 +119,19 @@ private:
 
 	UPROPERTY()
 	TArray<UGameSettingsItem*> DependentOptions;
-
-	UPROPERTY()
-	UGameSettingsItem* ParentOption;
+	
+	TArray<UGameSettingsItem*> ParentOptions;
 
 	int IndexCurrentOption;
 	int BaseOption;
+	int ParentUniqueBaseOption;
 	
 	TArray<int> TechnicalOption; 
 	
 	DECLARE_DELEGATE(FSetCurrentOptionValueDelegate)
 	FSetCurrentOptionValueDelegate CurrentOptionValueDelegateSet;
+
+	std::function<int()> MethodToGetIndexFromFile;
 	
 	UPROPERTY()
 	UiSettingsParentClass* Widget;

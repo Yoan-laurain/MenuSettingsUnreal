@@ -34,50 +34,83 @@ void USettingsWidget::SetStateButtons()
 
 void USettingsWidget::UpdateParentOption()
 {
-	if ( SettingsItem->GetParentOption())
+	for (const auto& ParentOption : SettingsItem->GetParentOptions())
 	{
-		SettingsItem->GetParentOption()->SetIndexCurrentOption(SettingsItem->GetParentOption()->GetOptions().Num() - 1);
-		SettingsItem->GetParentOption()->GetWidget()->SetCurrentValue( SettingsItem->GetParentOption()->GetCurrentOption() );
-		SettingsItem->GetParentOption()->GetWidget()->SetStateButtons();
+		ParentOption->SetIndexCurrentOption( ParentOption->GetParentUniqueOption() );
 	}
 }
 
-void USettingsWidget::UpdateChildOption()
+void USettingsWidget::UpdateChildOption(const bool SetLikeParent)
 {
 	for (const auto& ChildOption : SettingsItem->GetDependentOptions())
 	{
-		ensure(ChildOption);
-		int Index = SettingsItem->GetIndexCurrentOption();
-		ChildOption->SetIndexCurrentOption(Index);
-		ChildOption->GetWidget()->SetCurrentValue( ChildOption->GetCurrentOption() );
-		ChildOption->GetWidget()->SetStateButtons();
+		if ( SetLikeParent )
+		{
+			ChildOption->SetIndexCurrentOption(SettingsItem->GetIndexCurrentOption());
+		}
+		else
+		{
+			ChildOption->SetIndexCurrentOption( ChildOption->GetIndexFromFile() );
+		}
 	}
 }
 
 void USettingsWidget::UpdateHUD()
 {
 	SetCurrentValue( SettingsItem->GetCurrentOption() );
-	
 	SetStateButtons();
-	
-	UpdateParentOption();
+	UpdateParentHUD();
+	UpdateChildHUD();
+}
 
-	if ( !SettingsItem->GetCurrentOption().ToString().Equals("Custom") )
+void USettingsWidget::UpdateParentHUD()
+{
+	for (const auto& ParentOption : SettingsItem->GetParentOptions())
 	{
-		UpdateChildOption();
+		ParentOption->GetWidget()->SetCurrentValue( ParentOption->GetCurrentOption() );
+		ParentOption->GetWidget()->SetStateButtons();
 	}
+}
+
+void USettingsWidget::UpdateChildHUD()
+{
+	for (const auto& ChildOption : SettingsItem->GetDependentOptions())
+	{
+		ChildOption->GetWidget()->SetCurrentValue( ChildOption->GetCurrentOption() );
+		ChildOption->GetWidget()->SetStateButtons();
+	}
+}
+
+void USettingsWidget::ApplySettingsAndUpdateUI()
+{
+	UpdateParentOption();
+	
+	const bool SetLikeParent = !SettingsItem->GetCurrentOption().ToString().Equals("Off") && !SettingsItem->GetCurrentOption().ToString().Equals("On");
+
+	if ( !SettingsItem->GetCurrentOption().ToString().Equals("Custom") && SetLikeParent )
+	{
+		UpdateChildOption(SetLikeParent);
+	}
+	
+	ApplySetting();
+
+	// in case of auto set quality we want to update the HUD after the apply setting
+	if ( !SettingsItem->GetCurrentOption().ToString().Equals("Custom") && !SetLikeParent )
+	{
+		UpdateChildOption(SetLikeParent);
+	}
+	
+	UpdateHUD();
 }
 
 void USettingsWidget::OnDecreaseButtonClicked()
 {
 	SettingsItem->SetPreviousTechnicalOption<int>();
-	UpdateHUD();
-	ApplySetting();
+	ApplySettingsAndUpdateUI();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
 	SettingsItem->SetNextTechnicalOption<int>();
-	UpdateHUD();
-	ApplySetting(); 
+	ApplySettingsAndUpdateUI();
 }

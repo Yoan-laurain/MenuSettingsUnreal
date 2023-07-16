@@ -42,6 +42,13 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	}
 }
 
+void UMenuSettingsWidget::NativeDestruct()
+{
+	Super::NativeDestruct();
+
+	Cancel();
+}
+
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
 {
 	if ( SettingsCollection )

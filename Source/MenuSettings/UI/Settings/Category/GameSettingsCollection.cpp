@@ -105,6 +105,21 @@ void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
 	DependentOptions.Add(DependentOption);
 }
 
+int UGameSettingsItem::GetIndexFromFile() const
+{
+	if (MethodToGetIndexFromFile)
+	{
+		return MethodToGetIndexFromFile();
+	}
+
+	return 0;
+}
+
+void UGameSettingsItem::SetMethodToGetIndexFromFile(std::function<int()> Method)
+{
+	MethodToGetIndexFromFile = Method;
+}
+
 void UGameSettingsCollection::AddSetting(UGameSettingsItem* Setting)
 {
 	Settings.Add(Setting);

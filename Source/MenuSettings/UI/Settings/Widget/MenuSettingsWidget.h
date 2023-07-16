@@ -84,5 +84,8 @@ private :
 protected :
 
 	virtual void NativeOnInitialized() override;
+
+	// destructor
+	virtual void NativeDestruct() override;
 	
 };

@@ -14,6 +14,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 	{
 		GenericQualityOptions.Add(i);
 	}
+
+	TArray<UGameSettingsItem*> ParentOptions;
 	
 	// Display
 	////////////////////////////////////////////////////////////////////////////////////
@@ -55,6 +57,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			int Index = WindowModeOptions.Find(LocalSettings->GetFullscreenMode());
 			WindowModeItem->SetIndexCurrentOption(Index);
+			WindowModeItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetFullscreenMode(); });
 			
 			Display->AddSetting(WindowModeItem);
 		}
@@ -90,6 +93,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->SetTechnicalOption(ResolutionOptions);
 			int Index = ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution());
 			ResolutionItem->SetIndexCurrentOption(Index);
+			ResolutionItem->SetMethodToGetIndexFromFile([LocalSettings,ResolutionItem]() { return ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution()); });
 			
 			Display->AddSetting(ResolutionItem);
 		}
@@ -129,6 +133,12 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			const int Index = LocalSettings->GetOverallScalabilityLevel();
 			GraphicsItem->SetIndexCurrentOption(Index == -1 ? 5 : Index);
+			GraphicsItem->SetBaseOption(5);
+			GraphicsItem->SetParentUniqueOption(5);
+			
+			GraphicsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetOverallScalabilityLevel(); });
+
+			ParentOptions.Add(GraphicsItem);
 			
 			GraphicsQuality->AddSetting(GraphicsItem);
 		}
@@ -166,15 +176,13 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		}
 		//----------------------------------------------------------------------------------
 
+		UGameSettingsItem* AutoSetQuality = NewObject<UGameSettingsItem>();
 		//----------------------------------------------------------------------------------
 		{
-			UGameSettingsItem* AutoSetQuality = NewObject<UGameSettingsItem>();
 			AutoSetQuality->SetOptionName(FText::FromString("Auto-Set Quality"));
 			AutoSetQuality->SetDescriptionRichText(FText::FromString("Automatically configure the graphics quality options based on a benchmark of the hardware."));
 
 			AutoSetQuality->SetType(ESettingsType::Normal);
-			
-			// TODO : Implement this
 		
 			AutoSetQuality->GetCurrentOptionValueDelegate().BindLambda( [=] ()
 			{
@@ -182,15 +190,28 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			});
 			
 			AutoSetQuality->ClearOptions();
-			AutoSetQuality->AddOption(FText::FromString("On"));
 			AutoSetQuality->AddOption(FText::FromString("Off"));
+			AutoSetQuality->AddOption(FText::FromString("On"));
 			
 			TArray<int> AutoSetQualityOptions;
-			AutoSetQualityOptions.Add(1);
 			AutoSetQualityOptions.Add(0);
+			AutoSetQualityOptions.Add(1);
 
 			AutoSetQuality->SetTechnicalOption(AutoSetQualityOptions);
-			AutoSetQuality->SetIndexCurrentOption(1);
+			AutoSetQuality->SetIndexCurrentOption(0);
+			AutoSetQuality->SetBaseOption(0);
+
+			AutoSetQuality->SetParentUniqueOption(0);
+			ParentOptions.Add(AutoSetQuality);
+
+			TArray<UGameSettingsItem*> AutoSetQualityParents;
+			AutoSetQualityParents.Add(GraphicsItem);
+			
+			AutoSetQuality->SetParentOptions(AutoSetQualityParents);
+
+			TArray<UGameSettingsItem*> GraphicsItemParents;
+			GraphicsItemParents.Add(AutoSetQuality);
+			GraphicsItem->SetParentOptions(GraphicsItemParents);
 			
 			GraphicsQuality->AddSetting(AutoSetQuality);
 		}
@@ -213,7 +234,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			LightingQualityItem->SetIndexCurrentOption(LocalSettings->GetGlobalIlluminationQuality());
 
 			GraphicsItem->AddDependentOption(LightingQualityItem);
-			LightingQualityItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(LightingQualityItem);
+			LightingQualityItem->SetParentOptions(ParentOptions);
+			LightingQualityItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetGlobalIlluminationQuality(); });
 			
 			GraphicsQuality->AddSetting(LightingQualityItem);
 		}
@@ -236,7 +259,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ShadowsItem->SetIndexCurrentOption( LocalSettings->GetShadowQuality() );
 
 			GraphicsItem->AddDependentOption(ShadowsItem);
-			ShadowsItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(ShadowsItem);
+			ShadowsItem->SetParentOptions(ParentOptions);
+			ShadowsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetShadowQuality(); });
 			
 			GraphicsQuality->AddSetting(ShadowsItem);
 		}
@@ -259,7 +284,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			AntiAliasingItem->SetIndexCurrentOption(LocalSettings->GetAntiAliasingQuality());
 
 			GraphicsItem->AddDependentOption(AntiAliasingItem);
-			AntiAliasingItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(AntiAliasingItem);
+			AntiAliasingItem->SetParentOptions(ParentOptions);
+			AntiAliasingItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetAntiAliasingQuality(); });
 				
 			GraphicsQuality->AddSetting(AntiAliasingItem);
 		}
@@ -282,7 +309,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ViewDistanceItem->SetIndexCurrentOption(LocalSettings->GetViewDistanceQuality());
 
 			GraphicsItem->AddDependentOption(ViewDistanceItem);
-			ViewDistanceItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(ViewDistanceItem);
+			ViewDistanceItem->SetParentOptions(ParentOptions);
+			ViewDistanceItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetViewDistanceQuality(); });
 			
 			GraphicsQuality->AddSetting(ViewDistanceItem);
 		}
@@ -305,7 +334,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			TexturesItem->SetIndexCurrentOption(LocalSettings->GetTextureQuality());
 
 			GraphicsItem->AddDependentOption(TexturesItem);
-			TexturesItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(TexturesItem);
+			TexturesItem->SetParentOptions(ParentOptions);
+			TexturesItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetTextureQuality(); });
 			
 			GraphicsQuality->AddSetting(TexturesItem);
 		}
@@ -328,7 +359,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			EffectItem->SetIndexCurrentOption(LocalSettings->GetVisualEffectQuality());
 
 			GraphicsItem->AddDependentOption(EffectItem);
-			EffectItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(EffectItem);
+			EffectItem->SetParentOptions(ParentOptions);
+			EffectItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetVisualEffectQuality(); });
 			
 			GraphicsQuality->AddSetting(EffectItem);
 		}
@@ -351,7 +384,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ReflectionsItem->SetIndexCurrentOption(LocalSettings->GetReflectionQuality());
 
 			GraphicsItem->AddDependentOption(ReflectionsItem);
-			ReflectionsItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(ReflectionsItem);
+			ReflectionsItem->SetParentOptions(ParentOptions);
+			ReflectionsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetReflectionQuality(); });
 			
 			GraphicsQuality->AddSetting(ReflectionsItem);
 		}
@@ -374,7 +409,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			PostProcessingItem->SetIndexCurrentOption(LocalSettings->GetPostProcessingQuality());
 
 			GraphicsItem->AddDependentOption(PostProcessingItem);
-			PostProcessingItem->SetParentOption(GraphicsItem);
+			AutoSetQuality->AddDependentOption(PostProcessingItem);
+			PostProcessingItem->SetParentOptions(ParentOptions);
+			PostProcessingItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetPostProcessingQuality(); });
 			
 			GraphicsQuality->AddSetting(PostProcessingItem);
 		}
@@ -410,6 +447,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			VerticalSyncItem->SetTechnicalOption(VerticalSyncOptions);
 			VerticalSyncItem->SetIndexCurrentOption(LocalSettings->IsVSyncEnabled() ? 1 : 0);
+			VerticalSyncItem->SetMethodToGetIndexFromFile(	[LocalSettings]() { return LocalSettings->IsVSyncEnabled() ? 1 : 0; });
 			
 			AdvancedGraphics->AddSetting(VerticalSyncItem);
 		}

@@ -28,8 +28,11 @@ public :
 	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
 	void SetStateButtons();
 	void UpdateParentOption();
-	void UpdateChildOption();
+	void UpdateChildOption(const bool SetLikeParent);
 	void UpdateHUD();
+	void UpdateParentHUD();
+	void UpdateChildHUD();
+	void ApplySettingsAndUpdateUI();
 
 protected :
 	
