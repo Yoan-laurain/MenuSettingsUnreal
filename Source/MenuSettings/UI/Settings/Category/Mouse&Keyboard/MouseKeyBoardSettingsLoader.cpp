@@ -54,10 +54,10 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 	// Bindings for Mouse & Keyboard - Automatically Generated
 	////////////////////////////////////////////////////////////////////////////////////
 	{
-		UGameSettingsCollection* Volume = NewObject<UGameSettingsCollection>();
-		Volume->SetTitle(FText::FromString("Bindings"));
+		UGameSettingsCollection* Bindings = NewObject<UGameSettingsCollection>();
+		Bindings->SetTitle(FText::FromString("Bindings"));
 		
-		Screen->AddSettingCollection(Volume);
+		Screen->AddSettingCollection(Bindings);
 
 		//----------------------------------------------------------------------------------
 		{ 

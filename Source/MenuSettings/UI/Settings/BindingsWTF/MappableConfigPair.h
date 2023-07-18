@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CommonInputBaseTypes.h"
+#include "CommonInputTypeEnum.h"
 #include "GameplayTagContainer.h"
 #include "UObject/SoftObjectPtr.h"
 #include "MappableConfigPair.generated.h"
@@ -72,6 +73,9 @@ struct FMappableConfigPair
 	 */
 	UPROPERTY(EditAnywhere)
 	bool bShouldActivateAutomatically = true;
+
+	/** Returns true if this config pair can be activated based on the current platform traits and settings. */
+	bool CanBeActivated() const;
 	
 	/**
 	 * Registers the given config mapping with the local settings

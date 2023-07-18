@@ -33,6 +33,8 @@ private :
 
 	// Used for a scope lock when modifying the list of load assets.
 	FCriticalSection LoadedAssetsCritical;
+
+	virtual void StartInitialLoading() override;
 	
 };
 

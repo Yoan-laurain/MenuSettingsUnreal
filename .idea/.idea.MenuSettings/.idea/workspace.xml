@@ -5,13 +5,22 @@
     <projectFile>Intermediate/ProjectFiles/UE5.vcxproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e7eb8cf6-33f4-4933-8aeb-b271f4866f38" name="Changes" comment="">
+    <list default="true" id="9049b975-5ef9-4d2d-80ed-908ac7b2a21f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/GameFeatureAction_AddInputConfig.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/GameFeatureAction_AddInputConfig.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/GameFeatureAction_WorldActionBase.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/GameFeatureAction_WorldActionBase.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Description.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Description.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Settings.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsProgressBarWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsProgressBarWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MenuSettings.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/MenuSettings.uproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/MenuSettings.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/MenuSettings.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +30,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2SbydrIrDXFxHaGEQsCMSQ0gq3Q" />
+  <component name="ProjectId" id="2SiBASsho8pcLsQKi5gtQvfsFwW" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -158,13 +170,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e7eb8cf6-33f4-4933-8aeb-b271f4866f38" name="Changes" comment="" />
-      <created>1689429666855</created>
+      <changelist id="9049b975-5ef9-4d2d-80ed-908ac7b2a21f" name="Changes" comment="" />
+      <created>1689619377350</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689429666855</updated>
-      <workItem from="1689429669127" duration="2694000" />
-      <workItem from="1689505873097" duration="9854000" />
+      <updated>1689619377350</updated>
+      <workItem from="1689619378657" duration="3827000" />
+      <workItem from="1689702981704" duration="3344000" />
     </task>
     <servers />
   </component>
@@ -174,5 +186,26 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/GameFeatureAction_AddInputConfig.cpp</url>
+          <line>25</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.cpp</url>
+          <line>17</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/../../../UE_5.2/Engine/Plugins/Experimental/GameFeatures/Source/GameFeatures/Private/GameFeaturesProjectPolicies.cpp</url>
+          <line>16</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

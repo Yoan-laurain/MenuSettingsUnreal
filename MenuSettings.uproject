@@ -40,6 +40,10 @@
 			"Enabled": true
 		},
 		{
+			"Name": "GameFeatures",
+			"Enabled": true
+		},
+		{
 			"Name": "AudioGameplay",
 			"Enabled": true
 		},
