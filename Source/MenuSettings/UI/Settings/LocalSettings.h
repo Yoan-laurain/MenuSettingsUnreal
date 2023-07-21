@@ -2,7 +2,7 @@
 
 #include "GameFramework/GameUserSettings.h"
 #include "Engine/DeveloperSettings.h"
-#include "BindingsWTF/MappableConfigPair.h"
+#include "Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
 #include "LocalSettings.generated.h"
 
 DECLARE_EVENT_OneParam(ULocalSettings, FInputConfigDelegate, const FLoadedMappableConfigPair&);
@@ -113,7 +113,7 @@ public :
 	FInputConfigDelegate OnInputConfigDeactivated;
 	
 	/** Register the given input config with the settings to make it available to the player. */
-	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig, const bool bIsActive);
+	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig, const bool bIsActive,const bool bIsDefault, const bool bUseThisConfig);
 	
 	/** Unregister the given input config. Returns the number of configs removed. */
 	int32 UnregisterInputConfig(const UPlayerMappableInputConfig* ConfigToRemove);

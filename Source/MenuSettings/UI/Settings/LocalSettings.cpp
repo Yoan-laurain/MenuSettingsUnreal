@@ -14,14 +14,14 @@ ULocalSettings* ULocalSettings::Get()
 }
 
 void ULocalSettings::RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig,
-                                         const bool bIsActive)
+                                         const bool bIsActive, const bool bIsDefault, const bool bUseThisConfig)
 {
 	if (NewConfig)
 	{
 		const int32 ExistingConfigIdx = RegisteredInputConfigs.IndexOfByPredicate( [&NewConfig](const FLoadedMappableConfigPair& Pair) { return Pair.Config == NewConfig; } );
 		if (ExistingConfigIdx == INDEX_NONE)
 		{
-			const int32 NumAdded = RegisteredInputConfigs.Add(FLoadedMappableConfigPair(NewConfig, Type, bIsActive));
+			const int32 NumAdded = RegisteredInputConfigs.Add(FLoadedMappableConfigPair(NewConfig, Type, bIsActive,bIsDefault ));
 			if (NumAdded != INDEX_NONE)
 			{
 				OnInputConfigRegistered.Broadcast(RegisteredInputConfigs[NumAdded]);

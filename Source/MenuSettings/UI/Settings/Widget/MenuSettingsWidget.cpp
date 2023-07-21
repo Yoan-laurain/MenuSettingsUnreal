@@ -8,6 +8,7 @@
 #include "Components/Title/SettingsCategoryTitleWidget.h"
 #include "Components/Basic/SettingsWidget.h"
 #include "Components/VerticalBox.h"
+#include "Components/BindingKey/BindingKeyWidget.h"
 #include "MenuSettings/Player//LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
@@ -73,9 +74,13 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 							{
 								SettingsWidget = CreateWidget<USettingsWidget>(GetWorld(), SettingsItemWidgetClass);
 							}
-							else
+							else if ( Setting->GetType() == ESettingsType::Slider)
 							{
 								SettingsWidget = CreateWidget<USettingsProgressBarWidget>(GetWorld(), SettingsProgressBarWidgetClass);
+							}
+							else if ( Setting->GetType() == ESettingsType::InputConfig )
+							{
+								SettingsWidget = CreateWidget<UBindingKeyWidget>(GetWorld(), SettingsInputConfigWidgetClass);
 							}
 
 							if ( SettingsWidget )

@@ -35,7 +35,6 @@ private :
 	FCriticalSection LoadedAssetsCritical;
 
 	virtual void StartInitialLoading() override;
-	
 };
 
 template<typename AssetType>
@@ -63,3 +62,14 @@ AssetType* UAssetManagerCustom::GetAsset(const TSoftObjectPtr<AssetType>& AssetP
 
 	return LoadedAsset;
 }
+
+UCLASS(config = Game, defaultconfig, DisplayName="AssetManagerCustom")
+class UInputManager final : public UDeveloperSettings
+{
+	GENERATED_BODY()
+
+public : 
+
+	UPROPERTY(config, EditAnywhere, Category = DataAssets , meta = (AllowedClasses = "InputDataAsset"))
+	TSoftObjectPtr<class UInputDataAsset> InputDataAsset;
+};

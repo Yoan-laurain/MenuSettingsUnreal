@@ -1,9 +1,9 @@
 ﻿#include "PlayerMappableInputConfig.h"
-#include "MenuSettings/UI/Settings/BindingsWTF/BindingConfiguration.h"
+#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 #include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
 #include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.h"
+#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void AddPlayerMappableKey(TSet<FName>& AddedSettings, const TMap<FName, FKey>& CustomKeyMap, const FLoadedMappableConfigPair& InputConfigPair, TArray<FEnhancedActionKeyMapping> ConfigMappings, UGameSettingsCollection* ConfigSettingCollection)
@@ -12,10 +12,10 @@ void AddPlayerMappableKey(TSet<FName>& AddedSettings, const TMap<FName, FKey>& C
 	{
 		UBindingConfiguration* ExistingSetting = nullptr;
 						
-		for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings())
+		for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings()) 
 		{
 			UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
-			if (KeyboardSetting->GetSettingDisplayName().EqualToCaseIgnored(Mapping.PlayerMappableOptions.DisplayName))
+			if (KeyboardSetting->GetSettingDisplayName().EqualToCaseIgnored(Mapping.PlayerMappableOptions.DisplayName)) 
 			{
 				ExistingSetting = KeyboardSetting; 
 				break;
@@ -71,7 +71,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 			
 				for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
 				{
-					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard)
+					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard || InputConfigPair.bIsDefault)
 					{
 						continue;
 					}
@@ -80,7 +80,19 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 				
 					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
 					Screen->AddSetting(ConfigSettingCollection);
-				
+					
+					for ( FEnhancedActionKeyMapping& Mapping : ConfigMappings )
+					{
+						UBindingConfiguration* ExistingSetting = NewObject<UBindingConfiguration>();
+						ExistingSetting->SetOptionName(Mapping.PlayerMappableOptions.DisplayName);
+						ExistingSetting->SetType(ESettingsType::InputConfig);
+						
+						ExistingSetting->ClearOptions();
+						const FText KeyName = Mapping.Key.GetDisplayName();
+						ExistingSetting->AddOption(KeyName);
+						ConfigSettingCollection->AddSetting(ExistingSetting);
+					}
+					
 					AddPlayerMappableKey(AddedSettings, CustomKeyMap, InputConfigPair, ConfigMappings, ConfigSettingCollection);
 				}
 			}

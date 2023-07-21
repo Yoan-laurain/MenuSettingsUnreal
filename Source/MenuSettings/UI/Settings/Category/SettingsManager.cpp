@@ -1,6 +1,9 @@
 ﻿#include "SettingsManager.h"
 #include "GameSettingsCollection.h"
+#include "Engine/AssetManager.h"
+#include "MenuSettings/UI/Settings/InputDataAsset.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 #include "MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h"
 
 USettingsManager* USettingsManager::Registry = nullptr;
@@ -84,6 +87,27 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 {
 	VideoSettings = InitializeVideoSettings();
 	AudioSettings = InitializeAudioSettings();
+
+	const UInputManager* InputManager = GetDefault<UInputManager>();
+
+	UE_LOG( LogTemp, Warning, TEXT( "InputManager->InputDataAsset.IsValid() = %d" ), InputManager->InputDataAsset.IsValid() );
+	
+	InputManager->InputDataAsset.LoadSynchronous();
+
+	// Check if the asset is valid after loading
+	if (InputManager->InputDataAsset.IsValid())
+	{
+		UInputDataAsset* InputData = InputManager->InputDataAsset.Get();
+
+		if (InputData)
+		{
+			for (const FMappableConfigPair& Pair : InputData->InputConfigs)
+			{
+				FMappableConfigPair::RegisterPair(Pair);
+			}
+		}
+	}
+	
 	MouseAndKeyboardSettings = InitializeMouseAndKeyboardSettings(InLocalPlayer);
 	LocalPlayer = InLocalPlayer;
 

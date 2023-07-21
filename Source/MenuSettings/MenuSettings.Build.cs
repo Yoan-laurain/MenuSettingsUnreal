@@ -9,6 +9,7 @@ public class MenuSettings : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
 			"Core",
+			"SlateCore",
 			"CoreUObject",
 			"Engine",
 			"InputCore",

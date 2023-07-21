@@ -4,4 +4,5 @@ enum ESettingsType
 {
 	Normal,
 	Slider,
+	InputConfig
 };

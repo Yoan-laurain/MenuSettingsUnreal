@@ -4,6 +4,10 @@
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
+UBindingConfiguration::UBindingConfiguration()
+{
+}
+
 void FKeyboardOption::ResetToDefault()
 {
 	if (OwningConfig)
@@ -20,10 +24,6 @@ void FKeyboardOption::ResetToDefault()
 void FKeyboardOption::SetInitialValue(FKey InKey)
 {
 	InitialMapping = InKey;
-}
-
-UBindingConfiguration::UBindingConfiguration()
-{
 }
 
 void UBindingConfiguration::SetInputData(FEnhancedActionKeyMapping& BaseMapping,
