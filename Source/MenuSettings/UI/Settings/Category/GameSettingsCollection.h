@@ -115,10 +115,8 @@ private:
 	TArray<FText> Options;
 
 	ESettingsType Type;
-
-	UPROPERTY()
-	TArray<UGameSettingsItem*> DependentOptions;
 	
+	TArray<UGameSettingsItem*> DependentOptions;
 	TArray<UGameSettingsItem*> ParentOptions;
 
 	int IndexCurrentOption;

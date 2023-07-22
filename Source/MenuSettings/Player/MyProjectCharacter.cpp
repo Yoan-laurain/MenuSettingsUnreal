@@ -122,9 +122,7 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Look);
-
 	}
-
 }
 
 void AMyProjectCharacter::Move(const FInputActionValue& Value)

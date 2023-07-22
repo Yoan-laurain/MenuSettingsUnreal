@@ -19,6 +19,8 @@ class MENUSETTINGS_API UAudioSettingsStaff final : public UDeveloperSettings
 	GENERATED_BODY()
 
 public :
+
+#pragma region Buses
 	
 	UPROPERTY(config, EditAnywhere, Category = MixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBusMix"))
 	FSoftObjectPath DefaultControlBusMix;
@@ -37,6 +39,8 @@ public :
 	
 	UPROPERTY(config, EditAnywhere, Category = UserMixSettings, meta = (AllowedClasses = "/Script/AudioModulation.SoundControlBus"))
 	FSoftObjectPath DialogueVolumeControlBus;
+
+#pragma endregion Buses
 };
 
 UCLASS()
@@ -119,15 +123,7 @@ public :
 
 	/** Get all currently registered input configs */
 	const TArray<FLoadedMappableConfigPair>& GetAllRegisteredInputConfigs() const { return RegisteredInputConfigs; }
-
-	/**
-	 * Get all registered input configs that match the input type.
-	 * 
-	 * @param Type		The type of config to get, ECommonInputType::Count will include all configs.
-	 * @param OutArray	Array to be populated with the current registered input configs that match the type
-	 */
-	void GetRegisteredInputConfigsOfType(ECommonInputType Type, OUT TArray<FLoadedMappableConfigPair>& OutArray) const;
-
+	
 	/**
 	 * Returns the display name of any actions with that key bound to it
 	 * 
@@ -165,17 +161,6 @@ public :
 	void ResetKeybindingsToDefault(ULocalPlayerCustom* LocalPlayer);
 
 	const TMap<FName, FKey>& GetCustomPlayerInputConfig() const { return CustomKeyboardConfig; }
-	
-	/**
-	 * The name of the controller the player is using.  This is maps to the name of a UCommonInputBaseControllerData
-	 * that is available on this current platform.  The gamepad data are registered per platform, you'll find them
-	 * in <Platform>Game.ini files listed under +ControllerData=...
-	 */
-	UPROPERTY(Config)
-	FName ControllerPlatform;
-
-	UPROPERTY(Config)
-	FName ControllerPreset = TEXT("Default");
 
 	/** The name of the current input config that the user has selected. */
 	UPROPERTY(Config)
@@ -195,32 +180,9 @@ public :
 
 #pragma endregion KeyBindings
 
-#pragma region Video
-
-public :
-
-	UFUNCTION()
-	FString GetDesiredDeviceProfileQualitySuffix() const;
-	
-	UFUNCTION()
-	void SetDesiredDeviceProfileQualitySuffix(const FString& InDesiredSuffix);
-	
-private :
-
-	UPROPERTY(Transient)
-	FString DesiredUserChosenDeviceProfileSuffix;
-
-protected : 
-
-#pragma endregion Video
-
 #pragma region GeneralSettings
 
 public :
-	
-	/** Returns true if this platform can run the auto benchmark */
-	UFUNCTION(BlueprintCallable, Category = Settings)
-	bool CanRunAutoBenchmark() const;
 
 	/** Returns true if this user should run the auto benchmark as it has never been run */
 	UFUNCTION(BlueprintCallable, Category = Settings)

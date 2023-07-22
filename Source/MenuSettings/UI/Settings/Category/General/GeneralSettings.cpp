@@ -1,17 +1,7 @@
 #include "../../LocalSettings.h"
 
-bool ULocalSettings::CanRunAutoBenchmark() const
-{
-	return bSupportsAutomaticVideoQualityBenchmark;
-}
-
 bool ULocalSettings::ShouldRunAutoBenchmarkAtStartup() const
 {
-	if (!CanRunAutoBenchmark())
-	{
-		return false;
-	}
-
 	if (LastCPUBenchmarkResult != -1)
 	{
 		// Already run and loaded

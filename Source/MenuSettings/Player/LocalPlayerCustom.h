@@ -2,19 +2,23 @@
 
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "LocalPlayerCustom.generated.h"
 
 class ULocalSettings;
 
 UCLASS()
-class ULocalPlayerCustom : public ULocalPlayer
+class ULocalPlayerCustom final : public ULocalPlayer
 {
 	GENERATED_BODY()
 	
 public:
 
 	UFUNCTION()
-	ULocalSettings* GetLocalSettings() const;
+	static ULocalSettings* GetLocalSettings()
+	{
+		return ULocalSettings::Get();
+	}
 	
 private :
 

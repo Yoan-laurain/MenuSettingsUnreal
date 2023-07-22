@@ -37,8 +37,3 @@ void UAssetManagerCustom::AddLoadedAsset(const UObject* Asset)
 		LoadedAssets.Add(Asset);
 	}
 }
-
-void UAssetManagerCustom::StartInitialLoading()
-{
-	Super::StartInitialLoading();
-}

@@ -43,27 +43,6 @@ int32 ULocalSettings::UnregisterInputConfig(const UPlayerMappableInputConfig* Co
 	return INDEX_NONE;
 }
 
-void ULocalSettings::GetRegisteredInputConfigsOfType(ECommonInputType Type,
-	TArray<FLoadedMappableConfigPair>& OutArray) const
-{
-	OutArray.Empty();
-
-	// If "Count" is passed in then 
-	if (Type == ECommonInputType::Count)
-	{
-		OutArray = RegisteredInputConfigs;
-		return;
-	}
-	
-	for (const FLoadedMappableConfigPair& Pair : RegisteredInputConfigs)
-	{
-		if (Pair.Type == Type)
-		{
-			OutArray.Emplace(Pair);
-		}
-	}
-}
-
 void ULocalSettings::GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& OutActionNames)
 {
 	if (InKey == EKeys::Invalid)

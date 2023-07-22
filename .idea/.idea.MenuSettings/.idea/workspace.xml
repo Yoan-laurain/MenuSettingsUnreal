@@ -6,38 +6,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9049b975-5ef9-4d2d-80ed-908ac7b2a21f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/LocalPlayerCustom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/LocalPlayerCustom.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/LocalPlayerCustom.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/LocalPlayerCustom.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/LocalPlayerCustom.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioMixEffectSubSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioMixEffectSubSystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/InputDataAsset.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/InputDataAsset.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/General/GeneralSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/General/GeneralSettings.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsModifier.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Description/SettingsDescription.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Description/SettingsDescription.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Navigation/NavigationButtonWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Navigation/NavigationButtonWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/ValidationPopUpWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/ValidationPopUpWidget.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +178,7 @@
       <workItem from="1689967141015" duration="5766000" />
       <workItem from="1690013607248" duration="8155000" />
       <workItem from="1690028798867" duration="3927000" />
-      <workItem from="1690038559679" duration="1839000" />
+      <workItem from="1690038559679" duration="2556000" />
     </task>
     <servers />
   </component>
