@@ -10,8 +10,6 @@ class UAssetManagerCustom : public UAssetManager
 	GENERATED_BODY()
 	
 public:
-
-	UAssetManagerCustom();
 	
 	// Returns the AssetManager singleton object.
 	static UAssetManagerCustom& Get();

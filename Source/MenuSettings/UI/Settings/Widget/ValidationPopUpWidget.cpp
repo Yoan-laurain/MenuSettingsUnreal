@@ -1,5 +1,4 @@
-#include "MenuSettings/UI/Settings/Widget/ValidationPopUpWidget.h"
-
+#include "ValidationPopUpWidget.h"
 #include "MenuSettingsWidget.h"
 #include "Components/Button.h"
 

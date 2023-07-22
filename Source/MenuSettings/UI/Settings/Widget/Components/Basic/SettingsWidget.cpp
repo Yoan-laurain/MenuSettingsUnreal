@@ -1,9 +1,9 @@
 #include "SettingsWidget.h"
-#include "Components/HorizontalBox.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
+#include "../../../LocalSettings.h"
+#include "../../../Category/GameSettingsCollection.h"
+#include "../../MenuSettingsWidget.h"
 
 void USettingsWidget::NativeOnInitialized()
 {

@@ -45,9 +45,7 @@ class ULocalSettings final : public UGameUserSettings
 	GENERATED_BODY()
 	
 public:
-
-	ULocalSettings();
-
+	
 	static ULocalSettings* Get();
 
 #pragma region Audio
@@ -114,7 +112,7 @@ public :
 	FInputConfigDelegate OnInputConfigDeactivated;
 	
 	/** Register the given input config with the settings to make it available to the player. */
-	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig, const bool bIsActive);
+	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig);
 	
 	/** Unregister the given input config. Returns the number of configs removed. */
 	int32 UnregisterInputConfig(const UPlayerMappableInputConfig* ConfigToRemove);

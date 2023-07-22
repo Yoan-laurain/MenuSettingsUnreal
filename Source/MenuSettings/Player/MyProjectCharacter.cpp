@@ -8,8 +8,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
+#include "../UI/Settings/LocalSettings.h"
+#include "../UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMyProjectCharacter

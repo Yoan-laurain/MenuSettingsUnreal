@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../UiSettingsParentClass.h"
-#include "Components/Button.h"
 #include "SettingsWidget.generated.h"
 
 class UHorizontalBox;

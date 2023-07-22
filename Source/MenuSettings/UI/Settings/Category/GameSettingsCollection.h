@@ -1,8 +1,7 @@
 #pragma once
 
 #include <functional>
-
-#include "MenuSettings/ProjectEnumerations.h"
+#include "../../../ProjectEnumerations.h"
 #include "GameSettingsCollection.generated.h"
 
 class UiSettingsParentClass;

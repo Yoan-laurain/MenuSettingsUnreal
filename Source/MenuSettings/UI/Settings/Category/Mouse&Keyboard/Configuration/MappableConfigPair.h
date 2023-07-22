@@ -2,7 +2,6 @@
 
 #include "CommonInputBaseTypes.h"
 #include "CommonInputTypeEnum.h"
-#include "GameplayTagContainer.h"
 #include "UObject/SoftObjectPtr.h"
 #include "MappableConfigPair.generated.h"
 

@@ -1,6 +1,6 @@
-﻿#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
+﻿#include "../../LocalSettings.h"
+#include "../GameSettingsCollection.h"
+#include "../SettingsManager.h"
 
 UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 {

@@ -2,9 +2,9 @@
 
 #include "SettingsManager.generated.h"
 
-class UInputDataAsset;
 struct FMappableConfigPair;
 
+class UInputDataAsset;
 class UGameSettingsCollection;
 class ULocalPlayerCustom;
 

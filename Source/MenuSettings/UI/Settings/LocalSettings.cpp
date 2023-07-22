@@ -1,23 +1,18 @@
 ﻿#include "LocalSettings.h"
 #include "EnhancedActionKeyMapping.h"
 #include "EnhancedInputSubsystems.h"
-#include "MenuSettings/Player/LocalPlayerCustom.h"
+#include "../../Player/LocalPlayerCustom.h"
 #include "PlayerMappableInputConfig.h"
 #include "Category/GameSettingsCollection.h"
 #include "Category/SettingsManager.h"
 #include "Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
-
-ULocalSettings::ULocalSettings()
-{
-}
 
 ULocalSettings* ULocalSettings::Get()
 {
 	return GEngine ? CastChecked<ULocalSettings>(GEngine->GetGameUserSettings()) : nullptr;
 }
 
-void ULocalSettings::RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig,
-                                         const bool bIsActive)
+void ULocalSettings::RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig)
 {
 	if (NewConfig)
 	{

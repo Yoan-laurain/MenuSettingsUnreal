@@ -1,10 +1,10 @@
 ﻿#include "PlayerMappableInputConfig.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/Player/LocalPlayerCustom.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
-#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
+#include "Configuration/BindingConfiguration.h"
+#include "../GameSettingsCollection.h"
+#include "../../../../Player/LocalPlayerCustom.h"
+#include "../../LocalSettings.h"
+#include "Configuration/MappableConfigPair.h"
+#include "../SettingsManager.h"
 
 UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer)
 {

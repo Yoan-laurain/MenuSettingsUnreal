@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h"
+#include "../UiSettingsParentClass.h"
 #include "BindingKeyWidget.generated.h"
 
 class UChooseAKeyWidget;

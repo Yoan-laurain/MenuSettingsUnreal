@@ -1,11 +1,10 @@
-#include "MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h"
+#include "ChooseAKeyWidget.h"
 #include "BindingKeyWidget.h"
 #include "Components/TextBlock.h"
 #include "Input/Events.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
+#include "../../../LocalSettings.h"
+#include "../../../Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
+#include "../../../Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
 void UChooseAKeyWidget::HandleKeySelection(const FKey& Key)
 {

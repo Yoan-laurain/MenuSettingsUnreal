@@ -1,9 +1,5 @@
 ﻿#include "AssetManagerCustom.h"
 
-UAssetManagerCustom::UAssetManagerCustom()
-{
-}
-
 UAssetManagerCustom& UAssetManagerCustom::Get()
 {
 	check(GEngine);

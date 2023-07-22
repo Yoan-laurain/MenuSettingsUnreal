@@ -6,7 +6,7 @@
 struct FMappableConfigPair;
 
 UCLASS()
-class MENUSETTINGS_API UInputDataAsset : public UDataAsset
+class MENUSETTINGS_API UInputDataAsset final : public UDataAsset
 {
 	GENERATED_BODY()
 

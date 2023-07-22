@@ -1,10 +1,10 @@
 ﻿#include "SettingsManager.h"
 #include "GameSettingsCollection.h"
 #include "Engine/AssetManager.h"
-#include "MenuSettings/UI/Settings/InputDataAsset.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
-#include "MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h"
+#include "Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
+#include "../Widget/Components/Basic/SettingsWidget.h"
+#include "../InputDataAsset.h"
+#include "../LocalSettings.h"
 
 USettingsManager* USettingsManager::Registry = nullptr;
 

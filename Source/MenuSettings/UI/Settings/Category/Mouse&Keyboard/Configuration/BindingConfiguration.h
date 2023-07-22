@@ -2,7 +2,7 @@
 
 #include "CommonInputBaseTypes.h"
 #include "EnhancedActionKeyMapping.h"
-#include "./MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "../../GameSettingsCollection.h"
 #include "BindingConfiguration.generated.h"
 
 class UPlayerMappableInputConfig;
@@ -35,7 +35,6 @@ class UBindingConfiguration : public UGameSettingsItem
 	GENERATED_BODY()
 
 public:
-	UBindingConfiguration();
 
 	/** Initalize this setting widget based off the given mapping */
 	void SetInputData(FEnhancedActionKeyMapping& BaseMapping, const UPlayerMappableInputConfig* InOwningConfig, int32 InKeyBindSlot);

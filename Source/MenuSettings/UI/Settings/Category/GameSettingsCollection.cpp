@@ -1,5 +1,5 @@
 #include "GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h"
+#include "../Widget/Components/Basic/SettingsWidget.h"
 
 UGameSettingsItem::UGameSettingsItem()
 {

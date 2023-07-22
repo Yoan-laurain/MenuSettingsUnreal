@@ -1,7 +1,7 @@
 #include "MappableConfigPair.h"
 #include "PlayerMappableInputConfig.h"
 #include "../AssetManager/AssetManagerCustom.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "../../../LocalSettings.h"
 
 bool FMappableConfigPair::RegisterPair(const FMappableConfigPair& Pair)
 {
@@ -12,7 +12,7 @@ bool FMappableConfigPair::RegisterPair(const FMappableConfigPair& Pair)
 		// Register the pair with the settings, but do not activate it yet
 		if (const UPlayerMappableInputConfig* LoadedConfig = AssetManager.GetAsset(Pair.Config))
 		{
-			Settings->RegisterInputConfig(Pair.Type, LoadedConfig, false);
+			Settings->RegisterInputConfig(Pair.Type, LoadedConfig);
 			return true;
 		}	
 	}

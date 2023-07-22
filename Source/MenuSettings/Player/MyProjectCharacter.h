@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "MyProjectCharacter.generated.h"
@@ -34,7 +33,6 @@ class AMyProjectCharacter : public ACharacter
 
 public:
 	AMyProjectCharacter();
-	
 
 protected:
 

@@ -7,12 +7,11 @@
 #include "Components/ProgressBar/SettingsProgressBarWidget.h"
 #include "Components/Title/SettingsCategoryTitleWidget.h"
 #include "Components/Basic/SettingsWidget.h"
-#include "Components/VerticalBox.h"
 #include "Components/BindingKey/BindingKeyWidget.h"
-#include "MenuSettings/Player//LocalPlayerCustom.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
+#include "../../../Player/LocalPlayerCustom.h"
+#include "../LocalSettings.h"
+#include "../Category/GameSettingsCollection.h"
+#include "../Category/SettingsManager.h"
 
 void UMenuSettingsWidget::NativeOnInitialized()
 {
