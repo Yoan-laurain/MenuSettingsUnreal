@@ -1,15 +1,15 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "MyProjectCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
+#include "PlayerMappableInputConfig.h" // KEEP THIS !! 
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-
+#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMyProjectCharacter
@@ -53,15 +53,54 @@ AMyProjectCharacter::AMyProjectCharacter()
 
 void AMyProjectCharacter::BeginPlay()
 {
-	// Call the base class  
 	Super::BeginPlay();
-
-	//Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+	
+	if (InputComponent != nullptr)
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		InitializePlayerInput(InputComponent);
+	}
+}
+
+void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComponent)
+{
+	ensure(PlayerInputComponent != nullptr);
+
+	const APlayerController* PC = GetController<APlayerController>();
+	check(PC);
+
+	const ULocalPlayer* LP = Cast<ULocalPlayer>(PC->GetLocalPlayer());
+	check(LP);
+
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	check(Subsystem);
+
+	Subsystem->ClearAllMappings();
+	// Register any default input configs with the settings so that they will be applied to the player during AddInputMappings
+	for (const FMappableConfigPair& Pair : DefaultInputConfigs)
+	{
+		if (Pair.bShouldActivateAutomatically)
 		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+			FModifyContextOptions Options = {};
+			Options.bIgnoreAllPressedKeysUntilRelease = false;
+			// Actually add the config to the local player							
+			Subsystem->AddPlayerMappableConfig(Pair.Config.LoadSynchronous(), Options);	
+		}
+	}
+	
+	// Add the key mappings that may have been set by the player
+	const ULocalPlayer* LocalPlayer = Subsystem->GetLocalPlayer<ULocalPlayer>();
+	check(LocalPlayer);
+
+	// Add any registered input mappings from the settings!
+	if (const ULocalSettings* LocalSettings = ULocalSettings::Get())
+	{	
+		// Tell enhanced input about any custom keymappings that the player may have customized
+		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerInputConfig())
+		{
+			if (Pair.Key != NAME_None && Pair.Value.IsValid())
+			{
+				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
+			}
 		}
 	}
 }
@@ -123,7 +162,3 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
-
-
-
-

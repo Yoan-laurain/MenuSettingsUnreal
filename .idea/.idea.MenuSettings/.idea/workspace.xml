@@ -6,29 +6,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9049b975-5ef9-4d2d-80ed-908ac7b2a21f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Configs/PMI_CurrentConfig_Gamepad.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Configs/PMI_CurrentConfig_KBM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/InputsConfigs.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/InputsConfigs.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Current_Gamepad.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Current_KBM.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/BP_MyChararcter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP_MyChararcter.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,7 +172,9 @@
       <workItem from="1689791646211" duration="6262000" />
       <workItem from="1689876862932" duration="8249000" />
       <workItem from="1689967141015" duration="5766000" />
-      <workItem from="1690013607248" duration="7842000" />
+      <workItem from="1690013607248" duration="8155000" />
+      <workItem from="1690028798867" duration="3927000" />
+      <workItem from="1690038559679" duration="516000" />
     </task>
     <servers />
   </component>
@@ -208,16 +192,6 @@
           <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.cpp</url>
           <line>17</line>
           <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp</url>
-          <line>88</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp</url>
-          <line>179</line>
-          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
