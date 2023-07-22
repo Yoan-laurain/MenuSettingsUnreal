@@ -11,6 +11,7 @@ class ULocalPlayerCustom;
 class UPlayerMappableInputConfig;
 class USoundControlBus;
 class USoundControlBusMix;
+class UBindingConfiguration;
 
 UCLASS(config = Game, defaultconfig, meta = (DisplayName = "AudioSettingsStaff"))
 class MENUSETTINGS_API UAudioSettingsStaff final : public UDeveloperSettings
@@ -113,7 +114,7 @@ public :
 	FInputConfigDelegate OnInputConfigDeactivated;
 	
 	/** Register the given input config with the settings to make it available to the player. */
-	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig, const bool bIsActive,const bool bIsDefault, const bool bUseThisConfig);
+	void RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig, const bool bIsActive);
 	
 	/** Unregister the given input config. Returns the number of configs removed. */
 	int32 UnregisterInputConfig(const UPlayerMappableInputConfig* ConfigToRemove);
@@ -150,6 +151,8 @@ public :
 	 */
 	void AddOrUpdateCustomKeyboardBindings(const FName MappingName, const FKey NewKey,ULocalPlayerCustom* LocalPlayer);
 
+	void GetAllBindingConfigurationsFromKey(int32 InKeyBindSlot,FKey Key,TArray<UBindingConfiguration*>& OutBindingConfiguration) const;
+	
 	/**
 	 * Resets keybinding to its default value in its input mapping context 
 	 * 

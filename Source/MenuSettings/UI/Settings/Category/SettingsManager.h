@@ -27,6 +27,7 @@ public:
 	
 	UGameSettingsCollection* GetVideoSettings() const { return VideoSettings; }
 	UGameSettingsCollection* GetAudioSettings() const { return AudioSettings; }
+	UGameSettingsCollection* GetMouseAndKeyboardSettings() const { return MouseAndKeyboardSettings; }
 	UGameSettingsCollection* GetSettings(const FString SettingsName) const { return SettingsMap.FindRef(SettingsName); }
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
 

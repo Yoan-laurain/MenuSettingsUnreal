@@ -3,13 +3,12 @@
 #include "ChooseAKeyWidget.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
-void UBindingKeyWidget::ClearKeyName()
+void UBindingKeyWidget::Refresh()
 {
-	if ( CurrentValue )
-	{
-		CurrentValue->SetText(FText::FromString("None"));
-	}
+	const UBindingConfiguration* Item = Cast<UBindingConfiguration>(GetSettingsItem());
+	CurrentValue->SetText(Item->GetPrimaryKeyText());
 }
 
 void UBindingKeyWidget::NativeOnInitialized()
@@ -24,8 +23,6 @@ void UBindingKeyWidget::NativeOnInitialized()
 
 void UBindingKeyWidget::OnTryKeyChange()
 {
-	ClearKeyName();
-	
 	if ( ChooseAKeyWidgetClass )
 	{
 		ChooseAKeyWidget = CreateWidget<UChooseAKeyWidget>(GetWorld(), ChooseAKeyWidgetClass);
@@ -33,7 +30,8 @@ void UBindingKeyWidget::OnTryKeyChange()
 		{
 			ChooseAKeyWidget->AddToViewport();
 			ChooseAKeyWidget->SetFocus();
-			ChooseAKeyWidget->Message->SetText(FText::FromString("Press any key to bind"));
+			ChooseAKeyWidget->SetParent(this);
+			ChooseAKeyWidget->Message->SetText(ChooseAKeyWidget->GetMessagesToDisplay()[0]);
 		}
 	}
 }

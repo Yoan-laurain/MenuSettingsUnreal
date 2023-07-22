@@ -6,48 +6,10 @@
 #include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
 #include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
-void AddPlayerMappableKey(TSet<FName>& AddedSettings, const TMap<FName, FKey>& CustomKeyMap, const FLoadedMappableConfigPair& InputConfigPair, TArray<FEnhancedActionKeyMapping> ConfigMappings, UGameSettingsCollection* ConfigSettingCollection)
-{
-	for (FEnhancedActionKeyMapping& Mapping : ConfigMappings)
-	{
-		UBindingConfiguration* ExistingSetting = nullptr;
-						
-		for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings()) 
-		{
-			UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
-			if (KeyboardSetting->GetSettingDisplayName().EqualToCaseIgnored(Mapping.PlayerMappableOptions.DisplayName)) 
-			{
-				ExistingSetting = KeyboardSetting; 
-				break;
-			}
-		}
-					
-		FEnhancedActionKeyMapping MappingSynthesized(Mapping);
-		// If the player has bound a custom key to this action, then set it to that
-		if (const FKey* PlayerBoundKey = CustomKeyMap.Find(Mapping.PlayerMappableOptions.Name))
-		{
-			MappingSynthesized.Key = *PlayerBoundKey;
-		}
-
-		if (MappingSynthesized.PlayerMappableOptions.Name != NAME_None && !MappingSynthesized.PlayerMappableOptions.DisplayName.IsEmpty())
-		{
-			// Create the settings widget and initialize it, adding it to this config's section
-			UBindingConfiguration* InputBinding = ExistingSetting ? ExistingSetting : NewObject<UBindingConfiguration>();
-						
-			InputBinding->SetInputData(MappingSynthesized, InputConfigPair.Config, !ExistingSetting ? 0 : 1);
-						
-			if (!ExistingSetting)
-			{
-				ConfigSettingCollection->AddSetting(InputBinding);	
-			}
-						
-			AddedSettings.Add(MappingSynthesized.PlayerMappableOptions.Name);
-		}
-	}
-}
-
 UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer)
 {
+	ULocalSettings* LocalSettings = ULocalSettings::Get();
+	
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(FText::FromString("Mouse & Keyboard"));
 
@@ -71,7 +33,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 			
 				for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
 				{
-					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard || InputConfigPair.bIsDefault)
+					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard)
 					{
 						continue;
 					}
@@ -79,21 +41,56 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 					TArray<FEnhancedActionKeyMapping> ConfigMappings = InputConfigPair.Config->GetPlayerMappableKeys();
 				
 					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
-					Screen->AddSetting(ConfigSettingCollection);
+					Screen->AddSettingCollection(ConfigSettingCollection);
 					
 					for ( FEnhancedActionKeyMapping& Mapping : ConfigMappings )
 					{
-						UBindingConfiguration* ExistingSetting = NewObject<UBindingConfiguration>();
-						ExistingSetting->SetOptionName(Mapping.PlayerMappableOptions.DisplayName);
-						ExistingSetting->SetType(ESettingsType::InputConfig);
+						UBindingConfiguration* ExistingSetting = nullptr;
 						
-						ExistingSetting->ClearOptions();
-						const FText KeyName = Mapping.Key.GetDisplayName();
-						ExistingSetting->AddOption(KeyName);
-						ConfigSettingCollection->AddSetting(ExistingSetting);
-					}
+						for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings()) 
+						{
+							UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
+
+							if (KeyboardSetting->GetSettingDisplayName().EqualToCaseIgnored(Mapping.PlayerMappableOptions.DisplayName)) 
+							{
+								ExistingSetting = KeyboardSetting; 
+								break;
+							}
+						}
+				
+						FEnhancedActionKeyMapping MappingSynthesized(Mapping);
+						// If the player has bound a custom key to this action, then set it to that
+						if (const FKey* PlayerBoundKey = CustomKeyMap.Find(Mapping.PlayerMappableOptions.Name))
+						{
+							MappingSynthesized.Key = *PlayerBoundKey;
+						}
+
+						if (MappingSynthesized.PlayerMappableOptions.Name != NAME_None && !MappingSynthesized.PlayerMappableOptions.DisplayName.IsEmpty())
+						{
+							// Create the settings widget and initialize it, adding it to this config's section
+							UBindingConfiguration* InputBinding = ExistingSetting ? ExistingSetting : NewObject<UBindingConfiguration>();
 					
-					AddPlayerMappableKey(AddedSettings, CustomKeyMap, InputConfigPair, ConfigMappings, ConfigSettingCollection);
+							InputBinding->SetInputData(MappingSynthesized, InputConfigPair.Config, !ExistingSetting ? 0 : 1);
+					
+							if (!ExistingSetting)
+							{
+								InputBinding->SetOptionName(Mapping.PlayerMappableOptions.DisplayName);
+								InputBinding->SetType(ESettingsType::InputConfig);
+
+								InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
+								{
+									LocalSettings->ApplySettings(false);
+								});
+								
+								InputBinding->ClearOptions();
+								const FText KeyName = InputBinding->GetPrimaryKeyText();
+								InputBinding->AddOption(KeyName);
+								ConfigSettingCollection->AddSetting(InputBinding);	
+							}
+					
+							AddedSettings.Add(MappingSynthesized.PlayerMappableOptions.Name);
+						}
+					}
 				}
 			}
 		}

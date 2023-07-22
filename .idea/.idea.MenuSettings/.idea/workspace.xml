@@ -6,49 +6,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9049b975-5ef9-4d2d-80ed-908ac7b2a21f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Ability_Dash.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_AutoRun.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Look_Mouse.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Look_Stick.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Weapon_Fire.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Weapon_Fire_Auto.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Weapon_Reload.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_Gamepad.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_Gamepad.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_KBM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_KBM.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/Configs/PMI_CurrentConfig_Gamepad.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/Configs/PMI_CurrentConfig_KBM.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/InputsConfigs.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/InputsConfigs.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Current_Gamepad.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Current_KBM.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_BindingKey.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Description.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_NavigationButton.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_Settings.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsCategoryTitle.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsPopUpValidation.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/WBP_SettingsProgressBarWidget.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/MenuSettings.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/MenuSettings.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/ProjectEnumerations.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/ProjectEnumerations.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/AssetManagerCustom.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/GameFeatureAction_AddInputConfig.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/GameFeatureAction_AddInputConfig.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/NOPE/BindingKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/BindingsWTF/NOPE/BindingKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/GameFeatureAction_WorldActionBase.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/GameFeatureAction_WorldActionBase.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/test/LyraGameFeaturePolicy.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,7 +189,8 @@
       <workItem from="1689708839171" duration="2569000" />
       <workItem from="1689791646211" duration="6262000" />
       <workItem from="1689876862932" duration="8249000" />
-      <workItem from="1689967141015" duration="930000" />
+      <workItem from="1689967141015" duration="5766000" />
+      <workItem from="1690013607248" duration="7842000" />
     </task>
     <servers />
   </component>
@@ -229,9 +210,14 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp</url>
-          <line>95</line>
-          <option name="timeStamp" value="15" />
+          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/ChooseAKeyWidget.cpp</url>
+          <line>88</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp</url>
+          <line>179</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

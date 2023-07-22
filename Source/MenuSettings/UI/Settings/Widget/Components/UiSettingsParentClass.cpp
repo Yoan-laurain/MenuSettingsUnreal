@@ -52,6 +52,11 @@ void UiSettingsParentClass::UpdateHUD()
 {
 }
 
+UGameSettingsItem* UiSettingsParentClass::GetSettingsItem() const
+{
+	return SettingsItem;
+}
+
 void UiSettingsParentClass::OnHover()
 {
 	if (ParentWidget)

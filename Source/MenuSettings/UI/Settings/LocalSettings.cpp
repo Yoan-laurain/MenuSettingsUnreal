@@ -3,6 +3,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "MenuSettings/Player/LocalPlayerCustom.h"
 #include "PlayerMappableInputConfig.h"
+#include "Category/GameSettingsCollection.h"
+#include "Category/SettingsManager.h"
+#include "Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
 ULocalSettings::ULocalSettings()
 {
@@ -14,14 +17,14 @@ ULocalSettings* ULocalSettings::Get()
 }
 
 void ULocalSettings::RegisterInputConfig(ECommonInputType Type, const UPlayerMappableInputConfig* NewConfig,
-                                         const bool bIsActive, const bool bIsDefault, const bool bUseThisConfig)
+                                         const bool bIsActive)
 {
 	if (NewConfig)
 	{
 		const int32 ExistingConfigIdx = RegisteredInputConfigs.IndexOfByPredicate( [&NewConfig](const FLoadedMappableConfigPair& Pair) { return Pair.Config == NewConfig; } );
 		if (ExistingConfigIdx == INDEX_NONE)
 		{
-			const int32 NumAdded = RegisteredInputConfigs.Add(FLoadedMappableConfigPair(NewConfig, Type, bIsActive,bIsDefault ));
+			const int32 NumAdded = RegisteredInputConfigs.Add(FLoadedMappableConfigPair(NewConfig, Type));
 			if (NumAdded != INDEX_NONE)
 			{
 				OnInputConfigRegistered.Broadcast(RegisteredInputConfigs[NumAdded]);
@@ -157,11 +160,52 @@ void ULocalSettings::AddOrUpdateCustomKeyboardBindings(const FName MappingName, 
 	}
 }
 
+void ULocalSettings::GetAllBindingConfigurationsFromKey(int32 InKeyBindSlot, FKey Key,
+	TArray<UBindingConfiguration*>& OutBindingConfiguration) const
+{
+	const USettingsManager* SettingsManager = USettingsManager::Get();
+
+	if ( SettingsManager )
+	{
+		UGameSettingsCollection* MouseAndKeyboardSettings = SettingsManager->GetMouseAndKeyboardSettings();
+
+		for ( const auto& SettingCol : MouseAndKeyboardSettings->GetChildSettingsCollection() )
+		{
+			if ( SettingCol )
+			{
+				for ( const auto& Setting : SettingCol->GetChildSettings() )
+				{
+					if ( Setting )
+					{
+						if ( UBindingConfiguration* BindingConfig = Cast<UBindingConfiguration>(Setting) )
+						{
+							if ( InKeyBindSlot == 0 )
+							{
+								if ( BindingConfig->GetFirstMappableOption().InputMapping.Key == Key )
+								{
+									OutBindingConfiguration.Add(BindingConfig);
+								}
+							}
+							else if ( InKeyBindSlot == 1 )
+							{
+								if ( BindingConfig->GetSecondaryMappableOption().InputMapping.Key == Key )
+								{
+									OutBindingConfiguration.Add(BindingConfig);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 void ULocalSettings::ResetKeybindingToDefault(const FName MappingName,ULocalPlayerCustom* LocalPlayer)
 {
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 	{
-		Subsystem->RemovePlayerMappedKeyInSlot(MappingName);
+		Subsystem->RemovePlayerMappedKeyInSlot(MappingName); 
 	}
 }
 

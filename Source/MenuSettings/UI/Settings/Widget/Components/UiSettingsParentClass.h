@@ -30,6 +30,7 @@ public:
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
 	virtual void SetStateButtons();
 	virtual void UpdateHUD();
+	UGameSettingsItem* GetSettingsItem() const;
 
 	UFUNCTION(BlueprintCallable)
 	void OnHover();

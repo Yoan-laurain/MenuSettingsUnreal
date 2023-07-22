@@ -91,8 +91,8 @@ bool UBindingConfiguration::ChangeBinding(int32 InKeyBindSlot, FKey NewKey)
 	if (!NewKey.IsGamepadKey())
 	{
 		ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer();
-		//ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
-		ULocalSettings* LocalSettings = nullptr;
+		
+		ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
 		if (InKeyBindSlot == 0)
 		{
 			LocalSettings->AddOrUpdateCustomKeyboardBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, NewKey, LocalPlayer);
@@ -143,4 +143,10 @@ void UBindingConfiguration::GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey
 		ULocalSettings* LocalSettings = LyraLocalPlayer->GetLocalSettings();
 		LocalSettings->GetAllMappingNamesFromKey(Key, OutActionNames);
 	}
+}
+
+void UBindingConfiguration::Clear()
+{
+	ChangeBinding(0, EKeys::Invalid);
+	ChangeBinding(1, EKeys::Invalid);
 }

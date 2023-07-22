@@ -17,11 +17,11 @@ public :
 	
 	UPROPERTY(meta = (BindWidget))
 	UButton* Button;
-	
-	void ClearKeyName();
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ChooseAKeyWidgetClass;
+
+	void Refresh();
 	
 private :
 

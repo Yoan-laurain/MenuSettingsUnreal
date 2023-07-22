@@ -12,7 +12,7 @@ bool FMappableConfigPair::RegisterPair(const FMappableConfigPair& Pair)
 		// Register the pair with the settings, but do not activate it yet
 		if (const UPlayerMappableInputConfig* LoadedConfig = AssetManager.GetAsset(Pair.Config))
 		{
-			Settings->RegisterInputConfig(Pair.Type, LoadedConfig, false, Pair.bIsDefault, Pair.bUseThisConfig);
+			Settings->RegisterInputConfig(Pair.Type, LoadedConfig, false);
 			return true;
 		}	
 	}

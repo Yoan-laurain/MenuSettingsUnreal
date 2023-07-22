@@ -44,14 +44,23 @@ public:
 	FText GetSecondaryKeyText() const;
 	
 	virtual void StoreInitial();
+
+	/* Restore all mapping to default value */
 	virtual void ResetToDefault();
+
+	/* Restore all mapping to initial value */
 	virtual void RestoreToInitial();
 
 	bool ChangeBinding(int32 InKeyBindSlot, FKey NewKey);
 	void GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey Key, TArray<FName>& OutActionNames) const;
+
+	FKeyboardOption& GetFirstMappableOption() { return FirstMappableOption; }
+	FKeyboardOption& GetSecondaryMappableOption() { return SecondaryMappableOption; }
+
+	void Clear();
 	
 	FText GetSettingDisplayName() const { return FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName; }
-	
+
 protected:
 
 	FKeyboardOption FirstMappableOption;
