@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "CommonInputBaseTypes.h"
 #include "EnhancedActionKeyMapping.h"
 #include "../../GameSettingsCollection.h"
 #include "BindingConfiguration.generated.h"
@@ -57,6 +56,7 @@ public:
 	FKeyboardOption& GetSecondaryMappableOption() { return SecondaryMappableOption; }
 
 	void Clear();
+	virtual void CancelChanges() override;
 	
 	FText GetSettingDisplayName() const { return FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName; }
 

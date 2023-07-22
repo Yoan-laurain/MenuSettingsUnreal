@@ -22,6 +22,7 @@ public :
 	TSubclassOf<UUserWidget> ChooseAKeyWidgetClass;
 
 	void Refresh();
+	virtual void UpdateHUD() override;
 	
 private :
 

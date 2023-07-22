@@ -9,9 +9,9 @@
 #include "Components/Basic/SettingsWidget.h"
 #include "Components/BindingKey/BindingKeyWidget.h"
 #include "../../../Player/LocalPlayerCustom.h"
-#include "../LocalSettings.h"
 #include "../Category/GameSettingsCollection.h"
 #include "../Category/SettingsManager.h"
+#include "Components/Button.h"
 
 void UMenuSettingsWidget::NativeOnInitialized()
 {
@@ -46,7 +46,7 @@ void UMenuSettingsWidget::NativeDestruct()
 {
 	Super::NativeDestruct();
 
-	Cancel();
+	CancelConfirm(false);
 }
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
@@ -162,8 +162,13 @@ void UMenuSettingsWidget::ApplySettings()
 	SettingsManager->SaveChanges();
 }
 
-void UMenuSettingsWidget::Cancel()
+void UMenuSettingsWidget::CancelConfirm(const bool bWithBinding)
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
-	SettingsManager->CancelChanges();
+	SettingsManager->CancelChanges(bWithBinding);
+}
+
+void UMenuSettingsWidget::Cancel()
+{
+	CancelConfirm(true);
 }

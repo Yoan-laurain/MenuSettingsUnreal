@@ -97,7 +97,7 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 		// Tell enhanced input about any custom keymappings that the player may have customized
 		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerInputConfig())
 		{
-			if (Pair.Key != NAME_None && Pair.Value.IsValid())
+			if (Pair.Key != NAME_None /*&& Pair.Value.IsValid()*/)
 			{
 				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
 			}

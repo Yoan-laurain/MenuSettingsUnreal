@@ -21,7 +21,7 @@ public:
 	static USettingsManager* Get();
 
 	void SaveChanges();
-	void CancelChanges();
+	void CancelChanges(bool bWithBinding);
 	
 	TArray<FString>* InitializeNavigationsButtons() const;
 	

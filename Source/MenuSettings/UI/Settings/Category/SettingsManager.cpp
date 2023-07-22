@@ -5,6 +5,7 @@
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../InputDataAsset.h"
 #include "../LocalSettings.h"
+#include "Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
 USettingsManager* USettingsManager::Registry = nullptr;
 
@@ -63,7 +64,7 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( Option->GetIndexCurrentOption() != Option->GetBaseOption() )
+			if ( Option->GetIndexCurrentOption() != Option->GetBaseOption() || Option->IsA(UBindingConfiguration::StaticClass())  )
 			{
 				Option->CancelChanges();
 				Option->ExecCurrentOptionValueDelegate();
@@ -73,10 +74,14 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	}
 }
 
-void USettingsManager::CancelChanges()
+void USettingsManager::CancelChanges(bool bWithBinding)
 {
 	for (const auto& Setting : SettingsMap)
 	{
+		if ( !bWithBinding && Setting.Key == "Mouse and Keyboard" )
+		{
+			continue;
+		}
 		CancelLocalSettings(Setting.Value);
 	}
 

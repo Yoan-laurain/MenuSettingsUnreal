@@ -146,3 +146,8 @@ void UBindingConfiguration::Clear()
 	ChangeBinding(0, EKeys::Invalid);
 	ChangeBinding(1, EKeys::Invalid);
 }
+
+void UBindingConfiguration::CancelChanges()
+{
+	RestoreToInitial();
+}

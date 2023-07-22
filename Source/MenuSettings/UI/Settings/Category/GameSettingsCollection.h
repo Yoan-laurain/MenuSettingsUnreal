@@ -96,7 +96,7 @@ public:
 	FSetCurrentOptionValueDelegate& GetCurrentOptionValueDelegate();
 
 	void ExecCurrentOptionValueDelegate();
-	void CancelChanges();
+	virtual void CancelChanges();
 	void AddDependentOption(UGameSettingsItem* DependentOption);
 	
 	UiSettingsParentClass* GetWidget() const { return Widget; }

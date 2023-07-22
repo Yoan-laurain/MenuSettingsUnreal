@@ -73,10 +73,11 @@ public :
 
 	UFUNCTION()
 	void ApplySettings();
-
+	
 	UFUNCTION()
 	void Cancel();
 	
+	void CancelConfirm(const bool bWithBinding = true);
 private :
 
 	void SetContent(UGameSettingsCollection* SettingsCollection);

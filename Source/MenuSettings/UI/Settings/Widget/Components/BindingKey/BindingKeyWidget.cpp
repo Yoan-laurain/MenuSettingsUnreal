@@ -11,6 +11,11 @@ void UBindingKeyWidget::Refresh()
 	CurrentValue->SetText(Item->GetPrimaryKeyText());
 }
 
+void UBindingKeyWidget::UpdateHUD()
+{
+	Refresh();
+}
+
 void UBindingKeyWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
