@@ -202,5 +202,44 @@ private :
 	bool bSupportsAutomaticVideoQualityBenchmark = true;
 
 #pragma endregion GeneralSettings
+
+#pragma region GameplaySettings
+
+	////////////////////////////////////////////////////////
+	// Culture / language
+	public:
+	/** Gets the pending culture */
+	const FString& GetPendingCulture() const;
+
+	/** Sets the pending culture to apply */
+	void SetPendingCulture(const FString& NewCulture);
+
+	// Called when the culture changes.
+	void OnCultureChanged();
+
+	/** Clears the pending culture to apply */
+	void ClearPendingCulture();
+
+	bool IsUsingDefaultCulture() const;
+
+	void ResetToDefaultCulture();
+	bool ShouldResetToDefaultCulture() const { return bResetToDefaultCulture; }
+	
+	void ApplyCultureSettings();
+	void ResetCultureToCurrentSettings();
+
+private:
+	/** The pending culture to apply */
+	UPROPERTY(Transient)
+	FString PendingCulture;
+
+	/* If true, resets the culture to default. */
+	bool bResetToDefaultCulture = false;
+
+	bool bIsDirty = false;
+
+	////////////////////////////////////////////////////////
+	
+#pragma endregion GameplaySettings
 	
 };

@@ -6,12 +6,15 @@
 #include "../../../Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 #include "../../../Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 void UChooseAKeyWidget::HandleKeySelection(const FKey& Key)
 {
-	const FText MessageText = FText::FromString(
-		" The key " + FText::FromString(Key.ToString()).ToString() +
-		" is already used for another action are you sure you want to bind it? Press " +
-		FText::FromString(EKeys::Enter.ToString()).ToString() + " to confirm or esc to cancel");
+	const FText MessageText = FText::Format(LOCTEXT("ConfirmBinding",
+	                      "The key {0} is already used for another action are you sure you want to bind it? Press {1} to confirm or esc to cancel"),
+	                      FText::FromString(Key.ToString()),
+	                      FText::FromString(EKeys::Enter.ToString()));
+	
 	Message->SetText( MessageText );
 
 	CurrentKey = Key;
@@ -106,8 +109,8 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 void UChooseAKeyWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	MessagesToDisplay.Add(FText::FromString("Press a key to bind or esc to cancel"));
+	
+	MessagesToDisplay.Add(LOCTEXT("ChooseAKeyWidget_Title", "Press a key to bind or esc to cancel"));
 }
 
 FReply UChooseAKeyWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)

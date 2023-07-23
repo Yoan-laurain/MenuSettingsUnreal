@@ -6,18 +6,20 @@
 #include "Configuration/MappableConfigPair.h"
 #include "../SettingsManager.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer)
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
 	
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
-	Screen->SetTitle(FText::FromString("Mouse & Keyboard"));
+	Screen->SetTitle(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
 
 	// Bindings for Mouse & Keyboard - Automatically Generated
 	////////////////////////////////////////////////////////////////////////////////////
 	{
 		UGameSettingsCollection* Bindings = NewObject<UGameSettingsCollection>();
-		Bindings->SetTitle(FText::FromString("Bindings"));
+		Bindings->SetTitle(LOCTEXT("Bindings_Name", "Bindings"));
 		
 		Screen->AddSettingCollection(Bindings);
 

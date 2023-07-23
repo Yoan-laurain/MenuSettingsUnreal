@@ -2,6 +2,8 @@
 #include "../GameSettingsCollection.h"
 #include "../SettingsManager.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
@@ -21,15 +23,15 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 	////////////////////////////////////////////////////////////////////////////////////
 	{
 		UGameSettingsCollection* Volume = NewObject<UGameSettingsCollection>();
-		Volume->SetTitle(FText::FromString("Volume"));
+		Volume->SetTitle(LOCTEXT("VolumeCollection_Name", "Volume"));
 		
 		Screen->AddSettingCollection(Volume);
 
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingsItem* OverallItem = NewObject<UGameSettingsItem>();
-			OverallItem->SetOptionName( FText::FromString("Overall Volume"));
-			OverallItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of everything."));
+			OverallItem->SetOptionName( LOCTEXT("OverallVolume_Name", "Overall Volume"));
+			OverallItem->SetDescriptionRichText(LOCTEXT("OverallVolume_Description", "Adjusts the volume of everything."));
 			OverallItem->SetType(ESettingsType::Slider);
 			
 			OverallItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,OverallItem] ()
@@ -52,8 +54,8 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingsItem* MusicItem = NewObject<UGameSettingsItem>();
-			MusicItem->SetOptionName( FText::FromString("Music Volume"));
-			MusicItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of music."));
+			MusicItem->SetOptionName( LOCTEXT("MusicVolume_Name", "Music"));
+			MusicItem->SetDescriptionRichText(LOCTEXT("MusicVolume_Description", "Adjusts the volume of music."));
 			MusicItem->SetType(ESettingsType::Slider);
 			
 			MusicItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,MusicItem] ()
@@ -76,8 +78,8 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingsItem* EffectsItem = NewObject<UGameSettingsItem>();
-			EffectsItem->SetOptionName( FText::FromString("Effects Volume"));
-			EffectsItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of sound effects."));
+			EffectsItem->SetOptionName( LOCTEXT("SoundEffectsVolume_Name", "Sound Effects"));
+			EffectsItem->SetDescriptionRichText(LOCTEXT("SoundEffectsVolume_Description", "Adjusts the volume of sound effects."));
 			EffectsItem->SetType(ESettingsType::Slider);
 			
 			EffectsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectsItem] ()
@@ -99,8 +101,8 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		//----------------------------------------------------------------------------------
 		{
 			UGameSettingsItem* VoiceItem = NewObject<UGameSettingsItem>();
-			VoiceItem->SetOptionName( FText::FromString("Dialogue"));
-			VoiceItem->SetDescriptionRichText(FText::FromString("Adjusts the volume of dialogue for game characters and voice overs."));
+			VoiceItem->SetOptionName( LOCTEXT("DialogueVolume_Name", "Dialogue"));
+			VoiceItem->SetDescriptionRichText(LOCTEXT("DialogueVolume_Description", "Adjusts the volume of dialogue for game characters and voice overs."));
 			VoiceItem->SetType(ESettingsType::Slider);
 			
 			VoiceItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,VoiceItem] ()

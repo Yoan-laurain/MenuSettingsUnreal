@@ -28,7 +28,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		
 		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
 		
-		SetContent(SettingsManager->GetVideoSettings());
+		SetContent(SettingsManager->GetGameplaySettings());
 	}
 	
 	if ( ApplyButton )

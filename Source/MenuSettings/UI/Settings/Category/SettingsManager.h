@@ -29,6 +29,8 @@ public:
 	UGameSettingsCollection* GetVideoSettings() const { return VideoSettings; }
 	UGameSettingsCollection* GetAudioSettings() const { return AudioSettings; }
 	UGameSettingsCollection* GetMouseAndKeyboardSettings() const { return MouseAndKeyboardSettings; }
+	UGameSettingsCollection* GetGameplaySettings() const { return GameplaySettings; }
+	
 	UGameSettingsCollection* GetSettings(const FString SettingsName) const { return SettingsMap.FindRef(SettingsName); }
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
 
@@ -39,6 +41,7 @@ protected :
 	UGameSettingsCollection* InitializeVideoSettings();
 	UGameSettingsCollection* InitializeAudioSettings();
 	UGameSettingsCollection* InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer);
+	UGameSettingsCollection* InitializeGameplaySettings();
 	
 	UPROPERTY()
 	TObjectPtr<UGameSettingsCollection> VideoSettings;
@@ -48,6 +51,9 @@ protected :
 
 	UPROPERTY()
 	TObjectPtr<UGameSettingsCollection> MouseAndKeyboardSettings;
+
+	UPROPERTY()
+	TObjectPtr<UGameSettingsCollection> GameplaySettings;
 
 	UPROPERTY()
 	TMap<FString, UGameSettingsCollection*> SettingsMap;

@@ -1,6 +1,8 @@
 #include "GameSettingsCollection.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 UGameSettingsItem::UGameSettingsItem()
 {
 	SetBaseOptions();
@@ -46,7 +48,14 @@ int UGameSettingsItem::ConvertFIntPointToInt(FIntPoint Value)
 
 void UGameSettingsItem::SetBaseOptions()
 {
-	const TArray OptionsToAdd = { FText::FromString("Low"), FText::FromString("Medium"), FText::FromString("High"), FText::FromString("Epic"), FText::FromString("Cinematic") };
+	const TArray OptionsToAdd =
+		{
+			LOCTEXT("VisualEffectQualityLow", "Low"),
+			LOCTEXT("VisualEffectQualityMedium", "Medium"),
+			LOCTEXT("VisualEffectQualityHigh", "High"),
+			LOCTEXT("VisualEffectQualityEpic", "Epic"),
+			LOCTEXT("VisualEffectQualityCinematic", "Cinematic"),
+		};
 	
 	SetOptions(OptionsToAdd);
 }

@@ -6,6 +6,8 @@
 #include "../LocalSettings.h"
 #include "Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 USettingsManager* USettingsManager::Registry = nullptr;
 
 USettingsManager::USettingsManager()
@@ -153,11 +155,21 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	}
 	
 	MouseAndKeyboardSettings = InitializeMouseAndKeyboardSettings(InLocalPlayer);
+	GameplaySettings = InitializeGameplaySettings();
+	
 	LocalPlayer = InLocalPlayer;
+	
+	TArray<FText> NavigationTexts;
 
-	SettingsMap.Add("Video", VideoSettings);
-	SettingsMap.Add("Audio", AudioSettings);
-	SettingsMap.Add("Mouse and Keyboard", MouseAndKeyboardSettings);
+	NavigationTexts.Add(LOCTEXT("Gameplay", "Gameplay"));
+	NavigationTexts.Add(LOCTEXT("VideoCollection_Name", "Video"));
+	NavigationTexts.Add(LOCTEXT("Audio", "Audio"));
+	NavigationTexts.Add(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
+
+	SettingsMap.Add(NavigationTexts[0].ToString(), GameplaySettings);
+	SettingsMap.Add(NavigationTexts[1].ToString(), VideoSettings);
+	SettingsMap.Add(NavigationTexts[2].ToString(), AudioSettings);
+	SettingsMap.Add(NavigationTexts[3].ToString(), MouseAndKeyboardSettings);
 }
 
 TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
