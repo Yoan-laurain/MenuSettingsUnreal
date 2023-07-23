@@ -57,6 +57,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			int Index = WindowModeOptions.Find(LocalSettings->GetFullscreenMode());
 			WindowModeItem->SetIndexCurrentOption(Index);
+			WindowModeItem->SetDefaultOption(1);
 			WindowModeItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetFullscreenMode(); });
 			
 			Display->AddSetting(WindowModeItem);
@@ -93,6 +94,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->SetTechnicalOption(ResolutionOptions);
 			int Index = ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution());
 			ResolutionItem->SetIndexCurrentOption(Index);
+			ResolutionItem->SetDefaultOption(1);
 			ResolutionItem->SetMethodToGetIndexFromFile([LocalSettings,ResolutionItem]() { return ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution()); });
 			
 			Display->AddSetting(ResolutionItem);
@@ -130,10 +132,12 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			}
 			
 			GraphicsItem->SetTechnicalOption(QualityOptions);
+			GraphicsItem->SetDefaultOption(2);
 			
 			const int Index = LocalSettings->GetOverallScalabilityLevel();
 			GraphicsItem->SetIndexCurrentOption(Index == -1 ? 5 : Index);
-			GraphicsItem->SetBaseOption(5);
+			GraphicsItem->SetBaseOption(Index == -1 ? 5 : Index);
+				
 			GraphicsItem->SetParentUniqueOption(5);
 			
 			GraphicsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetOverallScalabilityLevel(); });
@@ -170,7 +174,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			FrameRateLimitOptions.Add(120);
 			
 			FrameRateLimitItem->SetTechnicalOption(FrameRateLimitOptions);
-			FrameRateLimitItem->SetIndexCurrentOption(LocalSettings->GetFrameRateLimit() == 0 ? 0 : LocalSettings->GetFrameRateLimit() / 30);
+			FrameRateLimitItem->SetDefaultOption(2);
+			FrameRateLimitItem->SetIndexCurrentOption(LocalSettings->GetFrameRateLimit() == 0 ? 2 : LocalSettings->GetFrameRateLimit() / 30);
 			
 			GraphicsQuality->AddSetting(FrameRateLimitItem);
 		}
@@ -200,6 +205,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	AutoSetQuality->SetTechnicalOption(AutoSetQualityOptions);
 		 	AutoSetQuality->SetIndexCurrentOption(0);
 		 	AutoSetQuality->SetBaseOption(0);
+			AutoSetQuality->SetDefaultOption(0);
 		
 		 	AutoSetQuality->SetParentUniqueOption(0);
 		 	ParentOptions.Add(AutoSetQuality);
@@ -232,6 +238,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	LightingQualityItem->SetTechnicalOption(GenericQualityOptions);
 		 	LightingQualityItem->SetIndexCurrentOption(LocalSettings->GetGlobalIlluminationQuality());
+			LightingQualityItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(LightingQualityItem);
 		 	AutoSetQuality->AddDependentOption(LightingQualityItem);
@@ -257,6 +264,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	ShadowsItem->SetTechnicalOption(GenericQualityOptions);
 		 	ShadowsItem->SetIndexCurrentOption( LocalSettings->GetShadowQuality() );
+			ShadowsItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ShadowsItem);
 		 	AutoSetQuality->AddDependentOption(ShadowsItem);
@@ -282,6 +290,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	AntiAliasingItem->SetTechnicalOption(GenericQualityOptions);
 		 	AntiAliasingItem->SetIndexCurrentOption(LocalSettings->GetAntiAliasingQuality());
+			AntiAliasingItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(AntiAliasingItem);
 		 	AutoSetQuality->AddDependentOption(AntiAliasingItem);
@@ -307,6 +316,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	ViewDistanceItem->SetTechnicalOption(GenericQualityOptions);
 		 	ViewDistanceItem->SetIndexCurrentOption(LocalSettings->GetViewDistanceQuality());
+			ViewDistanceItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ViewDistanceItem);
 		 	AutoSetQuality->AddDependentOption(ViewDistanceItem);
@@ -332,6 +342,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	TexturesItem->SetTechnicalOption(GenericQualityOptions);
 		 	TexturesItem->SetIndexCurrentOption(LocalSettings->GetTextureQuality());
+			TexturesItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(TexturesItem);
 		 	AutoSetQuality->AddDependentOption(TexturesItem);
@@ -357,6 +368,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	EffectItem->SetTechnicalOption(GenericQualityOptions);
 		 	EffectItem->SetIndexCurrentOption(LocalSettings->GetVisualEffectQuality());
+			EffectItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(EffectItem);
 		 	AutoSetQuality->AddDependentOption(EffectItem);
@@ -382,6 +394,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		
 		 	ReflectionsItem->SetTechnicalOption(GenericQualityOptions);
 		 	ReflectionsItem->SetIndexCurrentOption(LocalSettings->GetReflectionQuality());
+			ReflectionsItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ReflectionsItem);
 		 	AutoSetQuality->AddDependentOption(ReflectionsItem);
@@ -407,6 +420,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	
 		 	PostProcessingItem->SetTechnicalOption(GenericQualityOptions);
 		 	PostProcessingItem->SetIndexCurrentOption(LocalSettings->GetPostProcessingQuality());
+			PostProcessingItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(PostProcessingItem);
 		 	AutoSetQuality->AddDependentOption(PostProcessingItem);
@@ -447,6 +461,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			VerticalSyncItem->SetTechnicalOption(VerticalSyncOptions);
 			VerticalSyncItem->SetIndexCurrentOption(LocalSettings->IsVSyncEnabled() ? 1 : 0);
+			VerticalSyncItem->SetDefaultOption(0);
+			
 			VerticalSyncItem->SetMethodToGetIndexFromFile(	[LocalSettings]() { return LocalSettings->IsVSyncEnabled() ? 1 : 0; });
 			
 			AdvancedGraphics->AddSetting(VerticalSyncItem);

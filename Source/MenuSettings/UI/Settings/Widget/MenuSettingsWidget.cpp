@@ -40,6 +40,12 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	{
 		CancelButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::Cancel);
 	}
+
+	if ( ResetButton )
+	{
+		ResetButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::Reset);
+	}
+	
 }
 
 void UMenuSettingsWidget::NativeDestruct()
@@ -171,4 +177,10 @@ void UMenuSettingsWidget::CancelConfirm(const bool bWithBinding)
 void UMenuSettingsWidget::Cancel()
 {
 	CancelConfirm(true);
+}
+
+void UMenuSettingsWidget::Reset()
+{
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->ResetToDefault();
 }

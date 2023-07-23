@@ -15,6 +15,8 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 		TechnicalOption.Add(i);
 	}
 
+	int DefaultValue = 100;
+
 	// Volume
 	////////////////////////////////////////////////////////////////////////////////////
 	{
@@ -43,6 +45,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			
 			OverallItem->SetTechnicalOption(TechnicalOption);
 			OverallItem->SetIndexCurrentOption(LocalSettings->GetOverallVolume() * 100);
+			OverallItem->SetDefaultOption(DefaultValue);
 
 			Volume->AddSetting(OverallItem);
 		}
@@ -66,6 +69,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			MusicItem->SetTechnicalOption(TechnicalOption);
 			
 			MusicItem->SetIndexCurrentOption(LocalSettings->GetMusicVolume() * 100);
+			MusicItem->SetDefaultOption(DefaultValue);
 			
 			Volume->AddSetting(MusicItem);
 		}
@@ -88,6 +92,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			}
 			EffectsItem->SetTechnicalOption(TechnicalOption);
 			EffectsItem->SetIndexCurrentOption(LocalSettings->GetSoundFXVolume() * 100);
+			EffectsItem->SetDefaultOption(DefaultValue);
 			
 			Volume->AddSetting(EffectsItem);
 		}
@@ -110,6 +115,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 			}
 			VoiceItem->SetTechnicalOption(TechnicalOption);
 			VoiceItem->SetIndexCurrentOption(LocalSettings->GetDialogueVolume() * 100);
+			VoiceItem->SetDefaultOption(DefaultValue);
 			
 			Volume->AddSetting(VoiceItem);
 		}

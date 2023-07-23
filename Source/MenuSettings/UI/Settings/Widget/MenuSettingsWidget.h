@@ -17,6 +17,8 @@ class MENUSETTINGS_API UMenuSettingsWidget final : public UUserWidget
 
 public :
 
+#pragma region WidgetComponents
+	
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
 	UScrollBox* SettingsScrollBox;
@@ -35,9 +37,16 @@ public :
 	UPROPERTY( meta = (BindWidget) )
 	UButton* CancelButton;
 
+	UPROPERTY( meta = (BindWidget) )
+	UButton* ResetButton;
+
 	UPROPERTY(meta=(BindWidget) )
 	USettingsDescription* SettingsDescriptionWidget;
 
+#pragma endregion WidgetComponents
+
+#pragma region WidgetClasses
+	
 	/** The widget of a unique settings */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsItemWidgetClass;
@@ -64,6 +73,8 @@ public :
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ValidationPopUpWidgetClass;
+
+#pragma endregion WidgetClasses
 	
 	void OnNavigationButtonClicked(FString SettingsName);
 	void ChangeDescription(FText Description);
@@ -76,8 +87,12 @@ public :
 	
 	UFUNCTION()
 	void Cancel();
+
+	UFUNCTION()
+	void Reset();
 	
 	void CancelConfirm(const bool bWithBinding = true);
+	
 private :
 
 	void SetContent(UGameSettingsCollection* SettingsCollection);
@@ -89,8 +104,5 @@ private :
 protected :
 
 	virtual void NativeOnInitialized() override;
-
-	// destructor
 	virtual void NativeDestruct() override;
-	
 };

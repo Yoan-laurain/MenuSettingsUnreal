@@ -1,6 +1,5 @@
 ﻿#include "SettingsManager.h"
 #include "GameSettingsCollection.h"
-#include "Engine/AssetManager.h"
 #include "Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../InputDataAsset.h"
@@ -39,6 +38,7 @@ void SetOptionToBase(UGameSettingsCollection* Setting)
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
 			Option->SetBaseOption(Option->GetIndexCurrentOption());
+			Option->ExecCurrentOptionValueDelegate();
 		}
 	}
 } 
@@ -49,6 +49,7 @@ void USettingsManager::SaveChanges()
 	{
 		SetOptionToBase(Setting.Value);
 	}
+	ULocalSettings::Get()->ApplySettings(false);
 }
 
 void CancelLocalSettings( UGameSettingsCollection* Setting )
@@ -68,7 +69,11 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 			{
 				Option->CancelChanges();
 				Option->ExecCurrentOptionValueDelegate();
-				Option->GetWidget()->UpdateHUD();
+
+				if ( Option->GetWidget() )
+				{
+					Option->GetWidget()->UpdateHUD();
+				}
 			}
 		}
 	}
@@ -83,6 +88,40 @@ void USettingsManager::CancelChanges(bool bWithBinding)
 			continue;
 		}
 		CancelLocalSettings(Setting.Value);
+	}
+
+	ULocalSettings::Get()->ApplySettings(false);
+}
+
+void ResetLocalSettings( UGameSettingsCollection* Setting )
+{
+	if ( Setting->GetChildSettingsCollection().Num() > 0 )
+	{
+		for (const auto& Option : Setting->GetChildSettingsCollection())
+		{
+			ResetLocalSettings(Cast<UGameSettingsCollection>(Option));
+		}
+	}
+	else
+	{
+		for ( const auto& Option : Setting->GetChildSettings() )
+		{
+			Option->ResetToDefault();
+			Option->ExecCurrentOptionValueDelegate();
+
+			if ( Option->GetWidget() )
+			{
+				Option->GetWidget()->UpdateHUD();
+			}
+		}
+	}
+}
+
+void USettingsManager::ResetToDefault()
+{
+	for (const auto& Setting : SettingsMap)
+	{
+		ResetLocalSettings(Setting.Value);
 	}
 
 	ULocalSettings::Get()->ApplySettings(false);

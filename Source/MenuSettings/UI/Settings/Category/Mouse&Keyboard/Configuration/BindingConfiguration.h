@@ -44,7 +44,7 @@ public:
 	virtual void StoreInitial();
 
 	/* Restore all mapping to default value */
-	virtual void ResetToDefault();
+	virtual void ResetToDefault() override;
 
 	/* Restore all mapping to initial value */
 	virtual void RestoreToInitial();

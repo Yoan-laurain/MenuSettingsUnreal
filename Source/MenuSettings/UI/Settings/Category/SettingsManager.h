@@ -22,6 +22,7 @@ public:
 
 	void SaveChanges();
 	void CancelChanges(bool bWithBinding);
+	void ResetToDefault();
 	
 	TArray<FString>* InitializeNavigationsButtons() const;
 	

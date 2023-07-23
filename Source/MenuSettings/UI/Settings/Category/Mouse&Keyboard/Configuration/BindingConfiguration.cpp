@@ -65,9 +65,13 @@ void UBindingConfiguration::StoreInitial()
 
 void UBindingConfiguration::ResetToDefault()
 {
-	// Find the UPlayerMappableInputConfig that this came from and reset it to the value in there
 	FirstMappableOption.ResetToDefault();
 	SecondaryMappableOption.ResetToDefault();
+
+	if ( ULocalSettings* LocalSettings = USettingsManager::Get()->GetLocalPlayer()->GetLocalSettings() )
+	{
+		LocalSettings->AddOrUpdateCustomKeyboardBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, FirstMappableOption.InputMapping.Key, USettingsManager::Get()->GetLocalPlayer());
+	}
 }
 
 void UBindingConfiguration::RestoreToInitial()

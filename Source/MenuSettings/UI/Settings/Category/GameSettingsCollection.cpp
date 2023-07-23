@@ -105,6 +105,11 @@ void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
 	DependentOptions.Add(DependentOption);
 }
 
+void UGameSettingsItem::ResetToDefault()
+{
+	IndexCurrentOption = DefaultOption;
+}
+
 int UGameSettingsItem::GetIndexFromFile() const
 {
 	if (MethodToGetIndexFromFile)

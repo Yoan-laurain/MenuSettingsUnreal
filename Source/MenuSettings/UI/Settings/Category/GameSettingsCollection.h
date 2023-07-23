@@ -90,6 +90,9 @@ public:
 	bool IsMaxValue(const FText& CurrentOption) const { return Options[Options.Num() - 1].EqualTo(CurrentOption); }
 	bool IsMinValue(const FText& CurrentOption) const { return Options[0].EqualTo(CurrentOption); }
 
+	void SetDefaultOption(const int Value) { DefaultOption = Value; }
+	int GetDefaultOption() const { return DefaultOption; }
+
 #pragma endregion Options
 	
 	DECLARE_DELEGATE(FSetCurrentOptionValueDelegate)
@@ -98,6 +101,8 @@ public:
 	void ExecCurrentOptionValueDelegate();
 	virtual void CancelChanges();
 	void AddDependentOption(UGameSettingsItem* DependentOption);
+
+	virtual void ResetToDefault();
 	
 	UiSettingsParentClass* GetWidget() const { return Widget; }
 	void SetWidget(UiSettingsParentClass* Value) { Widget = Value; }
@@ -121,6 +126,8 @@ private:
 
 	int IndexCurrentOption;
 	int BaseOption;
+	int DefaultOption;
+	
 	int ParentUniqueBaseOption;
 	
 	TArray<int> TechnicalOption; 
