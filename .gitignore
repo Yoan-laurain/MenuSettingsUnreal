@@ -52,6 +52,8 @@ Plugins/*/Binaries/*
 # Builds
 Build/*
 
+Plugins/Developer/RiderLink
+
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files
 !Build/*/
 Build/*/**
