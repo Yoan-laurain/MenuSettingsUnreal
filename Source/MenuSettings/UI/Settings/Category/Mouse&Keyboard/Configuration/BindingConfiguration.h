@@ -35,11 +35,20 @@ class UBindingConfiguration : public UGameSettingsItem
 
 public:
 
-	/** Initalize this setting widget based off the given mapping */
-	void SetInputData(FEnhancedActionKeyMapping& BaseMapping, const UPlayerMappableInputConfig* InOwningConfig, int32 InKeyBindSlot);
+#pragma region GetterSetters
 
 	FText GetPrimaryKeyText() const;
 	FText GetSecondaryKeyText() const;
+
+	FKeyboardOption& GetFirstMappableOption() { return FirstMappableOption; }
+	FKeyboardOption& GetSecondaryMappableOption() { return SecondaryMappableOption; }
+
+	FText GetSettingDisplayName() const { return FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName; }
+
+#pragma endregion GetterSetters
+
+	/** Initalize this setting widget based off the given mapping */
+	void SetInputData(FEnhancedActionKeyMapping& BaseMapping, const UPlayerMappableInputConfig* InOwningConfig, int32 InKeyBindSlot);
 	
 	virtual void StoreInitial();
 
@@ -49,16 +58,17 @@ public:
 	/* Restore all mapping to initial value */
 	virtual void RestoreToInitial();
 
+	/* Change the binding of the given key bind slot to the given key */
 	bool ChangeBinding(int32 InKeyBindSlot, FKey NewKey);
+
+	/* Get all actions that are mapped to the given key */
 	void GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey Key, TArray<FName>& OutActionNames) const;
 
-	FKeyboardOption& GetFirstMappableOption() { return FirstMappableOption; }
-	FKeyboardOption& GetSecondaryMappableOption() { return SecondaryMappableOption; }
+	/* Set the bindings to null */
+	void ClearBindings();
 
-	void Clear();
+	/* Cancel any changes made to the bindings */
 	virtual void CancelChanges() override;
-	
-	FText GetSettingDisplayName() const { return FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName; }
 
 protected:
 

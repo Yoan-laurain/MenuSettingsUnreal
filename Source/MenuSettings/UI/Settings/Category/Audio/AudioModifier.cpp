@@ -14,6 +14,7 @@ void ULocalSettings::SetMusicVolume(const float InVolume)
 	MusicVolume = InVolume;
 	SetVolumeSettings( TEXT("Music"), InVolume );
 }
+
 void ULocalSettings::SetSoundFXVolume(const float InVolume)
 {
 	SoundFXVolume = InVolume;
@@ -90,7 +91,7 @@ void ULocalSettings::LoadUserControlBusMix()
 					}
 					else
 					{
-						ensureMsgf(SoundControlBus, TEXT("Overall Control Bus reference missing from Lyra Audio Settings."));
+						ensureMsgf(SoundControlBus, TEXT("Overall Control Bus reference missing from Audio Settings."));
 					}
 				}
 
@@ -103,7 +104,7 @@ void ULocalSettings::LoadUserControlBusMix()
 					}
 					else
 					{
-						ensureMsgf(SoundControlBus, TEXT("Music Control Bus reference missing from Lyra Audio Settings."));
+						ensureMsgf(SoundControlBus, TEXT("Music Control Bus reference missing from Audio Settings."));
 					}
 				}
 
@@ -116,7 +117,7 @@ void ULocalSettings::LoadUserControlBusMix()
 					}
 					else
 					{
-						ensureMsgf(SoundControlBus, TEXT("SoundFX Control Bus reference missing from Lyra Audio Settings."));
+						ensureMsgf(SoundControlBus, TEXT("SoundFX Control Bus reference missing from Audio Settings."));
 					}
 				}
 
@@ -129,7 +130,7 @@ void ULocalSettings::LoadUserControlBusMix()
 					}
 					else
 					{
-						ensureMsgf(SoundControlBus, TEXT("Dialogue Control Bus reference missing from Lyra Audio Settings."));
+						ensureMsgf(SoundControlBus, TEXT("Dialogue Control Bus reference missing from Audio Settings."));
 					}
 				}
 			
@@ -156,7 +157,7 @@ void ULocalSettings::LoadUserControlBusMix()
 					}
 					else
 					{
-						ensureMsgf(SoundControlBusMix, TEXT("User Settings Control Bus Mix reference missing from Lyra Audio Settings."));
+						ensureMsgf(SoundControlBusMix, TEXT("User Settings Control Bus Mix reference missing from Audio Settings."));
 					}
 				}
 			}

@@ -1,6 +1,6 @@
 #include "ValidationPopUpWidget.h"
-#include "MenuSettingsWidget.h"
 #include "Components/Button.h"
+#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 void UValidationPopUpWidget::NativeOnInitialized()
 {

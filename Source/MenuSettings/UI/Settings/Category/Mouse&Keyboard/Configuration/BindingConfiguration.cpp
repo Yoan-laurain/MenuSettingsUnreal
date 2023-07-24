@@ -138,14 +138,14 @@ void UBindingConfiguration::GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey
 		}
 	}
 
-	if (const ULocalPlayerCustom* LyraLocalPlayer = USettingsManager::Get()->GetLocalPlayer())
+	if (const ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer())
 	{
-		ULocalSettings* LocalSettings = LyraLocalPlayer->GetLocalSettings();
+		ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
 		LocalSettings->GetAllMappingNamesFromKey(Key, OutActionNames);
 	}
 }
 
-void UBindingConfiguration::Clear()
+void UBindingConfiguration::ClearBindings()
 {
 	ChangeBinding(0, EKeys::Invalid);
 	ChangeBinding(1, EKeys::Invalid);

@@ -28,8 +28,8 @@ void USettingsWidget::InitWidget( UGameSettingsItem* NewSettingsItem )
 
 void USettingsWidget::SetStateButtons()
 {
-	DecreaseButton->SetIsEnabled( !SettingsItem->IsMinValue(CurrentValue->GetText() ) );
-	IncreaseButton->SetIsEnabled( !SettingsItem->IsMaxValue(CurrentValue->GetText() ) );
+	DecreaseButton->SetIsEnabled( !SettingsItem->IsMinValue() );
+	IncreaseButton->SetIsEnabled( !SettingsItem->IsMaxValue() );
 }
 
 void USettingsWidget::UpdateParentOption()
@@ -105,12 +105,12 @@ void USettingsWidget::ApplySettingsAndUpdateUI()
 
 void USettingsWidget::OnDecreaseButtonClicked()
 {
-	SettingsItem->SetPreviousTechnicalOption<int>();
+	SettingsItem->SetPreviousTechnicalOption();
 	ApplySettingsAndUpdateUI();
 }
 
 void USettingsWidget::OnIncreaseButtonClicked()
 {
-	SettingsItem->SetNextTechnicalOption<int>();
+	SettingsItem->SetNextTechnicalOption();
 	ApplySettingsAndUpdateUI();
 }

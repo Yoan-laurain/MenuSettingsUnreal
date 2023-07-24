@@ -7,12 +7,18 @@ UCLASS()
 class ULanguageConfiguration final : public UGameSettingsItem
 {
 	GENERATED_BODY()
-public:
 	
-	void InitializeCultureNames();
+public:
 
+	// UGameSettingsItem implementation Begin
 	virtual void ResetToDefault() override;
 	void RestoreToInitial();
+	// UGameSettingsItem implementation End
+
+	/* Fill the AvailableCultureNames array with all the culture names configured in the project */
+	void InitializeCultureNames();
+
+	/* Retrieve all the culture names configured in the project */
 	TArray<FString> GetAvailableCultureNames();
 
 private :

@@ -10,11 +10,6 @@
 
 USettingsManager* USettingsManager::Registry = nullptr;
 
-USettingsManager::USettingsManager()
-{
-
-}
-
 USettingsManager* USettingsManager::Get()
 {
 	if ( !Registry )
@@ -39,7 +34,7 @@ void SetOptionToBase(UGameSettingsCollection* Setting)
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			Option->SetBaseOption(Option->GetIndexCurrentOption());
+			Option->SetInitialIndex(Option->GetIndexCurrentOption());
 			Option->ExecCurrentOptionValueDelegate();
 		}
 	}
@@ -67,7 +62,7 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( Option->GetIndexCurrentOption() != Option->GetBaseOption() || Option->IsA(UBindingConfiguration::StaticClass())  )
+			if ( Option->GetIndexCurrentOption() != Option->GetInitialIndex() || Option->IsA(UBindingConfiguration::StaticClass())  )
 			{
 				Option->CancelChanges();
 				Option->ExecCurrentOptionValueDelegate();
@@ -81,11 +76,12 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	}
 }
 
-void USettingsManager::CancelChanges(bool bWithBinding)
+void USettingsManager::CancelChanges(const bool bWithBinding)
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		if ( !bWithBinding && Setting.Key == "Mouse and Keyboard" )
+		const FText Name = LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard");
+		if ( !bWithBinding && Setting.Key == Name.ToString() )
 		{
 			continue;
 		}
@@ -129,15 +125,9 @@ void USettingsManager::ResetToDefault()
 	ULocalSettings::Get()->ApplySettings(false);
 }
 
-void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
+void USettingsManager::LoadAndRegisterInputConfigs()
 {
-	VideoSettings = InitializeVideoSettings();
-	AudioSettings = InitializeAudioSettings();
-
 	const UInputManager* InputManager = GetDefault<UInputManager>();
-
-	UE_LOG( LogTemp, Warning, TEXT( "InputManager->InputDataAsset.IsValid() = %d" ), InputManager->InputDataAsset.IsValid() );
-	
 	InputManager->InputDataAsset.LoadSynchronous();
 
 	// Check if the asset is valid after loading
@@ -153,7 +143,14 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 			}
 		}
 	}
+}
+
+void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
+{
+	LoadAndRegisterInputConfigs();
 	
+	VideoSettings = InitializeVideoSettings();
+	AudioSettings = InitializeAudioSettings();
 	MouseAndKeyboardSettings = InitializeMouseAndKeyboardSettings(InLocalPlayer);
 	GameplaySettings = InitializeGameplaySettings();
 	

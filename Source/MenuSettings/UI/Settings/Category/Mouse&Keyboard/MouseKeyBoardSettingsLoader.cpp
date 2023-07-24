@@ -32,10 +32,12 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 			{
 				const TArray<FLoadedMappableConfigPair>& RegisteredConfigs = InLocalPlayer->GetLocalSettings()->GetAllRegisteredInputConfigs();	
 				const TMap<FName, FKey>& CustomKeyMap = InLocalPlayer->GetLocalSettings()->GetCustomPlayerInputConfig();
-			
+
+				// For all PMI ( Player Mappable Input ) configs
 				for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
 				{
-					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard)
+					// TODO : Handle gamepad
+					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard) 
 					{
 						continue;
 					}
@@ -44,11 +46,13 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 				
 					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
 					Screen->AddSettingCollection(ConfigSettingCollection);
-					
+
+					// For all IA ( Input Action ) configs
 					for ( FEnhancedActionKeyMapping& Mapping : ConfigMappings )
 					{
 						UBindingConfiguration* ExistingSetting = nullptr;
-						
+
+						// Check if the player has already bound a key to this action
 						for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings()) 
 						{
 							UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
@@ -61,6 +65,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 						}
 				
 						FEnhancedActionKeyMapping MappingSynthesized(Mapping);
+						
 						// If the player has bound a custom key to this action, then set it to that
 						if (const FKey* PlayerBoundKey = CustomKeyMap.Find(Mapping.PlayerMappableOptions.Name))
 						{
@@ -77,7 +82,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 							if (!ExistingSetting)
 							{
 								InputBinding->SetOptionName(Mapping.PlayerMappableOptions.DisplayName);
-								InputBinding->SetType(ESettingsType::InputConfig);
+								InputBinding->SetWidgetType(ESettingsType::InputConfig);
 
 								InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
 								{
@@ -85,8 +90,8 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 								});
 								
 								InputBinding->ClearOptions();
-								const FText KeyName = InputBinding->GetPrimaryKeyText();
-								InputBinding->AddOption(KeyName);
+								InputBinding->AddOption(InputBinding->GetPrimaryKeyText());
+								
 								ConfigSettingCollection->AddSetting(InputBinding);	
 							}
 					

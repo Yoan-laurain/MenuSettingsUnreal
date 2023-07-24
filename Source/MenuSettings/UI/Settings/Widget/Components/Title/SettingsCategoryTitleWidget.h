@@ -14,7 +14,7 @@ public :
 	UPROPERTY( meta = (BindWidget) )
 	UTextBlock* TitleTextBlock;
 	
-	void SetTitle(const FText NewTitle) const { TitleTextBlock->SetText(NewTitle); }
+	void SetTitle(const FText& NewTitle) const { TitleTextBlock->SetText(NewTitle); }
 
 protected :
 	FText Title;

@@ -11,12 +11,16 @@ class MENUSETTINGS_API USettingsProgressBarWidget final : public UiSettingsParen
 	GENERATED_BODY()
 
 public :
+
+#pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
 	UProgressBar* ProgressBar;
 	
 	UPROPERTY(meta = (BindWidget))
 	class USlider* Slider;
+
+#pragma endregion WidgetComponents
 
 	virtual void InitWidget(UGameSettingsItem* NewSettingsItem) override;
 	virtual void UpdateHUD() override;

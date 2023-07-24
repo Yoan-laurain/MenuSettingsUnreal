@@ -12,7 +12,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 
 	TArray<int32> GenericQualityOptions;
 			
-	for (int32 i = 0; i < 5; ++i)
+	for (int32 i = 0; i < 4; ++i)
 	{
 		GenericQualityOptions.Add(i);
 	}
@@ -32,7 +32,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			WindowModeItem->SetOptionName( LOCTEXT("WindowMode_Name", "Window Mode"));
 			WindowModeItem->SetDescriptionRichText(LOCTEXT("WindowMode_Description", "In Windowed mode you can interact with other windows more easily, and drag the edges of the window to set the size. In Windowed Fullscreen mode you can easily switch between applications. In Fullscreen mode you cannot interact with other windows as easily, but the game will run slightly faster."));
 
-			WindowModeItem->SetType(ESettingsType::Normal);
+			WindowModeItem->SetWidgetType(ESettingsType::Normal);
 			
 			WindowModeItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,WindowModeItem] ()
 			{
@@ -42,13 +42,11 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			} );
 				
 			WindowModeItem->ClearOptions();
-
-			// For screen
+			
 			WindowModeItem->AddOption( LOCTEXT("Fullscreen_Name", "Fullscreen"));
 			WindowModeItem->AddOption( LOCTEXT("WindowedFullscreen_Name", "Windowed Fullscreen"));
 			WindowModeItem->AddOption( LOCTEXT("Windowed_Name", "Windowed"));
-
-			// For technical
+			
 			TArray<int> WindowModeOptions;
 			WindowModeOptions.Add(0);
 			WindowModeOptions.Add(1);
@@ -56,9 +54,9 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			WindowModeItem->SetTechnicalOption(WindowModeOptions);
 			
-			int Index = WindowModeOptions.Find(LocalSettings->GetFullscreenMode());
-			WindowModeItem->SetIndexCurrentOption(Index);
+			WindowModeItem->SetIndexCurrentOption(WindowModeOptions.Find(LocalSettings->GetFullscreenMode()));
 			WindowModeItem->SetDefaultOption(1);
+			
 			WindowModeItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetFullscreenMode(); });
 			
 			Display->AddSetting(WindowModeItem);
@@ -69,7 +67,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionItem->SetOptionName(LOCTEXT("Resolution_Name", "Resolution"));
 			ResolutionItem->SetDescriptionRichText(LOCTEXT("Resolution_Description", "Display Resolution determines the size of the window in Windowed mode. In Fullscreen mode, Display Resolution determines the graphics card output resolution, which can result in black bars depending on monitor and graphics card. Display Resolution is inactive in Windowed Fullscreen mode."));
 
-			ResolutionItem->SetType(ESettingsType::Normal);
+			ResolutionItem->SetWidgetType(ESettingsType::Normal);
 			
 			ResolutionItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ResolutionItem] ()
 			{
@@ -90,9 +88,10 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			ResolutionOptions.Add(3);
 			
 			ResolutionItem->SetTechnicalOption(ResolutionOptions);
-			int Index = ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution());
-			ResolutionItem->SetIndexCurrentOption(Index);
+
+			ResolutionItem->SetIndexCurrentOption(ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution()));
 			ResolutionItem->SetDefaultOption(1);
+			
 			ResolutionItem->SetMethodToGetIndexFromFile([LocalSettings,ResolutionItem]() { return ResolutionItem->ConvertFIntPointToInt(LocalSettings->GetScreenResolution()); });
 			
 			Display->AddSetting(ResolutionItem);
@@ -113,7 +112,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			GraphicsItem->SetOptionName(LOCTEXT("DeviceProfileSuffix_Name", "Quality Presets"));
 			GraphicsItem->SetDescriptionRichText(LOCTEXT("DeviceProfileSuffix_Description", "Choose between different quality presets to make a trade off between quality and speed."));
 
-			GraphicsItem->SetType(ESettingsType::Normal);
+			GraphicsItem->SetWidgetType(ESettingsType::Normal);
 			
 			GraphicsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,GraphicsItem] ()
 			{
@@ -124,19 +123,22 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			
 			TArray<int32> QualityOptions;
 			
-			for (int32 i = 0; i < 6; ++i)
+			for (int32 i = 0; i < 5; ++i)
 			{
 				QualityOptions.Add(i);
 			}
 			
 			GraphicsItem->SetTechnicalOption(QualityOptions);
-			GraphicsItem->SetDefaultOption(2);
 			
-			const int Index = LocalSettings->GetOverallScalabilityLevel();
-			GraphicsItem->SetIndexCurrentOption(Index == -1 ? 5 : Index);
-			GraphicsItem->SetBaseOption(Index == -1 ? 5 : Index);
+			int Index = LocalSettings->GetOverallScalabilityLevel();
+
+			if ( Index == 4)
+				Index = 3;
+			
+			GraphicsItem->SetIndexCurrentOption(Index == -1 ? 4 : Index);
+			GraphicsItem->SetDefaultOption(2);
 				
-			GraphicsItem->SetParentUniqueOption(5);
+			GraphicsItem->SetParentUniqueOption(4);
 			
 			GraphicsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetOverallScalabilityLevel(); });
 			
@@ -151,7 +153,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			FrameRateLimitItem->SetOptionName(LOCTEXT("FrameRateLimit_Mobile_Name", "Frame Rate Limit"));
 			FrameRateLimitItem->SetDescriptionRichText(LOCTEXT("FrameRateLimit_Mobile_Description", "Select a desired framerate. Use this to fine tune performance on your device."));
 
-			FrameRateLimitItem->SetType(ESettingsType::Normal);
+			FrameRateLimitItem->SetWidgetType(ESettingsType::Normal);
 			
 			FrameRateLimitItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,FrameRateLimitItem] ()
 			{
@@ -172,6 +174,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			FrameRateLimitOptions.Add(120);
 			
 			FrameRateLimitItem->SetTechnicalOption(FrameRateLimitOptions);
+			
 			FrameRateLimitItem->SetDefaultOption(2);
 			FrameRateLimitItem->SetIndexCurrentOption(LocalSettings->GetFrameRateLimit() == 0 ? 2 : LocalSettings->GetFrameRateLimit() / 30);
 			
@@ -185,7 +188,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	AutoSetQuality->SetOptionName(LOCTEXT("AutoSetQuality_Name", "Auto-Set Quality"));
 		 	AutoSetQuality->SetDescriptionRichText(LOCTEXT("AutoSetQuality_Description", "Automatically configure the graphics quality options based on a benchmark of the hardware."));
 
-		 	AutoSetQuality->SetType(ESettingsType::Normal);
+		 	AutoSetQuality->SetWidgetType(ESettingsType::Normal);
 		
 		 	AutoSetQuality->GetCurrentOptionValueDelegate().BindLambda( [=] ()
 		 	{
@@ -201,8 +204,8 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	AutoSetQualityOptions.Add(1);
 		
 		 	AutoSetQuality->SetTechnicalOption(AutoSetQualityOptions);
+			
 		 	AutoSetQuality->SetIndexCurrentOption(0);
-		 	AutoSetQuality->SetBaseOption(0);
 			AutoSetQuality->SetDefaultOption(0);
 		
 		 	AutoSetQuality->SetParentUniqueOption(0);
@@ -227,7 +230,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	LightingQualityItem->SetOptionName(LOCTEXT("LightingQuality_Name", "Lighting"));
 		 	LightingQualityItem->SetDescriptionRichText(LOCTEXT("GlobalIlluminationQuality_Description", "Global Illumination controls the quality of dynamically calculated indirect lighting bounces, sky shadowing and Ambient Occlusion. Settings of 'High' and above use more accurate ray tracing methods to solve lighting, but can reduce performance."));
 
-		 	LightingQualityItem->SetType(ESettingsType::Normal);
+		 	LightingQualityItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	LightingQualityItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,LightingQualityItem] ()
 		 	{
@@ -235,12 +238,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	LightingQualityItem->SetTechnicalOption(GenericQualityOptions);
-		 	LightingQualityItem->SetIndexCurrentOption(LocalSettings->GetGlobalIlluminationQuality());
+
+			int Index = LocalSettings->GetGlobalIlluminationQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	LightingQualityItem->SetIndexCurrentOption(Index);
 			LightingQualityItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(LightingQualityItem);
 		 	AutoSetQuality->AddDependentOption(LightingQualityItem);
+			
 		 	LightingQualityItem->SetParentOptions(ParentOptions);
+			
 		 	LightingQualityItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetGlobalIlluminationQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(LightingQualityItem);
@@ -253,7 +263,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	ShadowsItem->SetOptionName(LOCTEXT("Shadows_Name", "Shadows"));
 		 	ShadowsItem->SetDescriptionRichText(LOCTEXT("Shadows_Description", "Shadow quality determines the resolution and view distance of dynamic shadows. Shadows improve visual quality and give better depth perception, but can reduce performance."));
 
-		 	ShadowsItem->SetType(ESettingsType::Normal);
+		 	ShadowsItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	ShadowsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ShadowsItem] ()
 		 	{
@@ -261,12 +271,20 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	ShadowsItem->SetTechnicalOption(GenericQualityOptions);
-		 	ShadowsItem->SetIndexCurrentOption( LocalSettings->GetShadowQuality() );
+
+
+			int Index = LocalSettings->GetShadowQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	ShadowsItem->SetIndexCurrentOption( Index );
 			ShadowsItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ShadowsItem);
 		 	AutoSetQuality->AddDependentOption(ShadowsItem);
+			
 		 	ShadowsItem->SetParentOptions(ParentOptions);
+			
 		 	ShadowsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetShadowQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(ShadowsItem);
@@ -279,7 +297,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	AntiAliasingItem->SetOptionName(LOCTEXT("AntiAliasing_Name", "Anti-Aliasing"));
 		 	AntiAliasingItem->SetDescriptionRichText(LOCTEXT("AntiAliasing_Description", "Anti-Aliasing reduces jaggy artifacts along geometry edges. Increasing this setting will make edges look smoother, but can reduce performance. Higher settings mean more anti-aliasing."));
 
-		 	AntiAliasingItem->SetType(ESettingsType::Normal);
+		 	AntiAliasingItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	AntiAliasingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,AntiAliasingItem] ()
 		 	{
@@ -287,12 +305,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	AntiAliasingItem->SetTechnicalOption(GenericQualityOptions);
-		 	AntiAliasingItem->SetIndexCurrentOption(LocalSettings->GetAntiAliasingQuality());
+
+			int Index = LocalSettings->GetAntiAliasingQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	AntiAliasingItem->SetIndexCurrentOption(Index);
 			AntiAliasingItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(AntiAliasingItem);
 		 	AutoSetQuality->AddDependentOption(AntiAliasingItem);
+			
 		 	AntiAliasingItem->SetParentOptions(ParentOptions);
+			
 		 	AntiAliasingItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetAntiAliasingQuality(); });
 		 		
 		 	GraphicsQuality->AddSetting(AntiAliasingItem);
@@ -305,7 +330,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	ViewDistanceItem->SetOptionName(LOCTEXT("ViewDistance_Name", "View Distance"));
 		 	ViewDistanceItem->SetDescriptionRichText(LOCTEXT("ViewDistance_Description", "View distance determines how far away objects are culled for performance."));
 
-		 	ViewDistanceItem->SetType(ESettingsType::Normal);
+		 	ViewDistanceItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	ViewDistanceItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ViewDistanceItem] ()
 		 	{
@@ -313,12 +338,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	ViewDistanceItem->SetTechnicalOption(GenericQualityOptions);
-		 	ViewDistanceItem->SetIndexCurrentOption(LocalSettings->GetViewDistanceQuality());
+
+			int Index = LocalSettings->GetViewDistanceQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	ViewDistanceItem->SetIndexCurrentOption(Index);
 			ViewDistanceItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ViewDistanceItem);
 		 	AutoSetQuality->AddDependentOption(ViewDistanceItem);
+			
 		 	ViewDistanceItem->SetParentOptions(ParentOptions);
+		 	
 		 	ViewDistanceItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetViewDistanceQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(ViewDistanceItem);
@@ -331,7 +363,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	TexturesItem->SetOptionName(LOCTEXT("TextureQuality_Name", "Textures"));
 		 	TexturesItem->SetDescriptionRichText(LOCTEXT("TextureQuality_Description", "Texture quality determines the resolution of textures in game. Increasing this setting will make objects more detailed, but can reduce performance."));
 
-		 	TexturesItem->SetType(ESettingsType::Normal);
+		 	TexturesItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	TexturesItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,TexturesItem] ()
 		 	{
@@ -339,12 +371,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	});
 		 	
 		 	TexturesItem->SetTechnicalOption(GenericQualityOptions);
-		 	TexturesItem->SetIndexCurrentOption(LocalSettings->GetTextureQuality());
+
+			int Index = LocalSettings->GetTextureQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	TexturesItem->SetIndexCurrentOption(Index);
 			TexturesItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(TexturesItem);
 		 	AutoSetQuality->AddDependentOption(TexturesItem);
+			
 		 	TexturesItem->SetParentOptions(ParentOptions);
+			
 		 	TexturesItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetTextureQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(TexturesItem);
@@ -357,7 +396,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	EffectItem->SetOptionName(LOCTEXT("VisualEffectQuality_Name", "Effects"));
 		 	EffectItem->SetDescriptionRichText(LOCTEXT("VisualEffectQuality_Description", "Effects determines the quality of visual effects and lighting in game. Increasing this setting will increase the quality of visual effects, but can reduce performance."));
 
-		 	EffectItem->SetType(ESettingsType::Normal);
+		 	EffectItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	EffectItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,EffectItem] ()
 		 	{
@@ -365,12 +404,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	EffectItem->SetTechnicalOption(GenericQualityOptions);
-		 	EffectItem->SetIndexCurrentOption(LocalSettings->GetVisualEffectQuality());
+
+			int Index = LocalSettings->GetVisualEffectQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	EffectItem->SetIndexCurrentOption(Index);
 			EffectItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(EffectItem);
 		 	AutoSetQuality->AddDependentOption(EffectItem);
+			
 		 	EffectItem->SetParentOptions(ParentOptions);
+			
 		 	EffectItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetVisualEffectQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(EffectItem);
@@ -383,7 +429,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	ReflectionsItem->SetOptionName(LOCTEXT("ReflectionQuality_Name", "Reflections"));
 		 	ReflectionsItem->SetDescriptionRichText(LOCTEXT("ReflectionQuality_Description", "Reflection quality determines the resolution and accuracy of reflections.  Settings of 'High' and above use more accurate ray tracing methods to solve reflections, but can reduce performance."));
 
-		 	ReflectionsItem->SetType(ESettingsType::Normal);
+		 	ReflectionsItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	ReflectionsItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,ReflectionsItem] ()
 		 	{
@@ -391,12 +437,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		
 		 	ReflectionsItem->SetTechnicalOption(GenericQualityOptions);
-		 	ReflectionsItem->SetIndexCurrentOption(LocalSettings->GetReflectionQuality());
+
+			int Index = LocalSettings->GetReflectionQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	ReflectionsItem->SetIndexCurrentOption(Index);
 			ReflectionsItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(ReflectionsItem);
 		 	AutoSetQuality->AddDependentOption(ReflectionsItem);
+			
 		 	ReflectionsItem->SetParentOptions(ParentOptions);
+			
 		 	ReflectionsItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetReflectionQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(ReflectionsItem);
@@ -409,7 +462,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	PostProcessingItem->SetOptionName(LOCTEXT("PostProcessingQuality_Name", "Post Processing"));
 		 	PostProcessingItem->SetDescriptionRichText(LOCTEXT("PostProcessingQuality_Description", "Post Processing effects include Motion Blur, Depth of Field and Bloom. Increasing this setting improves the quality of post process effects, but can reduce performance."));  
 
-		 	PostProcessingItem->SetType(ESettingsType::Normal);
+		 	PostProcessingItem->SetWidgetType(ESettingsType::Normal);
 		 	
 		 	PostProcessingItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,PostProcessingItem] ()
 		 	{
@@ -417,12 +470,19 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 		 	} );
 		 	
 		 	PostProcessingItem->SetTechnicalOption(GenericQualityOptions);
-		 	PostProcessingItem->SetIndexCurrentOption(LocalSettings->GetPostProcessingQuality());
+
+			int Index = LocalSettings->GetPostProcessingQuality();
+			if ( Index == 4)
+				Index = 3;
+			
+		 	PostProcessingItem->SetIndexCurrentOption(Index);
 			PostProcessingItem->SetDefaultOption(2);
 		
 		 	GraphicsItem->AddDependentOption(PostProcessingItem);
 		 	AutoSetQuality->AddDependentOption(PostProcessingItem);
+			
 		 	PostProcessingItem->SetParentOptions(ParentOptions);
+			
 		 	PostProcessingItem->SetMethodToGetIndexFromFile([LocalSettings]() { return LocalSettings->GetPostProcessingQuality(); });
 		 	
 		 	GraphicsQuality->AddSetting(PostProcessingItem);
@@ -441,7 +501,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			VerticalSyncItem->SetOptionName(LOCTEXT("VerticalSync_Name", "Vertical Sync"));
 			VerticalSyncItem->SetDescriptionRichText(LOCTEXT("VerticalSync_Description", "Enabling Vertical Sync eliminates screen tearing by always rendering and presenting a full frame. Disabling Vertical Sync can give higher frame rate and better input response, but can result in horizontal screen tearing."));
 
-			VerticalSyncItem->SetType(ESettingsType::Normal);
+			VerticalSyncItem->SetWidgetType(ESettingsType::Normal);
 			
 			VerticalSyncItem->GetCurrentOptionValueDelegate().BindLambda( [LocalSettings,VerticalSyncItem] ()
 			{
@@ -457,6 +517,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 			VerticalSyncOptions.Add(1);
 			
 			VerticalSyncItem->SetTechnicalOption(VerticalSyncOptions);
+			
 			VerticalSyncItem->SetIndexCurrentOption(LocalSettings->IsVSyncEnabled() ? 1 : 0);
 			VerticalSyncItem->SetDefaultOption(0);
 			

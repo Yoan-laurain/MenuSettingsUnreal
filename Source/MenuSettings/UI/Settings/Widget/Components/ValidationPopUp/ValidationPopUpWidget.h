@@ -13,6 +13,8 @@ class MENUSETTINGS_API UValidationPopUpWidget final : public UUserWidget
 	GENERATED_BODY()
 
 public :
+
+#pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
 	UButton* ValidateButton;
@@ -22,6 +24,8 @@ public :
 	
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TitleText;
+
+#pragma endregion WidgetComponents
 
 	void SetMenuSettingsWidget(UMenuSettingsWidget* InMenuSettingsWidget);
 

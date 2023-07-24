@@ -92,7 +92,7 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	{
 		for (UBindingConfiguration* BindingConfiguration : OutBindingConfiguration)
 		{
-			BindingConfiguration->Clear();
+			BindingConfiguration->ClearBindings();
 
 			UBindingKeyWidget* BindingKeyWidget = Cast<UBindingKeyWidget>(BindingConfiguration->GetWidget());
 			BindingKeyWidget->Refresh();

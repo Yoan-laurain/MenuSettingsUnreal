@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 
 #include "SettingsManager.generated.h"
 
@@ -16,14 +17,13 @@ class USettingsManager final : public UObject
 	
 public:
 
-	USettingsManager();
-
 	static USettingsManager* Get();
 
 	void SaveChanges();
 	void CancelChanges(bool bWithBinding);
 	void ResetToDefault();
-	
+	void LoadAndRegisterInputConfigs();
+
 	TArray<FString>* InitializeNavigationsButtons() const;
 	
 	UGameSettingsCollection* GetVideoSettings() const { return VideoSettings; }

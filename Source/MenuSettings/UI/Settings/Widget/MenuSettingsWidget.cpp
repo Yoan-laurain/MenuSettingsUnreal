@@ -1,5 +1,4 @@
 #include "MenuSettingsWidget.h"
-#include "ValidationPopUpWidget.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
@@ -12,6 +11,7 @@
 #include "../Category/GameSettingsCollection.h"
 #include "../Category/SettingsManager.h"
 #include "Components/Button.h"
+#include "Components/ValidationPopUp/ValidationPopUpWidget.h"
 
 void UMenuSettingsWidget::NativeOnInitialized()
 {
@@ -75,15 +75,15 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 						{
 							UiSettingsParentClass* SettingsWidget = NULL;
 							
-							if ( Setting->GetType() == ESettingsType::Normal )
+							if ( Setting->GetWidgetType() == ESettingsType::Normal )
 							{
 								SettingsWidget = CreateWidget<USettingsWidget>(GetWorld(), SettingsItemWidgetClass);
 							}
-							else if ( Setting->GetType() == ESettingsType::Slider)
+							else if ( Setting->GetWidgetType() == ESettingsType::Slider)
 							{
 								SettingsWidget = CreateWidget<USettingsProgressBarWidget>(GetWorld(), SettingsProgressBarWidgetClass);
 							}
-							else if ( Setting->GetType() == ESettingsType::InputConfig )
+							else if ( Setting->GetWidgetType() == ESettingsType::InputConfig )
 							{
 								SettingsWidget = CreateWidget<UBindingKeyWidget>(GetWorld(), SettingsInputConfigWidgetClass);
 							}

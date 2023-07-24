@@ -13,6 +13,8 @@ class MENUSETTINGS_API UNavigationButtonWidget final : public UUserWidget
 
 public :
 
+#pragma region WidgetComponents
+	
 	/** The button to navigate */
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
 	UButton* NavigationButton;
@@ -20,6 +22,8 @@ public :
 	/** The text of the button */
 	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
 	UTextBlock* NavigationText;
+
+#pragma endregion WidgetComponents
 
 	void InitWidget(FString Text);
 	

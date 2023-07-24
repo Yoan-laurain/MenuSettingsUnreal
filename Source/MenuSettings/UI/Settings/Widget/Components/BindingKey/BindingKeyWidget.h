@@ -14,6 +14,12 @@ class MENUSETTINGS_API UBindingKeyWidget final : public UiSettingsParentClass
 	GENERATED_BODY()
 
 public :
+
+	// UiSettingsParentClass implementation Begin
+	virtual void UpdateHUD() override;
+	// UiSettingsParentClass implementation End
+
+#pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
 	UButton* Button;
@@ -21,8 +27,9 @@ public :
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ChooseAKeyWidgetClass;
 
+#pragma endregion WidgetComponents
+
 	void Refresh();
-	virtual void UpdateHUD() override;
 	
 private :
 

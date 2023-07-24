@@ -16,6 +16,8 @@ class UiSettingsParentClass : public UUserWidget
 	
 public:
 
+#pragma region WidgetComponents
+	
 	/** The name of the option */
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* SettingsText;
@@ -23,14 +25,26 @@ public:
 	UPROPERTY( meta = (BindWidget) )
 	UTextBlock* CurrentValue;
 
+#pragma endregion WidgetComponents
+
+#pragma region GettersSetters
+
 	void SetSettingsText(FText NewText);
 	void SetCurrentValue(FText NewText);
-	virtual void InitWidget(UGameSettingsItem* SettingsItem);
-	void ApplySetting();
+
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
-	virtual void SetStateButtons();
-	virtual void UpdateHUD();
+	
 	UGameSettingsItem* GetSettingsItem() const;
+
+#pragma endregion GettersSetters
+	
+	virtual void InitWidget(UGameSettingsItem* SettingsItem);
+	
+	void ApplySetting();
+
+	virtual void SetStateButtons();
+	
+	virtual void UpdateHUD();
 
 	UFUNCTION(BlueprintCallable)
 	void OnHover();

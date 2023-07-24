@@ -1,10 +1,11 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "../UiSettingsParentClass.h"
 #include "ChooseAKeyWidget.generated.h"
 
 class UBindingKeyWidget;
+class UTextBlock;
+
 UCLASS()
 class MENUSETTINGS_API UChooseAKeyWidget final : public UUserWidget
 {
@@ -14,11 +15,16 @@ public :
 	
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* Message;
+
+#pragma region GettersSetters
+
+	void SetParent(UBindingKeyWidget* InParent);
+	TArray<FText> GetMessagesToDisplay() const { return MessagesToDisplay; }
+
+#pragma endregion GettersSetters
 	
 	void HandleKeySelection(const FKey& Key);
 	void HandleKeyChange(const FKey& Key);
-	void SetParent(UBindingKeyWidget* InParent);
-	TArray<FText> GetMessagesToDisplay() const { return MessagesToDisplay; }
 	void ValidateKey(const FKey& Key);
 
 private :
@@ -29,6 +35,7 @@ private :
 	UBindingKeyWidget* Parent = nullptr;
 	
 	TArray<FText> MessagesToDisplay;
+	
 	int IndexCurrentMessage = 0;
 	
     virtual void NativeConstruct() override;

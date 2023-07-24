@@ -195,12 +195,6 @@ public :
 	/** Apply just the quality scalability settings */
 	void ApplyScalabilitySettings();
 
-private :
-
-	// Does the platform support running the automatic quality benchmark (typically this should only be true if bSupportsGranularVideoQualitySettings is also true)
-	UPROPERTY(EditAnywhere, Config, Category=VideoSettings)
-	bool bSupportsAutomaticVideoQualityBenchmark = true;
-
 #pragma endregion GeneralSettings
 
 #pragma region GameplaySettings

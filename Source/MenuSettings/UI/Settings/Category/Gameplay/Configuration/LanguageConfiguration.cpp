@@ -2,7 +2,7 @@
 
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 
-static const int32 SettingSystemDefaultLanguageIndex = 0;
+static constexpr int32 SettingSystemDefaultLanguageIndex = 0;
 
 void ULanguageConfiguration::InitializeCultureNames()
 {
@@ -11,12 +11,6 @@ void ULanguageConfiguration::InitializeCultureNames()
 	{
 		if (FInternationalization::Get().IsCultureAllowed(CultureName))
 		{
-			// const int32 UnderscoreIndex = CultureName.Find(TEXT("-"));
-			// if (UnderscoreIndex != INDEX_NONE)
-			// {
-			// 	CultureName.LeftInline(UnderscoreIndex);
-			// }
-			
 			AvailableCultureNames.Add(CultureName);
 		}
 	}

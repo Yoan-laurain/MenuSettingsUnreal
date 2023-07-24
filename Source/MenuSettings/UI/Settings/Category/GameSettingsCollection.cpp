@@ -1,5 +1,4 @@
 #include "GameSettingsCollection.h"
-#include "../Widget/Components/Basic/SettingsWidget.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -25,7 +24,7 @@ FIntPoint UGameSettingsItem::ConvertIntToFIntPoint(const int Value)
 	}
 }
 
-int UGameSettingsItem::ConvertFIntPointToInt(FIntPoint Value)
+int UGameSettingsItem::ConvertFIntPointToInt(const FIntPoint& Value)
 {
 	if ( Value == FIntPoint(1280, 720) )
 	{
@@ -54,44 +53,9 @@ void UGameSettingsItem::SetBaseOptions()
 			LOCTEXT("VisualEffectQualityMedium", "Medium"),
 			LOCTEXT("VisualEffectQualityHigh", "High"),
 			LOCTEXT("VisualEffectQualityEpic", "Epic"),
-			LOCTEXT("VisualEffectQualityCinematic", "Cinematic"),
 		};
 	
 	SetOptions(OptionsToAdd);
-}
-
-FText UGameSettingsItem::GetPreviousOptions(const FText& CurrentOption) 
-{
-	for ( int32 i = 0; i < Options.Num(); i++ )
-	{
-		if ( Options[i].EqualTo(CurrentOption) )
-		{
-			if ( i == 0 )
-			{
-				return Options[Options.Num() - 1];
-			}
-			return Options[i - 1];
-		}
-	}
-	
-	return Options[0];
-}
-
-FText UGameSettingsItem::GetNextOptions(const FText CurrentOption)
-{
-	for ( int32 i = 0; i < Options.Num(); i++ )
-	{
-		if ( Options[i].EqualTo(CurrentOption) )
-		{
-			if ( i == Options.Num() - 1 )
-			{
-				return Options[0];
-			}
-			return Options[i + 1];
-		}
-	}
-	
-	return Options[0];
 }
 
 UGameSettingsItem::FSetCurrentOptionValueDelegate& UGameSettingsItem::GetCurrentOptionValueDelegate()
@@ -106,7 +70,7 @@ void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 
 void UGameSettingsItem::CancelChanges()
 {
-	IndexCurrentOption = BaseOption;
+	IndexCurrentOption = IndexInitialOption;
 }
 
 void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
@@ -116,7 +80,7 @@ void UGameSettingsItem::AddDependentOption(UGameSettingsItem* DependentOption)
 
 void UGameSettingsItem::ResetToDefault()
 {
-	IndexCurrentOption = DefaultOption;
+	IndexCurrentOption = IndexDefaultOption;
 }
 
 int UGameSettingsItem::GetIndexFromFile() const
