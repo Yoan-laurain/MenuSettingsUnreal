@@ -68,7 +68,7 @@ public :
 #pragma endregion WidgetClasses
 	
 	void OnNavigationButtonClicked(FString SettingsName);
-	void ChangeDescription(FText Description);
+	void ChangeDescription(const FText& Description,const FText& SettingName);
 
 	UFUNCTION(BlueprintCallable)
 	void CreatePopUpValidation();

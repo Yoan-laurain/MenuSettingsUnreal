@@ -61,6 +61,6 @@ void UiSettingsParentClass::OnHover()
 {
 	if (ParentWidget)
 	{
-		ParentWidget->ChangeDescription(SettingsItem->GetDescriptionRichText());
+		ParentWidget->ChangeDescription(SettingsItem->GetDescriptionRichText(), SettingsItem->GetOptionName());
 	}
 }

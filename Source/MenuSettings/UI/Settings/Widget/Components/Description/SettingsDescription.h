@@ -15,5 +15,9 @@ public :
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* DescriptionText;
 
-	void SetDescriptionText(FText NewText);
+	UPROPERTY(meta = (BindWidget))
+	UTextBlock* TitleText;
+
+	void SetDescriptionText(const FText& NewText);
+	void SetTitleText(const FText& NewText);
 };

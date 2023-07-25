@@ -43,9 +43,6 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 					}
 				
 					TArray<FEnhancedActionKeyMapping> ConfigMappings = InputConfigPair.Config->GetPlayerMappableKeys();
-				
-					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
-					Screen->AddSettingCollection(ConfigSettingCollection);
 
 					// For all IA ( Input Action ) configs
 					for ( FEnhancedActionKeyMapping& Mapping : ConfigMappings )
@@ -53,7 +50,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 						UBindingConfiguration* ExistingSetting = nullptr;
 
 						// Check if the player has already bound a key to this action
-						for (UGameSettingsItem* Setting : ConfigSettingCollection->GetChildSettings()) 
+						for (UGameSettingsItem* Setting : Bindings->GetChildSettings()) 
 						{
 							UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
 
@@ -92,7 +89,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 								InputBinding->ClearOptions();
 								InputBinding->AddOption(InputBinding->GetPrimaryKeyText());
 								
-								ConfigSettingCollection->AddSetting(InputBinding);	
+								Bindings->AddSetting(InputBinding);	
 							}
 					
 							AddedSettings.Add(MappingSynthesized.PlayerMappableOptions.Name);

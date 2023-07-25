@@ -133,9 +133,10 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 
 }
 
-void UMenuSettingsWidget::ChangeDescription(const FText Description)
+void UMenuSettingsWidget::ChangeDescription(const FText& Description, const FText& SettingName)
 {
 	SettingsDescriptionWidget->SetDescriptionText(Description);
+	SettingsDescriptionWidget->SetTitleText(SettingName);
 }
 
 void UMenuSettingsWidget::CreatePopUpValidation()

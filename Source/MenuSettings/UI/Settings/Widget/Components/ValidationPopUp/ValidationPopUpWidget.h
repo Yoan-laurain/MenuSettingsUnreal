@@ -17,12 +17,6 @@ public :
 #pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
-	UButton* ValidateButton;
-	
-	UPROPERTY(meta = (BindWidget))
-	UButton* CancelButton;
-	
-	UPROPERTY(meta = (BindWidget))
 	UTextBlock* TitleText;
 
 #pragma endregion WidgetComponents
@@ -36,11 +30,9 @@ private :
 
 protected :
 	
-	virtual void NativeOnInitialized() override;
-	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void OnValidateButtonClicked();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void OnCancelButtonClicked();
 };
