@@ -10,7 +10,6 @@
 #include "../../../Player/LocalPlayerCustom.h"
 #include "../Category/GameSettingsCollection.h"
 #include "../Category/SettingsManager.h"
-#include "Components/Button.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
 
 void UMenuSettingsWidget::NativeOnInitialized()
@@ -30,22 +29,6 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		
 		SetContent(SettingsManager->GetGameplaySettings());
 	}
-	
-	if ( ApplyButton )
-	{
-		ApplyButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::CreatePopUpValidation);
-	}
-
-	if ( CancelButton )
-	{
-		CancelButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::Cancel);
-	}
-
-	if ( ResetButton )
-	{
-		ResetButton->OnClicked.AddDynamic(this, &UMenuSettingsWidget::Reset);
-	}
-	
 }
 
 void UMenuSettingsWidget::NativeDestruct()

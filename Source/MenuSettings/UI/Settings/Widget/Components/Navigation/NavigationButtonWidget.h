@@ -16,11 +16,11 @@ public :
 #pragma region WidgetComponents
 	
 	/** The button to navigate */
-	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
+	UPROPERTY( BlueprintReadWrite,EditAnywhere, meta = (BindWidget) )
 	UButton* NavigationButton;
 
 	/** The text of the button */
-	UPROPERTY( BlueprintReadWrite, meta = (BindWidget) )
+	UPROPERTY( BlueprintReadWrite,EditAnywhere, meta = (BindWidget) )
 	UTextBlock* NavigationText;
 
 #pragma endregion WidgetComponents

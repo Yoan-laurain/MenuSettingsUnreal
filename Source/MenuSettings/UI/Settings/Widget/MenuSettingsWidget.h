@@ -30,15 +30,6 @@ public :
 	/** Where the navigations buttons are put */
 	UPROPERTY(meta = (BindWidget))
 	UHorizontalBox* NavigationButtonsBox;
-	
-	UPROPERTY( meta = (BindWidget) )
-	UButton* ApplyButton;
-
-	UPROPERTY( meta = (BindWidget) )
-	UButton* CancelButton;
-
-	UPROPERTY( meta = (BindWidget) )
-	UButton* ResetButton;
 
 	UPROPERTY(meta=(BindWidget) )
 	USettingsDescription* SettingsDescriptionWidget;
@@ -79,16 +70,16 @@ public :
 	void OnNavigationButtonClicked(FString SettingsName);
 	void ChangeDescription(FText Description);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void CreatePopUpValidation();
 
 	UFUNCTION()
 	void ApplySettings();
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Cancel();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void Reset();
 	
 	void CancelConfirm(const bool bWithBinding = true);
