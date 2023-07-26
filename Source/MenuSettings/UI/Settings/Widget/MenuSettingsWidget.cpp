@@ -19,6 +19,14 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	Super::NativeOnInitialized();
 
 	USettingsManager* SettingsManager = USettingsManager::Get();
+
+	if ( ULocalSettings* LocalSettings = ULocalSettings::Get() )
+	{
+		if ( LocalSettings->ShouldRunAutoBenchmarkAtStartup() )
+		{
+			LocalSettings->RunAutoBenchmark(true);
+		}
+	}
 	
 	if ( SettingsManager )
 	{
