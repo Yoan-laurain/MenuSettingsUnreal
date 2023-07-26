@@ -33,6 +33,7 @@ public:
 	void SetCurrentValue(FText NewText);
 
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
+	UMenuSettingsWidget* GetParentWidget() const { return ParentWidget; }
 	
 	UGameSettingsItem* GetSettingsItem() const;
 

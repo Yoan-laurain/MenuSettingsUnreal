@@ -20,7 +20,7 @@ public:
 	static USettingsManager* Get();
 
 	void SaveChanges();
-	void CancelChanges(bool bWithBinding);
+	void CancelChanges();
 	void ResetToDefault();
 	void LoadAndRegisterInputConfigs();
 
@@ -35,6 +35,9 @@ public:
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
 
 	ULocalPlayerCustom* GetLocalPlayer() const { return LocalPlayer; }
+
+	bool GetHasPendingModifications() const { return HasPendingModifications; }
+	void SetHasPendingModifications(const bool bHasPendingModifications) { HasPendingModifications = bHasPendingModifications; }
 
 protected :
 	
@@ -62,4 +65,6 @@ protected :
 	ULocalPlayerCustom* LocalPlayer;
 	
 	static USettingsManager* Registry;
+
+	bool HasPendingModifications;
 };

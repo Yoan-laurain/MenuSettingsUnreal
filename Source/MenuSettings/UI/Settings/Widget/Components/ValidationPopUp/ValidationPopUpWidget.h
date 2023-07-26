@@ -13,6 +13,14 @@ class MENUSETTINGS_API UValidationPopUpWidget final : public UUserWidget
 	GENERATED_BODY()
 
 public :
+	
+	void SetMenuSettingsWidget(UMenuSettingsWidget* InMenuSettingsWidget);
+	void SetTitleText(const FText& InTitleText);
+
+private :
+
+	UPROPERTY()
+	UMenuSettingsWidget* MenuSettingsWidget;
 
 #pragma region WidgetComponents
 	
@@ -20,13 +28,6 @@ public :
 	UTextBlock* TitleText;
 
 #pragma endregion WidgetComponents
-
-	void SetMenuSettingsWidget(UMenuSettingsWidget* InMenuSettingsWidget);
-
-private :
-
-	UPROPERTY()
-	UMenuSettingsWidget* MenuSettingsWidget;
 
 protected :
 	

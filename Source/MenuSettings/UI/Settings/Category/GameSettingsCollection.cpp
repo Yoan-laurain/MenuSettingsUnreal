@@ -1,5 +1,9 @@
 #include "GameSettingsCollection.h"
 
+#include "SettingsManager.h"
+#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
+#include "MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h"
+
 #define LOCTEXT_NAMESPACE "MySettings"
 
 UGameSettingsItem::UGameSettingsItem()
@@ -66,6 +70,14 @@ UGameSettingsItem::FSetCurrentOptionValueDelegate& UGameSettingsItem::GetCurrent
 void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 {
 	CurrentOptionValueDelegateSet.ExecuteIfBound();
+
+	if ( USettingsManager *SettingsManager = USettingsManager::Get() )
+	{
+		if ( GetWidget() && GetWidget()->GetParentWidget())
+		{
+			GetWidget()->GetParentWidget()->SetEnabledStateSaveButton(true);
+		}
+	}
 }
 
 void UGameSettingsItem::CancelChanges()

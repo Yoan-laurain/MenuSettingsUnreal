@@ -5,6 +5,7 @@
 #include "../../../LocalSettings.h"
 #include "../../../Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 #include "../../../Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -102,6 +103,10 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	Item->ChangeBinding(0, Key);
 
 	const FText KeyName = FText::FromString(Key.ToString());
+	ensure(Parent);
+	ensure(Parent->GetParentWidget());
+	Parent->GetParentWidget()->SetEnabledStateSaveButton(true);
+	
 	Parent->Refresh();
 	RemoveFromParent();
 }

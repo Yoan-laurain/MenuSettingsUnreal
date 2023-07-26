@@ -76,15 +76,10 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	}
 }
 
-void USettingsManager::CancelChanges(const bool bWithBinding)
+void USettingsManager::CancelChanges()
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		const FText Name = LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard");
-		if ( !bWithBinding && Setting.Key == Name.ToString() )
-		{
-			continue;
-		}
 		CancelLocalSettings(Setting.Value);
 	}
 

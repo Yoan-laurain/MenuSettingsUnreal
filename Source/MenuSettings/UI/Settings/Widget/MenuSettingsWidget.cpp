@@ -12,6 +12,8 @@
 #include "../Category/SettingsManager.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
 
+#define LOCTEXT_NAMESPACE "MySettings"
+
 void UMenuSettingsWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
@@ -29,13 +31,20 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		
 		SetContent(SettingsManager->GetGameplaySettings());
 	}
+
+	SetEnabledStateSaveButton(false);
 }
 
 void UMenuSettingsWidget::NativeDestruct()
 {
+	const USettingsManager* SettingsManager = USettingsManager::Get();
+	
+	if ( SettingsManager->GetHasPendingModifications() )
+	{
+		CreatePopUpValidation(LOCTEXT("UnsavedChanges", "You have unsaved changes. Do you want to save them ?"));
+	}
+	
 	Super::NativeDestruct();
-
-	CancelConfirm(false);
 }
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
@@ -85,7 +94,7 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 	}
 }
 
-void UMenuSettingsWidget::CreateSubTitle(const FText Title)
+void UMenuSettingsWidget::CreateSubTitle(const FText& Title)
 {
 	USettingsCategoryTitleWidget* SettingsCategoryTitleWidget = CreateWidget<USettingsCategoryTitleWidget>(GetWorld(), SettingsCategoryTitleWidgetClass);
 
@@ -123,12 +132,16 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 		return;
 	}
 
-	const USettingsManager* SettingsManager = USettingsManager::Get();
-	
-	if ( SettingsManager )
+	if ( const USettingsManager* SettingsManager = USettingsManager::Get() )
 	{
 		SettingsScrollBox->ClearChildren();
 		SetContent(SettingsManager->GetSettings(SettingsName));
+	}
+
+	if (SettingsDescriptionWidget)
+	{
+		SettingsDescriptionWidget->SetDescriptionText(FText::FromString(""));
+		SettingsDescriptionWidget->SetTitleText(FText::FromString(""));
 	}
 
 }
@@ -139,10 +152,11 @@ void UMenuSettingsWidget::ChangeDescription(const FText& Description, const FTex
 	SettingsDescriptionWidget->SetTitleText(SettingName);
 }
 
-void UMenuSettingsWidget::CreatePopUpValidation()
+void UMenuSettingsWidget::CreatePopUpValidation(const FText Text)
 {
 	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
 	ValidationPopUpWidget->SetMenuSettingsWidget(this);
+	ValidationPopUpWidget->SetTitleText(Text);
 	ValidationPopUpWidget->AddToViewport();
 }
 
@@ -150,17 +164,24 @@ void UMenuSettingsWidget::ApplySettings()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->SaveChanges();
+	SetEnabledStateSaveButton(false);
 }
 
-void UMenuSettingsWidget::CancelConfirm(const bool bWithBinding)
+void UMenuSettingsWidget::SetEnabledStateSaveButton(const bool bIsEnabledApply)
 {
-	USettingsManager* SettingsManager = USettingsManager::Get();
-	SettingsManager->CancelChanges(bWithBinding);
+	if ( ApplyButton )
+	{
+		USettingsManager* SettingsManager = USettingsManager::Get();
+		ApplyButton->SetIsEnabled(bIsEnabledApply);
+		SettingsManager->SetHasPendingModifications(bIsEnabledApply);
+	}
 }
 
 void UMenuSettingsWidget::Cancel()
 {
-	CancelConfirm(true);
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->CancelChanges();
+	SetEnabledStateSaveButton(false);
 }
 
 void UMenuSettingsWidget::Reset()

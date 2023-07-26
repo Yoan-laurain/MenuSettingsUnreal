@@ -18,6 +18,9 @@ class MENUSETTINGS_API UMenuSettingsWidget final : public UUserWidget
 public :
 
 #pragma region WidgetComponents
+
+	UPROPERTY(meta = (BindWidget))
+	UUserWidget* ApplyButton;
 	
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
@@ -71,7 +74,7 @@ public :
 	void ChangeDescription(const FText& Description,const FText& SettingName);
 
 	UFUNCTION(BlueprintCallable)
-	void CreatePopUpValidation();
+	void CreatePopUpValidation(FText Text);
 
 	UFUNCTION()
 	void ApplySettings();
@@ -81,13 +84,13 @@ public :
 
 	UFUNCTION(BlueprintCallable)
 	void Reset();
-	
-	void CancelConfirm(const bool bWithBinding = true);
+
+	void SetEnabledStateSaveButton(const bool bIsEnabled);
 	
 private :
 
 	void SetContent(UGameSettingsCollection* SettingsCollection);
-	void CreateSubTitle(FText Title);
+	void CreateSubTitle(const FText& Title);
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
