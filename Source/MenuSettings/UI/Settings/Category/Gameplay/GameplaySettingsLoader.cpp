@@ -23,7 +23,7 @@ UGameSettingsCollection* USettingsManager::InitializeGameplaySettings()
 		{
 			ULanguageConfiguration* Setting = NewObject<ULanguageConfiguration>();
 			Setting->SetOptionName( LOCTEXT("LanguageCollection_Name", "Language"));
-			Setting->SetDescriptionRichText(LOCTEXT("LanguageSetting_Description", "The language of the game. You will need to restart the game completely for all language related changes to take effect."));
+			Setting->SetDescriptionRichText(LOCTEXT("LanguageSetting_Description", "The language of the game."));
 			
 			Setting->GetCurrentOptionValueDelegate().BindLambda([LocalSettings,Setting]()
 			{
@@ -37,6 +37,10 @@ UGameSettingsCollection* USettingsManager::InitializeGameplaySettings()
 			
 			for (const FString& CultureName : Setting->GetAvailableCultureNames())
 			{
+				if ( CultureName == TEXT(""))
+				{
+					continue;
+				}
 				Setting->AddOption(FText::FromString(CultureName));
 			}
 			

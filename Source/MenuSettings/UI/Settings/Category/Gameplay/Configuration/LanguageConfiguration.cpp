@@ -9,6 +9,11 @@ void ULanguageConfiguration::InitializeCultureNames()
 	TArray<FString> AllCultureNames = FTextLocalizationManager::Get().GetLocalizedCultureNames(ELocalizationLoadFlags::Game);
 	for (FString& CultureName : AllCultureNames)
 	{
+		if ( CultureName == TEXT(""))
+		{
+			continue;
+		}
+		
 		if (FInternationalization::Get().IsCultureAllowed(CultureName))
 		{
 			AvailableCultureNames.Add(CultureName);
