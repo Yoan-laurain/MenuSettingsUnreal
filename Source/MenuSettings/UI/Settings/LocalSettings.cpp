@@ -218,7 +218,7 @@ void ULocalSettings::ApplyCultureSettings()
 		if (FInternationalization::Get().SetCurrentCulture(CultureToApply))
 		{
 			// Note: This is intentionally saved to the users config
-			// We need to localize text before the player logs in and very early in the loading screen
+			// We need to localize text before the player logs
 			GConfig->SetString(TEXT("Internationalization"), TEXT("Culture"), *CultureToApply, GGameUserSettingsIni);
 			GConfig->Flush(false, GGameUserSettingsIni);
 		}

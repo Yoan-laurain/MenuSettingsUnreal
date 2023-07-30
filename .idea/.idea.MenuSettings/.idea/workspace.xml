@@ -8,20 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ac5867a-bfaa-4c35-bf8b-f018a78f95f0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Localization/Game/Game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/Game.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Localization/Game/Game.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/Game.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/en/Game.archive" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/en/Game.archive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/en/Game.locres" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/en/Game.locres" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.archive" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.archive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.locres" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.locres" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/Description/WBP_Description.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/Description/WBP_Description.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_ChooseAKey.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_ChooseAKey.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Localization/StringsTables/Menus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/StringsTables/Menus.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/Configuration/LanguageConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/Configuration/LanguageConfiguration.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/GameplaySettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/GameplaySettingsLoader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,34 +32,40 @@
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../UE_5.2/Engine/Source/Developer/GraphColor/Private/appconst.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../UE_5.2/Engine/Source/Developer/GraphColor/Private/graphColorVertices.private.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/Developer/RiderLink/Source/RD/thirdparty/spdlog/include/spdlog/details/mpmc_blocking_q.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="2T7y7rbBV0sSXjPyH8SEIlvazNa" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\ghost\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\ghost\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\ghost\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\ghost\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\ghost\\AppData\\Roaming\\JetBrains\\Rider2023.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\ghost\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="MenuSettings" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -131,7 +133,9 @@
       <option name="presentableId" value="Default" />
       <updated>1690408250994</updated>
       <workItem from="1690408252739" duration="797000" />
-      <workItem from="1690476409004" duration="3877000" />
+      <workItem from="1690476409004" duration="6197000" />
+      <workItem from="1690577533920" duration="469000" />
+      <workItem from="1690701262175" duration="737000" />
     </task>
     <servers />
   </component>

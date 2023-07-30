@@ -20,7 +20,7 @@ void ULanguageConfiguration::InitializeCultureNames()
 		}
 	}
 
-	AvailableCultureNames.Insert(TEXT(""), SettingSystemDefaultLanguageIndex);
+	//AvailableCultureNames.Insert(TEXT(""), SettingSystemDefaultLanguageIndex);
 }
 
 void ULanguageConfiguration::ResetToDefault()
