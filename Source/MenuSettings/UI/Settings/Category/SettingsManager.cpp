@@ -97,12 +97,15 @@ void ResetLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			Option->ResetToDefault();
-			Option->ExecCurrentOptionValueDelegate();
-
-			if ( Option->GetWidget() )
+			if ( Option->GetIndexCurrentOption() != Option->GetDefaultOption() )
 			{
-				Option->GetWidget()->UpdateHUD();
+				Option->ResetToDefault();
+				Option->ExecCurrentOptionValueDelegate();
+
+				if ( Option->GetWidget() )
+				{
+					Option->GetWidget()->UpdateHUD();
+				}
 			}
 		}
 	}
