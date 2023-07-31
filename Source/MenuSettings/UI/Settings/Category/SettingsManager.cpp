@@ -35,7 +35,6 @@ void SetOptionToBase(UGameSettingsCollection* Setting)
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
 			Option->SetInitialIndex(Option->GetIndexCurrentOption());
-			Option->ExecCurrentOptionValueDelegate();
 		}
 	}
 } 
@@ -46,7 +45,6 @@ void USettingsManager::SaveChanges()
 	{
 		SetOptionToBase(Setting.Value);
 	}
-	ULocalSettings::Get()->ApplySettings(false);
 }
 
 void CancelLocalSettings( UGameSettingsCollection* Setting )
