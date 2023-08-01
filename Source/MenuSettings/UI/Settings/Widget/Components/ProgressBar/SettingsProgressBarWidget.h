@@ -4,6 +4,7 @@
 #include "SettingsProgressBarWidget.generated.h"
 
 class UProgressBar;
+class UAnalogSlider;
 
 UCLASS()
 class MENUSETTINGS_API USettingsProgressBarWidget final : public UiSettingsParentClass
@@ -17,8 +18,8 @@ public :
 	UPROPERTY(meta = (BindWidget))
 	UProgressBar* ProgressBar;
 	
-	UPROPERTY(meta = (BindWidget))
-	class USlider* Slider;
+	UPROPERTY(meta = (BindWidget),EditAnywhere,BlueprintReadWrite)
+	class UAnalogSlider* Slider;
 
 #pragma endregion WidgetComponents
 

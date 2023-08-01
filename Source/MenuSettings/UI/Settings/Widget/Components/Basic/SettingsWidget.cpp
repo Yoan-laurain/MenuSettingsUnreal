@@ -1,9 +1,7 @@
 #include "SettingsWidget.h"
-#include "Components/Button.h"
-#include "Components/TextBlock.h"
-#include "../../../LocalSettings.h"
 #include "../../../Category/GameSettingsCollection.h"
 #include "../../MenuSettingsWidget.h"
+#include "MenuSettings/UI/Components/ButtonBase.h"
 
 void USettingsWidget::NativeOnInitialized()
 {
@@ -11,12 +9,12 @@ void USettingsWidget::NativeOnInitialized()
 
 	if ( DecreaseButton )
 	{
-		DecreaseButton->OnClicked.AddDynamic(this, &USettingsWidget::OnDecreaseButtonClicked);
+		DecreaseButton->OnClicked().AddUObject(this, &USettingsWidget::OnDecreaseButtonClicked);
 	}
 
 	if ( IncreaseButton )
 	{
-		IncreaseButton->OnClicked.AddDynamic(this, &USettingsWidget::OnIncreaseButtonClicked);
+		IncreaseButton->OnClicked().AddUObject(this, &USettingsWidget::OnIncreaseButtonClicked);
 	}
 }
 

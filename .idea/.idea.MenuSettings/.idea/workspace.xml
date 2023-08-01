@@ -8,7 +8,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ac5867a-bfaa-4c35-bf8b-f018a78f95f0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/BaseWidgetClass.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/BaseWidgetClass.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Components/ButtonBase.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Components/ButtonBase.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Foundation/LyraActionWidget.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Foundation/LyraActionWidget.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Foundation/LyraActivatableWidget.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Foundation/LyraActivatableWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEngine.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEngine.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultGame.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultGame.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultInput.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultInput.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Components/Button/WBP_BackButton.uasset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Components/Button/WBP_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Components/Button/WBP_Button.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/Basic/WBP_Settings.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/Basic/WBP_Settings.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_BindingKey.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_BindingKey.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/Navigation/WBP_NavigationButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/Navigation/WBP_NavigationButton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/ProgressBar/WBP_SettingsProgressBarWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/ProgressBar/WBP_SettingsProgressBarWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Credits/WBP_Credits.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Credits/WBP_Credits.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/WBP_MenuSettingsWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/WBP_SettingsPopUpValidation.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/WBP_SettingsPopUpValidation.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/WBP_StartMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/WBP_StartMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioModifier.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioModifier.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/Basic/SettingsWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/ProgressBar/SettingsProgressBarWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,11 +63,21 @@
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../UE_5.2/Engine/Source/Developer/GraphColor/Private/appconst.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../UE_5.2/Engine/Source/Developer/GraphColor/Private/graphColorVertices.private.h" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Plugins/Developer/RiderLink/Source/RD/thirdparty/CTPL/include/ctpl_stl.h" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Plugins/Developer/RiderLink/Source/RD/thirdparty/spdlog/include/spdlog/details/mpmc_blocking_q.h" root0="SKIP_HIGHLIGHTING" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2T7y7rbBV0sSXjPyH8SEIlvazNa" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -127,7 +172,15 @@
       <workItem from="1690476409004" duration="6197000" />
       <workItem from="1690577533920" duration="469000" />
       <workItem from="1690701262175" duration="1205000" />
-      <workItem from="1690801067779" duration="604000" />
+      <workItem from="1690801067779" duration="16401000" />
+      <workItem from="1690824218615" duration="8520000" />
+      <workItem from="1690833220560" duration="2137000" />
+      <workItem from="1690835733337" duration="484000" />
+      <workItem from="1690880559533" duration="7645000" />
+      <workItem from="1690889930171" duration="4457000" />
+      <workItem from="1690894575477" duration="7608000" />
+      <workItem from="1690905639606" duration="2745000" />
+      <workItem from="1690909461289" duration="4425000" />
     </task>
     <servers />
   </component>
@@ -136,5 +189,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/../../../UE_5.2/Engine/Plugins/Experimental/CommonUI/Source/CommonUI/Private/CommonButtonBase.cpp</url>
+          <line>605</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

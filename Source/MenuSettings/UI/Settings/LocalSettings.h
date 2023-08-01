@@ -220,6 +220,7 @@ public :
 	bool ShouldResetToDefaultCulture() const { return bResetToDefaultCulture; }
 	
 	void ApplyCultureSettings();
+	virtual void ApplyNonResolutionSettings() override;
 	void ResetCultureToCurrentSettings();
 
 private:
@@ -236,4 +237,6 @@ private:
 	
 #pragma endregion GameplaySettings
 	
+	UPROPERTY(Config)
+	FName ControllerPlatform;
 };

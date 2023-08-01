@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
+#include "MenuSettings/UI/Foundation/LyraActivatableWidget.h"
 #include "MenuSettingsWidget.generated.h"
 
+class UButtonBase;
 class UVerticalBox;
 class UGameSettingsCollection;
 class UButton;
@@ -11,7 +13,7 @@ class UHorizontalBox;
 class USettingsDescription;
 
 UCLASS()
-class MENUSETTINGS_API UMenuSettingsWidget final : public UUserWidget
+class MENUSETTINGS_API UMenuSettingsWidget final : public ULyraActivatableWidget
 {
 	GENERATED_BODY()
 
@@ -19,8 +21,8 @@ public :
 
 #pragma region WidgetComponents
 
-	UPROPERTY(meta = (BindWidget))
-	UUserWidget* ApplyButton;
+	UPROPERTY(meta = (BindWidget), EditAnywhere, BlueprintReadWrite)
+	UButtonBase* ApplyButton;
 	
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
@@ -31,7 +33,7 @@ public :
 	UVerticalBox* VB_Right;
 
 	/** Where the navigations buttons are put */
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), EditAnywhere, BlueprintReadWrite)
 	UHorizontalBox* NavigationButtonsBox;
 
 	UPROPERTY(meta=(BindWidget) )
@@ -86,6 +88,8 @@ public :
 	void Reset();
 
 	void SetEnabledStateSaveButton(const bool bIsEnabled);
+
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 	
 private :
 

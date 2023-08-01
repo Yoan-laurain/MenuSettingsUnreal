@@ -1,6 +1,5 @@
 #include "MenuSettingsWidget.h"
 #include "Components/HorizontalBox.h"
-#include "Components/Navigation/NavigationButtonWidget.h"
 #include "Components/ScrollBox.h"
 #include "Components/Description/SettingsDescription.h"
 #include "Components/ProgressBar/SettingsProgressBarWidget.h"
@@ -9,8 +8,10 @@
 #include "Components/BindingKey/BindingKeyWidget.h"
 #include "../../../Player/LocalPlayerCustom.h"
 #include "../Category/GameSettingsCollection.h"
+#include "Components/Navigation/NavigationButtonWidget.h"
 #include "../Category/SettingsManager.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
+#include "MenuSettings/UI/Components/ButtonBase.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -126,7 +127,6 @@ void UMenuSettingsWidget::CreateSectionsButtons(TArray<FString>* NavigationButto
 			 	SettingsWidget->NavigationButtonClickedDelegate.BindLambda( [this, Button] () { OnNavigationButtonClicked(Button); } );
 			 	
 			 	NavigationButtonsBox->AddChild(SettingsWidget);
-			 	
 			 	SettingsWidget->InitWidget(Button);
 			 }
 		}
@@ -183,6 +183,16 @@ void UMenuSettingsWidget::SetEnabledStateSaveButton(const bool bIsEnabledApply)
 		ApplyButton->SetIsEnabled(bIsEnabledApply);
 		SettingsManager->SetHasPendingModifications(bIsEnabledApply);
 	}
+}
+
+UWidget* UMenuSettingsWidget::NativeGetDesiredFocusTarget() const
+{
+	if (UWidget* Target = BP_GetDesiredFocusTarget())
+	{
+		return Target;
+	}
+
+	return Super::NativeGetDesiredFocusTarget();
 }
 
 void UMenuSettingsWidget::Cancel()

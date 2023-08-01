@@ -1,7 +1,6 @@
 #include "BindingKeyWidget.h"
-
 #include "ChooseAKeyWidget.h"
-#include "Components/Button.h"
+#include "../../../../Components/ButtonBase.h"
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 
@@ -16,13 +15,18 @@ void UBindingKeyWidget::UpdateHUD()
 	Refresh();
 }
 
+void UBindingKeyWidget::SetCurrentValue(const FText NewText)
+{
+	Button->SetButtonText(NewText);
+}
+
 void UBindingKeyWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
 	if ( Button )
 	{
-		Button->OnClicked.AddDynamic(this, &UBindingKeyWidget::OnTryKeyChange);
+		Button->OnClicked().AddUObject(this, &UBindingKeyWidget::OnTryKeyChange);
 	}
 }
 

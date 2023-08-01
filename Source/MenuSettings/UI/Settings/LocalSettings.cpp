@@ -1,4 +1,6 @@
 ﻿#include "LocalSettings.h"
+
+#include "CommonInputSubsystem.h"
 #include "EnhancedActionKeyMapping.h"
 #include "EnhancedInputSubsystems.h"
 #include "../../Player/LocalPlayerCustom.h"
@@ -192,7 +194,6 @@ void ULocalSettings::ResetKeybindingsToDefault(ULocalPlayerCustom* LocalPlayer)
 	}
 }
 
-
 //////////////////////////////////////////////////////////////////////
 
 void ULocalSettings::ApplyCultureSettings()
@@ -224,6 +225,11 @@ void ULocalSettings::ApplyCultureSettings()
 		}
 		ClearPendingCulture();
 	}
+}
+
+void ULocalSettings::ApplyNonResolutionSettings()
+{
+	Super::ApplyNonResolutionSettings();
 }
 
 void ULocalSettings::ResetCultureToCurrentSettings()

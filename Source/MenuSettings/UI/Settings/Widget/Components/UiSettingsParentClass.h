@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "CommonUserWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "UiSettingsParentClass.generated.h"
 
@@ -9,7 +10,7 @@ class FText;
 class UButton;
 
 UCLASS()
-class UiSettingsParentClass : public UUserWidget
+class UiSettingsParentClass : public UCommonUserWidget
 {
 
 	GENERATED_BODY()
@@ -30,7 +31,7 @@ public:
 #pragma region GettersSetters
 
 	void SetSettingsText(FText NewText);
-	void SetCurrentValue(FText NewText);
+	virtual void SetCurrentValue(FText NewText);
 
 	void SetParentWidget(class UMenuSettingsWidget* NewParentWidget);
 	UMenuSettingsWidget* GetParentWidget() const { return ParentWidget; }
@@ -50,6 +51,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnHover();
 
+	virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	UWidget* GetPrimaryGamepadFocusWidget();
+	
 protected :
 
 	UPROPERTY()

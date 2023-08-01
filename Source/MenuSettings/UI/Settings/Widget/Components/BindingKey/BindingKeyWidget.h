@@ -6,7 +6,7 @@
 
 class UChooseAKeyWidget;
 class UTextBlock;
-class UButton;
+class UButtonBase;
 
 UCLASS()
 class MENUSETTINGS_API UBindingKeyWidget final : public UiSettingsParentClass
@@ -19,10 +19,12 @@ public :
 	virtual void UpdateHUD() override;
 	// UiSettingsParentClass implementation End
 
+	virtual void SetCurrentValue(FText NewText) override;
+
 #pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
-	UButton* Button;
+	UButtonBase* Button;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ChooseAKeyWidgetClass;

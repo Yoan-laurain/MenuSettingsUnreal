@@ -7,6 +7,7 @@ class UHorizontalBox;
 class UGameSettingsItem;
 class UImage;
 class FText;
+class UButtonBase;
 
 UCLASS()
 class MENUSETTINGS_API USettingsWidget : public UiSettingsParentClass
@@ -18,10 +19,10 @@ public :
 #pragma region WidgetComponents
 	
 	UPROPERTY(meta = (BindWidget))
-	UButton* DecreaseButton;
+	UButtonBase* DecreaseButton;
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* IncreaseButton;
+	UButtonBase* IncreaseButton;
 	
 	UPROPERTY( meta = (BindWidget) )
 	UHorizontalBox* HorizontalBox;

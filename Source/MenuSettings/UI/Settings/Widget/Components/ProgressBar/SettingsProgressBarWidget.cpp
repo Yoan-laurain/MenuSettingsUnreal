@@ -1,6 +1,6 @@
 #include "SettingsProgressBarWidget.h"
 #include "Components/ProgressBar.h"
-#include "Components/Slider.h"
+#include "AnalogSlider.h"
 #include "../../../Category/GameSettingsCollection.h"
 
 void USettingsProgressBarWidget::NativeOnInitialized()

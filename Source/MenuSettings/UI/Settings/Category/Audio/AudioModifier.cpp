@@ -1,6 +1,7 @@
 ﻿#include "../../LocalSettings.h"
 #include "SoundControlBus.h"
 #include "AudioModulationStatics.h"
+#include "CommonInputSubsystem.h"
 
 void ULocalSettings::SetOverallVolume(const float InVolume)
 {
