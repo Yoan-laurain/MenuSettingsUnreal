@@ -2,6 +2,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "MenuSettings/UI/Foundation/LyraActivatableWidget.h"
+#include "Engine/DataTable.h"
 #include "MenuSettingsWidget.generated.h"
 
 class UButtonBase;
@@ -20,9 +21,6 @@ class MENUSETTINGS_API UMenuSettingsWidget final : public ULyraActivatableWidget
 public :
 
 #pragma region WidgetComponents
-
-	UPROPERTY(meta = (BindWidget), EditAnywhere, BlueprintReadWrite)
-	UButtonBase* ApplyButton;
 	
 	/** Where options are displayed */
 	UPROPERTY(meta = (BindWidget))
@@ -76,20 +74,36 @@ public :
 	void ChangeDescription(const FText& Description,const FText& SettingName);
 
 	UFUNCTION(BlueprintCallable)
-	void CreatePopUpValidation(FText Text);
+	void CreatePopUpValidation();
 
+	void SetEnabledStateSaveButton(const bool bIsEnabled);
+
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnSettingsDirtyStateChanged(bool bSettingsDirty);
+	void OnSettingsDirtyStateChanged_Implementation(bool bSettingsDirty);
+	
 	UFUNCTION()
 	void ApplySettings();
 	
 	UFUNCTION(BlueprintCallable)
 	void Cancel();
+	
+	void ResetValues();
+	
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle BackInputActionData;
 
-	UFUNCTION(BlueprintCallable)
-	void Reset();
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle ApplyInputActionData;
 
-	void SetEnabledStateSaveButton(const bool bIsEnabled);
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle CancelChangesInputActionData;
 
-	virtual UWidget* NativeGetDesiredFocusTarget() const override;
+	FUIActionBindingHandle BackHandle;
+	FUIActionBindingHandle ApplyHandle;
+	FUIActionBindingHandle CancelChangesHandle;
 	
 private :
 

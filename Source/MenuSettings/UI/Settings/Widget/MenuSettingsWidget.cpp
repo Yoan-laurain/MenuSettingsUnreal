@@ -9,6 +9,7 @@
 #include "../../../Player/LocalPlayerCustom.h"
 #include "../Category/GameSettingsCollection.h"
 #include "Components/Navigation/NavigationButtonWidget.h"
+#include "Input/CommonUIInputTypes.h"
 #include "../Category/SettingsManager.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
 #include "MenuSettings/UI/Components/ButtonBase.h"
@@ -18,6 +19,10 @@
 void UMenuSettingsWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
+
+	BackHandle = RegisterUIActionBinding(FBindUIActionArgs(BackInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::HandleBackAction)));
+	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CreatePopUpValidation)));
+	CancelChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(CancelChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
 
 	USettingsManager* SettingsManager = USettingsManager::Get();
 
@@ -50,7 +55,7 @@ void UMenuSettingsWidget::NativeDestruct()
 	
 	if ( SettingsManager->GetHasPendingModifications() )
 	{
-		CreatePopUpValidation(LOCTEXT("UnsavedChanges", "You have unsaved changes. Do you want to save them ?"));
+		CreatePopUpValidation();
 	}
 	
 	Super::NativeDestruct();
@@ -160,11 +165,11 @@ void UMenuSettingsWidget::ChangeDescription(const FText& Description, const FTex
 	SettingsDescriptionWidget->SetTitleText(SettingName);
 }
 
-void UMenuSettingsWidget::CreatePopUpValidation(const FText Text)
+void UMenuSettingsWidget::CreatePopUpValidation()
 {
 	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
 	ValidationPopUpWidget->SetMenuSettingsWidget(this);
-	ValidationPopUpWidget->SetTitleText(Text);
+	ValidationPopUpWidget->SetTitleText(LOCTEXT("UnsavedChanges", "You have unsaved changes. Do you want to save them ?"));
 	ValidationPopUpWidget->AddToViewport();
 }
 
@@ -177,12 +182,8 @@ void UMenuSettingsWidget::ApplySettings()
 
 void UMenuSettingsWidget::SetEnabledStateSaveButton(const bool bIsEnabledApply)
 {
-	if ( ApplyButton )
-	{
-		USettingsManager* SettingsManager = USettingsManager::Get();
-		ApplyButton->SetIsEnabled(bIsEnabledApply);
-		SettingsManager->SetHasPendingModifications(bIsEnabledApply);
-	}
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->SetHasPendingModifications(bIsEnabledApply);
 }
 
 UWidget* UMenuSettingsWidget::NativeGetDesiredFocusTarget() const
@@ -195,6 +196,26 @@ UWidget* UMenuSettingsWidget::NativeGetDesiredFocusTarget() const
 	return Super::NativeGetDesiredFocusTarget();
 }
 
+void UMenuSettingsWidget::OnSettingsDirtyStateChanged_Implementation(bool bSettingsDirty)
+{
+	if (bSettingsDirty)
+	{
+		if (!GetActionBindings().Contains(ApplyHandle))
+		{
+			AddActionBinding(ApplyHandle);
+		}
+		if (!GetActionBindings().Contains(CancelChangesHandle))
+		{
+			AddActionBinding(CancelChangesHandle);
+		}
+	}
+	else
+	{
+		RemoveActionBinding(ApplyHandle);
+		RemoveActionBinding(CancelChangesHandle);
+	}
+}
+
 void UMenuSettingsWidget::Cancel()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
@@ -202,7 +223,7 @@ void UMenuSettingsWidget::Cancel()
 	SetEnabledStateSaveButton(false);
 }
 
-void UMenuSettingsWidget::Reset()
+void UMenuSettingsWidget::ResetValues()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->ResetToDefault();
