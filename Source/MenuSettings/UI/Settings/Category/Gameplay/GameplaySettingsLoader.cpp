@@ -49,7 +49,12 @@ UGameSettingsCollection* USettingsManager::InitializeGameplaySettings()
 			// for editor
 			if ( IndexCurrentCulture == -1)
 				IndexCurrentCulture = 1;
-			
+
+			TArray<int> TechnicalOptions;
+			TechnicalOptions.Add(0);
+			TechnicalOptions.Add(1);
+
+			Setting->SetTechnicalOption(TechnicalOptions);
 			Setting->SetIndexCurrentOption(IndexCurrentCulture);
 			Setting->SetDefaultOption(1);
 			

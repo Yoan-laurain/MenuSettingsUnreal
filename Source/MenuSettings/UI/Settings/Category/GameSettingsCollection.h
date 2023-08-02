@@ -77,6 +77,8 @@ public:
 		}
 	}
 
+	virtual bool ValueHasChanged();
+
 	FIntPoint ConvertIntToFIntPoint(int Value);
 	int ConvertFIntPointToInt(const FIntPoint& Value);
 

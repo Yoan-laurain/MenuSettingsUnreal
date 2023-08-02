@@ -155,3 +155,8 @@ void UBindingConfiguration::CancelChanges()
 {
 	RestoreToInitial();
 }
+
+bool UBindingConfiguration::ValueHasChanged()
+{
+	return  FirstMappableOption.InputMapping.Key != FirstMappableOption.GetInitialStoredValue();
+}

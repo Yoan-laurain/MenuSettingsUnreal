@@ -19,7 +19,7 @@ public :
 	UProgressBar* ProgressBar;
 	
 	UPROPERTY(meta = (BindWidget),EditAnywhere,BlueprintReadWrite)
-	class UAnalogSlider* Slider;
+	UAnalogSlider* Slider;
 
 #pragma endregion WidgetComponents
 

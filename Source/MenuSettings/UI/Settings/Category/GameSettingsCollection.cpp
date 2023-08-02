@@ -9,6 +9,11 @@ UGameSettingsItem::UGameSettingsItem()
 	SetBaseOptions();
 }
 
+bool UGameSettingsItem::ValueHasChanged()
+{
+	return IndexInitialOption != IndexCurrentOption;
+}
+
 FIntPoint UGameSettingsItem::ConvertIntToFIntPoint(const int Value)
 {
 	switch (Value)
@@ -71,7 +76,7 @@ void UGameSettingsItem::ExecCurrentOptionValueDelegate()
 	
 	if ( GetWidget() && GetWidget()->GetParentWidget())
 	{
-		GetWidget()->GetParentWidget()->SetEnabledStateSaveButton(true);
+		GetWidget()->GetParentWidget()->SetPendingModificationState(true);
 	}
 }
 

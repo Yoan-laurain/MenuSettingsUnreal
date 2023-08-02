@@ -1,7 +1,5 @@
 ﻿#include "UiSettingsParentClass.h"
-
 #include "CommonInputSubsystem.h"
-#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "../../LocalSettings.h"
 #include "../../Category/GameSettingsCollection.h"
@@ -38,6 +36,11 @@ void UiSettingsParentClass::ApplySetting()
 	if ( LocalSettings )
 	{
 		LocalSettings->ApplySettings(false);
+	}
+
+	if ( ParentWidget )
+	{
+		ParentWidget->OnSettingsDirtyStateChanged_Implementation(true);
 	}
 }
 

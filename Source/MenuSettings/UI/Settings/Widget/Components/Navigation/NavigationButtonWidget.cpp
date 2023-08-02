@@ -1,9 +1,10 @@
 #include "NavigationButtonWidget.h"
+#include "CommonInputTypeEnum.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "../../MenuSettingsWidget.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 
-void UNavigationButtonWidget::InitWidget(FString Text)
+void UNavigationButtonWidget::InitWidget(const FString& Text)
 {
 	if ( NavigationText )
 	{
@@ -20,4 +21,9 @@ void UNavigationButtonWidget::OnNavigationButtonClicked()
 {
 	// ReSharper disable once CppExpressionWithoutSideEffects
 	NavigationButtonClickedDelegate.ExecuteIfBound();
+
+	if ( ULocalSettings::Get()->CurrentInputType == ECommonInputType::Gamepad )
+	{
+		SetHoverState(true);
+	}
 }

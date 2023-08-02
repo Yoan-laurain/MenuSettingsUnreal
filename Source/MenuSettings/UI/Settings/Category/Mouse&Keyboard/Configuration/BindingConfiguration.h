@@ -70,6 +70,8 @@ public:
 	/* Cancel any changes made to the bindings */
 	virtual void CancelChanges() override;
 
+	virtual bool ValueHasChanged() override;
+
 protected:
 
 	FKeyboardOption FirstMappableOption;

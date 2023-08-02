@@ -1,6 +1,7 @@
 ﻿#include "ButtonBase.h"
 #include "CommonActionWidget.h"
 #include "CommonInputTypeEnum.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 
 void UButtonBase::SetButtonText(const FText& InText)
 {
@@ -25,7 +26,7 @@ void UButtonBase::UpdateInputActionWidget()
 void UButtonBase::OnInputMethodChanged(ECommonInputType CurrentInputType)
 {
 	Super::OnInputMethodChanged(CurrentInputType);
-
+	ULocalSettings::Get()->CurrentInputType = CurrentInputType;
 	UpdateButtonStyle();
 }
 

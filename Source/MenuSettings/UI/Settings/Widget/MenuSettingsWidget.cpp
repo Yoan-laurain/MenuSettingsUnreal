@@ -1,5 +1,4 @@
 #include "MenuSettingsWidget.h"
-#include "Components/HorizontalBox.h"
 #include "Components/ScrollBox.h"
 #include "Components/Description/SettingsDescription.h"
 #include "Components/ProgressBar/SettingsProgressBarWidget.h"
@@ -11,19 +10,25 @@
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Input/CommonUIInputTypes.h"
 #include "../Category/SettingsManager.h"
+#include "Components/Navigation/NavigationButtonsContainer.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
-#include "MenuSettings/UI/Components/ButtonBase.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
+
+void UMenuSettingsWidget::CallPopUpInternal()
+{
+	CreatePopUpValidation(false);
+}
 
 void UMenuSettingsWidget::NativeOnInitialized()
 {
 	Super::NativeOnInitialized();
 
-	BackHandle = RegisterUIActionBinding(FBindUIActionArgs(BackInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::HandleBackAction)));
-	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CreatePopUpValidation)));
+	BackHandle = RegisterUIActionBinding(FBindUIActionArgs(BackInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::OnCloseClicked)));
+	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CallPopUpInternal)));
 	CancelChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(CancelChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
-
+	OnSettingsDirtyStateChanged_Implementation(false);
+	
 	USettingsManager* SettingsManager = USettingsManager::Get();
 
 	if ( ULocalSettings* LocalSettings = ULocalSettings::Get() )
@@ -46,23 +51,40 @@ void UMenuSettingsWidget::NativeOnInitialized()
 		SetContent(SettingsManager->GetGameplaySettings());
 	}
 
-	SetEnabledStateSaveButton(false);
+	SetPendingModificationState(false);
 }
 
-void UMenuSettingsWidget::NativeDestruct()
+void UMenuSettingsWidget::OnCloseClicked()
 {
 	const USettingsManager* SettingsManager = USettingsManager::Get();
 	
 	if ( SettingsManager->GetHasPendingModifications() )
 	{
-		CreatePopUpValidation();
+		CreatePopUpValidation(true);
+	}
+}
+
+FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+{
+	if ( InKeyEvent.GetKey() == EKeys::Gamepad_LeftShoulder )
+	{
+		NavigationButtonsContainer->OnLeftButtonClicked();
+		return FReply::Handled();
+	}
+
+	if ( InKeyEvent.GetKey() == EKeys::Gamepad_RightShoulder )
+	{
+		NavigationButtonsContainer->OnRightButtonClicked();
+		return FReply::Handled();
 	}
 	
-	Super::NativeDestruct();
+	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 }
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
 {
+	ItemToFocusAtFirst = nullptr;
+	
 	if ( SettingsCollection )
 	{
 		CurrentMenuName = SettingsCollection->GetTitle().ToString();
@@ -99,6 +121,13 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 								SettingsWidget->InitWidget(Setting);
 								SettingsWidget->SetParentWidget(this);
 								SettingsScrollBox->AddChild(SettingsWidget);
+
+								if ( !ItemToFocusAtFirst )
+								{
+									ItemToFocusAtFirst = SettingsWidget->GetPrimaryGamepadFocusWidget();
+
+									SetFocusInternal();
+								}
 							}
 						}
 					}
@@ -131,14 +160,14 @@ void UMenuSettingsWidget::CreateSectionsButtons(TArray<FString>* NavigationButto
 			 {
 			 	SettingsWidget->NavigationButtonClickedDelegate.BindLambda( [this, Button] () { OnNavigationButtonClicked(Button); } );
 			 	
-			 	NavigationButtonsBox->AddChild(SettingsWidget);
+			 	NavigationButtonsContainer->AddNavigationButton(SettingsWidget);
 			 	SettingsWidget->InitWidget(Button);
 			 }
 		}
 	}
 }
 
-void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
+void UMenuSettingsWidget::OnNavigationButtonClicked(const FString& SettingsName)
 {
 	if ( CurrentMenuName == SettingsName )
 	{
@@ -156,7 +185,7 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString SettingsName)
 		SettingsDescriptionWidget->SetDescriptionText(FText::FromString(""));
 		SettingsDescriptionWidget->SetTitleText(FText::FromString(""));
 	}
-
+	
 }
 
 void UMenuSettingsWidget::ChangeDescription(const FText& Description, const FText& SettingName)
@@ -165,22 +194,31 @@ void UMenuSettingsWidget::ChangeDescription(const FText& Description, const FTex
 	SettingsDescriptionWidget->SetTitleText(SettingName);
 }
 
-void UMenuSettingsWidget::CreatePopUpValidation()
+void UMenuSettingsWidget::CreatePopUpValidation(const bool bShouldCloseMenuSettings)
 {
 	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
 	ValidationPopUpWidget->SetMenuSettingsWidget(this);
 	ValidationPopUpWidget->SetTitleText(LOCTEXT("UnsavedChanges", "You have unsaved changes. Do you want to save them ?"));
+	ValidationPopUpWidget->SetShouldCloseMenuSettingsWidget( bShouldCloseMenuSettings );
 	ValidationPopUpWidget->AddToViewport();
+
+	// prevent menu settings Widget to get focus with gamepad
+	this->SetIsEnabled(false);
+	
+	ValidationPopUpWidget->GetPrimaryGamepadFocusWidget()->SetKeyboardFocus();
 }
 
 void UMenuSettingsWidget::ApplySettings()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->SaveChanges();
-	SetEnabledStateSaveButton(false);
+
+	this->SetIsEnabled(true); // allow menu settings widget to get focus with gamepad
+	SetPendingModificationState(false);
+	OnSettingsDirtyStateChanged_Implementation(false);
 }
 
-void UMenuSettingsWidget::SetEnabledStateSaveButton(const bool bIsEnabledApply)
+void UMenuSettingsWidget::SetPendingModificationState(const bool bIsEnabledApply)
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->SetHasPendingModifications(bIsEnabledApply);
@@ -188,9 +226,9 @@ void UMenuSettingsWidget::SetEnabledStateSaveButton(const bool bIsEnabledApply)
 
 UWidget* UMenuSettingsWidget::NativeGetDesiredFocusTarget() const
 {
-	if (UWidget* Target = BP_GetDesiredFocusTarget())
+	if ( ItemToFocusAtFirst )
 	{
-		return Target;
+		return ItemToFocusAtFirst;
 	}
 
 	return Super::NativeGetDesiredFocusTarget();
@@ -220,11 +258,22 @@ void UMenuSettingsWidget::Cancel()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->CancelChanges();
-	SetEnabledStateSaveButton(false);
+	SetPendingModificationState(false);
+	this->SetIsEnabled(true); // allow menu settings widget to get focus with gamepad
+	OnSettingsDirtyStateChanged_Implementation(false);
 }
 
 void UMenuSettingsWidget::ResetValues()
 {
 	USettingsManager* SettingsManager = USettingsManager::Get();
 	SettingsManager->ResetToDefault();
+	OnSettingsDirtyStateChanged_Implementation(false);
+}
+
+void UMenuSettingsWidget::SetFocusInternal()
+{
+	if ( ItemToFocusAtFirst )
+	{
+		ItemToFocusAtFirst->SetFocus();
+	}
 }

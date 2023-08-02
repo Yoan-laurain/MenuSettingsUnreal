@@ -51,10 +51,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OnHover();
 
+#pragma region GAMEPAD
+
 	virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
 	
 	UFUNCTION(BlueprintImplementableEvent)
 	UWidget* GetPrimaryGamepadFocusWidget();
+	
+#pragma endregion GAMEPAD
 	
 protected :
 

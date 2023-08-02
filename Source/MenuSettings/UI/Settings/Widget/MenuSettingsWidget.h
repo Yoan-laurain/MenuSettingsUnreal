@@ -5,6 +5,7 @@
 #include "Engine/DataTable.h"
 #include "MenuSettingsWidget.generated.h"
 
+class UiSettingsParentClass;
 class UButtonBase;
 class UVerticalBox;
 class UGameSettingsCollection;
@@ -12,6 +13,7 @@ class UButton;
 class UScrollBox;
 class UHorizontalBox;
 class USettingsDescription;
+class UNavigationButtonsContainer;
 
 UCLASS()
 class MENUSETTINGS_API UMenuSettingsWidget final : public ULyraActivatableWidget
@@ -23,7 +25,7 @@ public :
 #pragma region WidgetComponents
 	
 	/** Where options are displayed */
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), BlueprintReadWrite, EditAnywhere)
 	UScrollBox* SettingsScrollBox;
 
 	/** The container for description */
@@ -32,7 +34,7 @@ public :
 
 	/** Where the navigations buttons are put */
 	UPROPERTY(meta = (BindWidget), EditAnywhere, BlueprintReadWrite)
-	UHorizontalBox* NavigationButtonsBox;
+	UNavigationButtonsContainer* NavigationButtonsContainer;
 
 	UPROPERTY(meta=(BindWidget) )
 	USettingsDescription* SettingsDescriptionWidget;
@@ -70,27 +72,38 @@ public :
 
 #pragma endregion WidgetClasses
 	
-	void OnNavigationButtonClicked(FString SettingsName);
+	void OnNavigationButtonClicked(const FString& SettingsName);
 	void ChangeDescription(const FText& Description,const FText& SettingName);
-
-	UFUNCTION(BlueprintCallable)
-	void CreatePopUpValidation();
-
-	void SetEnabledStateSaveButton(const bool bIsEnabled);
-
-	virtual UWidget* NativeGetDesiredFocusTarget() const override;
-
+	void SetPendingModificationState(const bool bIsEnabled);
+	
 	UFUNCTION(BlueprintNativeEvent)
 	void OnSettingsDirtyStateChanged(bool bSettingsDirty);
 	void OnSettingsDirtyStateChanged_Implementation(bool bSettingsDirty);
 	
+	void SetFocusInternal();
+
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
+
+#pragma region PopUpMethods
+
+	UFUNCTION(BlueprintCallable)
+	void CreatePopUpValidation(const bool bShouldCloseMenuSettings);
+
 	UFUNCTION()
 	void ApplySettings();
 	
-	UFUNCTION(BlueprintCallable)
 	void Cancel();
-	
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Close();
+
+#pragma endregion 
+
+#pragma region Actions
+
+	void OnCloseClicked();
 	void ResetValues();
+	void CallPopUpInternal();
 	
 	UPROPERTY(EditDefaultsOnly)
 	FDataTableRowHandle BackInputActionData;
@@ -104,6 +117,8 @@ public :
 	FUIActionBindingHandle BackHandle;
 	FUIActionBindingHandle ApplyHandle;
 	FUIActionBindingHandle CancelChangesHandle;
+
+#pragma endregion Actions
 	
 private :
 
@@ -112,9 +127,12 @@ private :
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
+
+	UPROPERTY()
+	UWidget* ItemToFocusAtFirst;
 	
 protected :
 
 	virtual void NativeOnInitialized() override;
-	virtual void NativeDestruct() override;
+	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 };

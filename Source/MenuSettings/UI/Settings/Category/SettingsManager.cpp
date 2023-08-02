@@ -97,7 +97,7 @@ void ResetLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( Option->GetIndexCurrentOption() != Option->GetDefaultOption() )
+			if ( Option->ValueHasChanged() )
 			{
 				Option->ResetToDefault();
 				Option->ExecCurrentOptionValueDelegate();

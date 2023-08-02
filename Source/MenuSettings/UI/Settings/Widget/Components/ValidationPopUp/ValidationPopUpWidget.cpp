@@ -1,22 +1,39 @@
 #include "ValidationPopUpWidget.h"
-
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 void UValidationPopUpWidget::OnValidateButtonClicked()
 {
-	if (MenuSettingsWidget)
-	{
-		MenuSettingsWidget->ApplySettings();
-		RemoveFromParent();
-	}
+	HandleButtonClick(true);
 }
 
 void UValidationPopUpWidget::OnCancelButtonClicked()
 {
+	HandleButtonClick(false);
+}
+
+void UValidationPopUpWidget::HandleButtonClick(const bool bIsValidateButton)
+{
 	if (MenuSettingsWidget)
 	{
-		MenuSettingsWidget->Cancel();
+		if (bIsValidateButton)
+		{
+			MenuSettingsWidget->ApplySettings();
+		}
+		else
+		{
+			MenuSettingsWidget->Cancel();
+		}
+
+		if (bShouldCloseMenuSettingsWidget)
+		{
+			MenuSettingsWidget->Close();
+		}
+		else
+		{
+			MenuSettingsWidget->SetFocusInternal();
+		}
+
 		RemoveFromParent();
 	}
 }
@@ -32,4 +49,9 @@ void UValidationPopUpWidget::SetTitleText(const FText& InTitleText)
 	{
 		TitleText->SetText(InTitleText);
 	}
+}
+
+void UValidationPopUpWidget::SetShouldCloseMenuSettingsWidget(const bool bInShouldCloseMenuSettingsWidget)
+{
+	bShouldCloseMenuSettingsWidget = bInShouldCloseMenuSettingsWidget;
 }

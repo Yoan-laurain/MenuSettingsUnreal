@@ -25,13 +25,14 @@ public :
 
 #pragma endregion WidgetComponents
 
-	void InitWidget(FString Text);
+	void InitWidget(const FString& Text);
+
+	UFUNCTION()
+	void OnNavigationButtonClicked();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void SetHoverState(const bool bHover);
 	
 	DECLARE_DELEGATE(FNavigationButtonClickedDelegate)
 	FNavigationButtonClickedDelegate NavigationButtonClickedDelegate;
-
-protected :
-	
-	UFUNCTION()
-	void OnNavigationButtonClicked();
 };

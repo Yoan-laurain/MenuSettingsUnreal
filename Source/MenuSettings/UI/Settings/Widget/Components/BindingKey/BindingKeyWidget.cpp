@@ -3,11 +3,12 @@
 #include "../../../../Components/ButtonBase.h"
 #include "Components/TextBlock.h"
 #include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 void UBindingKeyWidget::Refresh()
 {
 	const UBindingConfiguration* Item = Cast<UBindingConfiguration>(GetSettingsItem());
-	CurrentValue->SetText(Item->GetPrimaryKeyText());
+	SetCurrentValue(Item->GetPrimaryKeyText());
 }
 
 void UBindingKeyWidget::UpdateHUD()
@@ -18,6 +19,11 @@ void UBindingKeyWidget::UpdateHUD()
 void UBindingKeyWidget::SetCurrentValue(const FText NewText)
 {
 	Button->SetButtonText(NewText);
+
+	if ( ParentWidget )
+	{
+		ParentWidget->OnSettingsDirtyStateChanged_Implementation(true);
+	}
 }
 
 void UBindingKeyWidget::NativeOnInitialized()

@@ -236,7 +236,11 @@ private:
 	////////////////////////////////////////////////////////
 	
 #pragma endregion GameplaySettings
+
+public :
 	
 	UPROPERTY(Config)
 	FName ControllerPlatform;
+	
+	ECommonInputType CurrentInputType;
 };

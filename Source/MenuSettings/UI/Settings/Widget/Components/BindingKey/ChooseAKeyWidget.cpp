@@ -3,7 +3,6 @@
 #include "Components/TextBlock.h"
 #include "Input/Events.h"
 #include "../../../LocalSettings.h"
-#include "../../../Category/Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 #include "../../../Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
@@ -105,7 +104,7 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	const FText KeyName = FText::FromString(Key.ToString());
 	ensure(Parent);
 	ensure(Parent->GetParentWidget());
-	Parent->GetParentWidget()->SetEnabledStateSaveButton(true);
+	Parent->GetParentWidget()->SetPendingModificationState(true);
 	
 	Parent->Refresh();
 	RemoveFromParent();
