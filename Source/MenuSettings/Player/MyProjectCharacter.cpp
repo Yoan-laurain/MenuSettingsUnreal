@@ -122,6 +122,10 @@ void AMyProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Look);
+
+		//Escape
+		EnhancedInputComponent->BindAction(EscapeAction, ETriggerEvent::Triggered, this, &AMyProjectCharacter::Escape);
+		 
 	}
 }
 

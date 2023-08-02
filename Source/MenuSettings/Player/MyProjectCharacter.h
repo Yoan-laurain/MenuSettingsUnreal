@@ -30,6 +30,9 @@ class AMyProjectCharacter : public ACharacter
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* EscapeAction;
 
 public:
 	AMyProjectCharacter();
@@ -41,6 +44,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Escape();
 
 	UPROPERTY(EditAnywhere)
 	TArray<FMappableConfigPair> DefaultInputConfigs;
