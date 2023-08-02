@@ -62,6 +62,10 @@ void UMenuSettingsWidget::OnCloseClicked()
 	{
 		CreatePopUpValidation(true);
 	}
+	else
+	{
+		Close();
+	}
 }
 
 FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
