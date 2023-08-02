@@ -9,15 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8ac5867a-bfaa-4c35-bf8b-f018a78f95f0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/BP/BP_MyChararcter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/BP/BP_MyChararcter.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Actions/IA_Crouch.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_Gamepad.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_Gamepad.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_KBM.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Input/Mappings/IMC_Default_KBM.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Menus.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Menus.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Start/WBP_StartMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Start/WBP_StartMenu.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Level/Menu.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Level/Menu.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Credits/WBP_Credits.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Credits/WBP_Credits.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +139,7 @@
       <workItem from="1690905639606" duration="2745000" />
       <workItem from="1690909461289" duration="9400000" />
       <workItem from="1690961589126" duration="18150000" />
-      <workItem from="1690986490013" duration="2078000" />
+      <workItem from="1690986490013" duration="2698000" />
     </task>
     <servers />
   </component>
