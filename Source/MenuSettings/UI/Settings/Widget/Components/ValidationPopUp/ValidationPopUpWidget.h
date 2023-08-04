@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "MenuSettings/UI/Foundation/LyraActivatableWidget.h"
+#include "MenuSettings/UI/Foundation/CustomActivatableWidget.h"
 #include "ValidationPopUpWidget.generated.h"
 
 class UMenuSettingsWidget;

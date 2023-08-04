@@ -1,15 +1,12 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CommonActivatableWidget.h"
-
-#include "LyraActivatableWidget.generated.h"
+#include "CustomActivatableWidget.generated.h"
 
 struct FUIInputConfig;
 
 UENUM(BlueprintType)
-enum class ELyraWidgetInputMode : uint8
+enum class ECustomWidgetInputMode : uint8
 {
 	Default,
 	GameAndMenu,
@@ -19,13 +16,10 @@ enum class ELyraWidgetInputMode : uint8
 
 // An activatable widget that automatically drives the desired input config when activated
 UCLASS(Abstract, Blueprintable)
-class ULyraActivatableWidget : public UCommonActivatableWidget
+class UCustomActivatableWidget : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
-public:
-	ULyraActivatableWidget(const FObjectInitializer& ObjectInitializer);
-	
 public:
 	
 	//~UCommonActivatableWidget interface
@@ -39,7 +33,7 @@ public:
 protected:
 	/** The desired input mode to use while this UI is activated, for example do you want key presses to still reach the game/player controller? */
 	UPROPERTY(EditDefaultsOnly, Category = Input)
-	ELyraWidgetInputMode InputConfig = ELyraWidgetInputMode::Default;
+	ECustomWidgetInputMode InputConfig = ECustomWidgetInputMode::Default;
 
 	/** The desired mouse behavior when the game gets input. */
 	UPROPERTY(EditDefaultsOnly, Category = Input)

@@ -1,14 +1,14 @@
 #pragma once
 
 #include "CommonActionWidget.h"
-#include "LyraActionWidget.generated.h"
+#include "CustomActionWidget.generated.h"
 
 class UEnhancedInputLocalPlayerSubsystem;
 class UInputAction;
 
 /** An action widget that will get the icon of key that is currently assigned to the common input action on this widget */
 UCLASS(BlueprintType, Blueprintable)
-class ULyraActionWidget : public UCommonActionWidget
+class UCustomActionWidget : public UCommonActionWidget
 {
 	GENERATED_BODY()
 

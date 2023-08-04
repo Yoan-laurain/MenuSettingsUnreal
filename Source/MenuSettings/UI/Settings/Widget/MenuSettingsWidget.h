@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "MenuSettings/UI/Foundation/LyraActivatableWidget.h"
 #include "Engine/DataTable.h"
+#include "MenuSettings/UI/Foundation/CustomActivatableWidget.h"
 #include "MenuSettingsWidget.generated.h"
 
 class UiSettingsParentClass;
@@ -16,7 +16,7 @@ class USettingsDescription;
 class UNavigationButtonsContainer;
 
 UCLASS()
-class MENUSETTINGS_API UMenuSettingsWidget final : public ULyraActivatableWidget
+class MENUSETTINGS_API UMenuSettingsWidget final : public UCustomActivatableWidget
 {
 	GENERATED_BODY()
 

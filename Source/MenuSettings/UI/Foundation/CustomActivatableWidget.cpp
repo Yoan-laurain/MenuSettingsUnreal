@@ -1,29 +1,21 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
-#include "LyraActivatableWidget.h"
-
+#include "CustomActivatableWidget.h"
 #include "Editor/WidgetCompilerLog.h"
 
-#include UE_INLINE_GENERATED_CPP_BY_NAME(LyraActivatableWidget)
+#include UE_INLINE_GENERATED_CPP_BY_NAME(CustomActivatableWidget)
 
-#define LOCTEXT_NAMESPACE "Lyra"
+#define LOCTEXT_NAMESPACE "Custom"
 
-ULyraActivatableWidget::ULyraActivatableWidget(const FObjectInitializer& ObjectInitializer)
-	: Super(ObjectInitializer)
-{
-}
-
-TOptional<FUIInputConfig> ULyraActivatableWidget::GetDesiredInputConfig() const
+TOptional<FUIInputConfig> UCustomActivatableWidget::GetDesiredInputConfig() const
 {
 	switch (InputConfig)
 	{
-	case ELyraWidgetInputMode::GameAndMenu:
+	case ECustomWidgetInputMode::GameAndMenu:
 		return FUIInputConfig(ECommonInputMode::All, GameMouseCaptureMode);
-	case ELyraWidgetInputMode::Game:
+	case ECustomWidgetInputMode::Game:
 		return FUIInputConfig(ECommonInputMode::Game, GameMouseCaptureMode);
-	case ELyraWidgetInputMode::Menu:
+	case ECustomWidgetInputMode::Menu:
 		return FUIInputConfig(ECommonInputMode::Menu, EMouseCaptureMode::NoCapture);
-	case ELyraWidgetInputMode::Default:
+	case ECustomWidgetInputMode::Default:
 	default:
 		return TOptional<FUIInputConfig>();
 	}
@@ -31,13 +23,13 @@ TOptional<FUIInputConfig> ULyraActivatableWidget::GetDesiredInputConfig() const
 
 #if WITH_EDITOR
 
-void ULyraActivatableWidget::ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, class IWidgetCompilerLog& CompileLog) const
+void UCustomActivatableWidget::ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, class IWidgetCompilerLog& CompileLog) const
 {
 	Super::ValidateCompiledWidgetTree(BlueprintWidgetTree, CompileLog);
 
-	if (!GetClass()->IsFunctionImplementedInScript(GET_FUNCTION_NAME_CHECKED(ULyraActivatableWidget, BP_GetDesiredFocusTarget)))
+	if (!GetClass()->IsFunctionImplementedInScript(GET_FUNCTION_NAME_CHECKED(UCustomActivatableWidget, BP_GetDesiredFocusTarget)))
 	{
-		if (GetParentNativeClass(GetClass()) == ULyraActivatableWidget::StaticClass())
+		if (GetParentNativeClass(GetClass()) == UCustomActivatableWidget::StaticClass())
 		{
 			CompileLog.Warning(LOCTEXT("ValidateGetDesiredFocusTarget_Warning", "GetDesiredFocusTarget wasn't implemented, you're going to have trouble using gamepads on this screen."));
 		}

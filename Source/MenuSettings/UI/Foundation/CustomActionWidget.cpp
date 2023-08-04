@@ -1,13 +1,11 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
-#include "LyraActionWidget.h"
+#include "CustomActionWidget.h"
 
 #include "CommonInputBaseTypes.h"
 #include "CommonInputSubsystem.h"
 #include "Engine/LocalPlayer.h"
 #include "EnhancedInputSubsystems.h"
 
-FSlateBrush ULyraActionWidget::GetIcon() const
+FSlateBrush UCustomActionWidget::GetIcon() const
 {
 	// If there is an Enhanced Input action associated with this widget, then search for any
 	// keys bound to that action and display those instead of the default data table settings.
@@ -28,7 +26,7 @@ FSlateBrush ULyraActionWidget::GetIcon() const
 	return Super::GetIcon();
 }
 
-UEnhancedInputLocalPlayerSubsystem* ULyraActionWidget::GetEnhancedInputSubsystem() const
+UEnhancedInputLocalPlayerSubsystem* UCustomActionWidget::GetEnhancedInputSubsystem() const
 {
 	const UWidget* BoundWidget = DisplayedBindingHandle.GetBoundWidget();
 	const ULocalPlayer* BindingOwner = BoundWidget ? BoundWidget->GetOwningLocalPlayer() : GetOwningLocalPlayer();
