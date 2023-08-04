@@ -17,7 +17,11 @@
 
 void UMenuSettingsWidget::CallPopUpInternal()
 {
-	CreatePopUpValidation(false);
+	if ( !hasBindSpecialAction && CanUseBottomActions )
+	{
+		CreatePopUpValidation(false);
+	}
+	SetHasBindSpecialAction(false);
 }
 
 void UMenuSettingsWidget::NativeOnInitialized()
@@ -28,6 +32,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CallPopUpInternal)));
 	ResetChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(ResetChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
 	OnSettingsDirtyStateChanged_Implementation(false);
+	CanUseBottomActions = true;
 	
 	USettingsManager* SettingsManager = USettingsManager::Get();
 
@@ -56,7 +61,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 void UMenuSettingsWidget::OnCloseClicked()
 {
-	if ( !hasBindBackAction )
+	if ( !hasBindSpecialAction && CanUseBottomActions )
 	{
 		const USettingsManager* SettingsManager = USettingsManager::Get();
 	
@@ -70,7 +75,7 @@ void UMenuSettingsWidget::OnCloseClicked()
 		}
 	}
 
-	hasBindBackAction = false;
+	hasBindSpecialAction = false;
 }
 
 FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
@@ -90,9 +95,19 @@ FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
 	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 }
 
-void UMenuSettingsWidget::SetHasBindBackAction(const bool bHasBindBackAction)
+void UMenuSettingsWidget::SetHasBindSpecialAction(const bool bHasBindSpecialAction)
 {
-	hasBindBackAction = bHasBindBackAction;
+	hasBindSpecialAction = bHasBindSpecialAction;
+}
+
+void UMenuSettingsWidget::SetCanUseBottomActions(const bool bCanUseBottomActions)
+{
+	CanUseBottomActions = bCanUseBottomActions;
+}
+
+void UMenuSettingsWidget::SetItemToFocusAtFirst(UWidget* _ItemToFocusAtFirst)
+{
+	this->ItemToFocusAtFirst = _ItemToFocusAtFirst;
 }
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
@@ -255,7 +270,7 @@ UWidget* UMenuSettingsWidget::NativeGetDesiredFocusTarget() const
 	{
 		return ItemToFocusAtFirst;
 	}
-
+	
 	return Super::NativeGetDesiredFocusTarget();
 }
 
@@ -289,9 +304,13 @@ void UMenuSettingsWidget::Cancel()
 
 void UMenuSettingsWidget::ResetValues()
 {
-	USettingsManager* SettingsManager = USettingsManager::Get();
-	SettingsManager->ResetToDefault();
-	OnSettingsDirtyStateChanged_Implementation(false);
+	if ( !hasBindSpecialAction && CanUseBottomActions )
+	{
+		USettingsManager* SettingsManager = USettingsManager::Get();
+		SettingsManager->ResetToDefault();
+		OnSettingsDirtyStateChanged_Implementation(false);
+	}
+	SetHasBindSpecialAction(false);
 }
 
 void UMenuSettingsWidget::SetFocusInternal()

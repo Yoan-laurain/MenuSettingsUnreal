@@ -102,15 +102,6 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
 			}
 		}
-
-		// load gamepad mappings customizations by the player
-		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerGamePadInputConfig())
-		{
-			if (Pair.Key != NAME_None /*&& Pair.Value.IsValid()*/)
-			{
-				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
-			}
-		}
 	}
 }
 

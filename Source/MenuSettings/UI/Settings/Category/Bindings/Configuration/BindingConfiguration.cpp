@@ -141,7 +141,20 @@ void UBindingConfiguration::CancelChanges()
 	RestoreToInitial();
 }
 
-bool UBindingConfiguration::ValueHasChanged()
+bool UBindingConfiguration::ValueHasChangedCompareToStart()
 {
 	return  FirstMappableOption.InputMapping.Key != FirstMappableOption.GetInitialStoredValue();
+}
+
+bool UBindingConfiguration::ValueHasChangedCompareToDefault()
+{
+	return true;
+}
+
+void UBindingConfiguration::RegisterNewBinding(const FKey& InKey)
+{
+	ChangeBinding(0, InKey);
+	
+	ClearOptions();
+	AddOption(FText::FromString(InKey.ToString()));
 }

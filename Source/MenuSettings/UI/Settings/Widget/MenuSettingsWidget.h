@@ -14,6 +14,7 @@ class UScrollBox;
 class UHorizontalBox;
 class USettingsDescription;
 class UNavigationButtonsContainer;
+class UValidationPopUpWidget;
 
 UCLASS()
 class MENUSETTINGS_API UMenuSettingsWidget final : public UCustomActivatableWidget
@@ -120,7 +121,9 @@ public :
 
 #pragma endregion Actions
 
-	void SetHasBindBackAction(const bool bHasBindBackAction);
+	void SetHasBindSpecialAction(const bool bHasBindSpecialAction);
+	void SetCanUseBottomActions(const bool bCanUseBottomActions);
+	void SetItemToFocusAtFirst(UWidget* ItemToFocusAtFirst);
 	
 private :
 
@@ -129,13 +132,14 @@ private :
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
+	
+	bool hasBindSpecialAction;
+	bool CanUseBottomActions;
+	
+protected :
 
 	UPROPERTY()
 	UWidget* ItemToFocusAtFirst;
-
-	bool hasBindBackAction;
-	
-protected :
 
 	virtual void NativeOnInitialized() override;
 	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;

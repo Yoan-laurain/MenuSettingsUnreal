@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
+#include "MenuSettings/UI/Foundation/CustomActivatableWidget.h"
 #include "ChooseAKeyWidget.generated.h"
 
 enum class ECommonInputType : uint8;
@@ -8,7 +9,7 @@ class UBindingKeyWidget;
 class UTextBlock;
 
 UCLASS()
-class MENUSETTINGS_API UChooseAKeyWidget final : public UUserWidget
+class MENUSETTINGS_API UChooseAKeyWidget final : public UCustomActivatableWidget
 {
 	GENERATED_BODY()
 
@@ -30,6 +31,7 @@ public :
 	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
 	void ExitHandle(const FKey& Key);
 
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 private :
 
 	FKey CurrentKey;

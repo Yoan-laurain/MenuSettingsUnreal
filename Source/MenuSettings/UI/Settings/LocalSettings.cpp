@@ -51,7 +51,7 @@ void ULocalSettings::GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& 
 		return;
 	}
 
-	TMap<FName, FKey>& CustomConfig = isKeyboard ? CustomKeyboardConfig : CustomGamepadConfig;
+	TMap<FName, FKey>& CustomConfig =  CustomKeyboardConfig ;
 
 	// adding any names of actions that are bound to that key
 	for (const FLoadedMappableConfigPair& Pair : RegisteredInputConfigs)
@@ -99,9 +99,7 @@ void ULocalSettings::AddOrUpdateCustomBindings(const FName MappingName, const FK
 	if (MappingName == NAME_None)
 	{
 		return;
-	}
-
-	TMap<FName, FKey>& UsedConfig = isKeyboard ? CustomKeyboardConfig : CustomGamepadConfig;
+	};
 	
 	if (InputConfigName != TEXT("Custom"))
 	{
@@ -114,7 +112,7 @@ void ULocalSettings::AddOrUpdateCustomBindings(const FName MappingName, const FK
 				// if someone has marked a mapping as "Player Mappable" but deleted the default field value
 				if (Mapping.PlayerMappableOptions.Name != NAME_None)
 				{
-					UsedConfig.Add(Mapping.PlayerMappableOptions.Name, Mapping.Key);
+					CustomKeyboardConfig.Add(Mapping.PlayerMappableOptions.Name, Mapping.Key);
 				}
 			}
 		}
@@ -122,14 +120,14 @@ void ULocalSettings::AddOrUpdateCustomBindings(const FName MappingName, const FK
 		InputConfigName = TEXT("Custom");
 	} 
 
-	if (FKey* ExistingMapping = UsedConfig.Find(MappingName))
+	if (FKey* ExistingMapping = CustomKeyboardConfig.Find(MappingName))
 	{
 		// Change the key to the new one
-		UsedConfig[MappingName] = NewKey;
+		CustomKeyboardConfig[MappingName] = NewKey;
 	}
 	else
 	{
-		UsedConfig.Add(MappingName, NewKey);
+		CustomKeyboardConfig.Add(MappingName, NewKey);
 	}
 
 	// Tell the enhanced input subsystem for this local player that we should remap some input! Woo

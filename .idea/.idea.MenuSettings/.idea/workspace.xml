@@ -9,32 +9,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8ac5867a-bfaa-4c35-bf8b-f018a78f95f0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/Game.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/Game.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/Game.manifest" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/Game.manifest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/en/Game.archive" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/en/Game.archive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/en/Game.locres" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/en/Game.locres" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.archive" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.archive" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.locres" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Localization/Game/fr-FR/Game.locres" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Components/Button/WBP_Button.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Components/Button/WBP_Button.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Foundation/DT_SaveActions.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Foundation/DT_SaveActions.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/ActionBar/WBP_BoundActionButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/ActionBar/WBP_BoundActionButton.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_BindingKey.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/WBP_BindingKey.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/ChooseKey/WBP_ChooseAKey.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/KeyBindings/ChooseKey/WBP_ChooseAKey.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/Player/MyProjectCharacter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/ProjectEnumerations.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/ProjectEnumerations.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Audio/AudioSettingsLoader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/GameplaySettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Gameplay/GameplaySettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/AssetManager/AssetManagerCustom.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/AssetManager/AssetManagerCustom.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/AssetManager/AssetManagerCustom.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/BindingsSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/BindingsSettingsLoader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/BindingConfiguration.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/MappableConfigPair.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/Configuration/MappableConfigPair.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Bindings/Configuration/MappableConfigPair.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Video/VideoSettingsLoader.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/LocalSettings.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Widget/Components/BindingKey/BindingKeyWidget.cpp" afterDir="false" />
@@ -53,6 +34,116 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock:///Dummy.cpp" root0="SKIP_HIGHLIGHTING" />
@@ -348,6 +439,7 @@
       <workItem from="1690909461289" duration="9400000" />
       <workItem from="1690961589126" duration="18150000" />
       <workItem from="1690986490013" duration="2698000" />
+      <workItem from="1691159446899" duration="6564000" />
     </task>
     <servers />
   </component>
@@ -364,11 +456,6 @@
           <url>file://$PROJECT_DIR$/../../../UE_5.2/Engine/Plugins/Experimental/CommonUI/Source/CommonUI/Private/CommonButtonBase.cpp</url>
           <line>605</line>
           <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/GameSettingsCollection.h</url>
-          <line>64</line>
-          <option name="timeStamp" value="48" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

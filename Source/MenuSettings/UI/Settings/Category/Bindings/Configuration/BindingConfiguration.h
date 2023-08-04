@@ -70,10 +70,13 @@ public:
 	/* Cancel any changes made to the bindings */
 	virtual void CancelChanges() override;
 
-	virtual bool ValueHasChanged() override;
+	virtual bool ValueHasChangedCompareToStart() override;
+	virtual bool ValueHasChangedCompareToDefault() override;
 
 	void SetIsKeyboard(bool InIsKeyboard) { isKeyboard = InIsKeyboard; }
 	bool GetIsKeyboard() const { return isKeyboard; }
+
+	void RegisterNewBinding(const FKey& InKey);
 
 private :
 

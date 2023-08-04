@@ -161,7 +161,6 @@ public :
 	void ResetKeybindingsToDefault(ULocalPlayerCustom* LocalPlayer);
 
 	const TMap<FName, FKey>& GetCustomPlayerInputConfig() const { return CustomKeyboardConfig; }
-	const TMap<FName, FKey>& GetCustomPlayerGamePadInputConfig() const { return CustomGamepadConfig; }
 
 	/** The name of the current input config that the user has selected. */
 	UPROPERTY(Config)
@@ -178,10 +177,6 @@ public :
 	/** Array of custom key mappings that have been set by the player. Empty by default. */
 	UPROPERTY(Config)
 	TMap<FName, FKey> CustomKeyboardConfig;
-
-	/** Array of custom key mappings that have been set by the player. Empty by default. */
-	UPROPERTY(Config)
-	TMap<FName, FKey> CustomGamepadConfig;
 
 #pragma endregion KeyBindings
 

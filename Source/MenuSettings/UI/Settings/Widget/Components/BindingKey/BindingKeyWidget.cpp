@@ -20,6 +20,14 @@ void UBindingKeyWidget::SetInternalFocus()
 	}
 }
 
+void UBindingKeyWidget::InitWidget(UGameSettingsItem* NewSettingsItem)
+{
+	SettingsItem = NewSettingsItem;
+	SettingsItem->SetWidget(this);
+	SetSettingsText(SettingsItem->GetOptionName());
+	Refresh();
+}
+
 void UBindingKeyWidget::SetTypeInputExpected(ECommonInputType InTypeInputExpected)
 {
 	ExpectedInputType = InTypeInputExpected;
@@ -58,11 +66,15 @@ void UBindingKeyWidget::OnTryKeyChange()
 		if ( ChooseAKeyWidget )
 		{
 			this->SetIsEnabled(false);
-			ChooseAKeyWidget->AddToViewport();
-			ChooseAKeyWidget->SetFocus();
+			ParentWidget->SetCanUseBottomActions(false);
+			
 			ChooseAKeyWidget->SetParent(this);
 			ChooseAKeyWidget->SetTypeInputExpected(ExpectedInputType);
-			ChooseAKeyWidget->Message->SetText(ChooseAKeyWidget->GetMessagesToDisplay()[0]);
+
+			ParentWidget->SetItemToFocusAtFirst(ChooseAKeyWidget);
+			
+			ChooseAKeyWidget->AddToViewport();
+			ChooseAKeyWidget->SetFocus();
 		}
 	}
 }

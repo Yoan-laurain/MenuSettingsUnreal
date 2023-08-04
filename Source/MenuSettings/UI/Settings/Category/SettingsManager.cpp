@@ -60,7 +60,7 @@ void CancelLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( Option->GetIndexCurrentOption() != Option->GetInitialIndex() || Option->IsA(UBindingConfiguration::StaticClass())  )
+			if ( Option->ValueHasChangedCompareToStart() )
 			{
 				Option->CancelChanges();
 				Option->ExecCurrentOptionValueDelegate();
@@ -97,7 +97,7 @@ void ResetLocalSettings( UGameSettingsCollection* Setting )
 	{
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
-			if ( Option->ValueHasChanged() )
+			if ( Option->ValueHasChangedCompareToDefault() )
 			{
 				Option->ResetToDefault();
 				Option->ExecCurrentOptionValueDelegate();

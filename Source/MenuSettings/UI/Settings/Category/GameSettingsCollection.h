@@ -77,7 +77,8 @@ public:
 		}
 	}
 
-	virtual bool ValueHasChanged();
+	virtual bool ValueHasChangedCompareToStart();
+	virtual bool ValueHasChangedCompareToDefault();
 
 	FIntPoint ConvertIntToFIntPoint(int Value);
 	int ConvertFIntPointToInt(const FIntPoint& Value);

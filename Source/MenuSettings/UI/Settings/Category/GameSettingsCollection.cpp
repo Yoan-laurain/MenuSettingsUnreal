@@ -9,9 +9,14 @@ UGameSettingsItem::UGameSettingsItem()
 	SetBaseOptions();
 }
 
-bool UGameSettingsItem::ValueHasChanged()
+bool UGameSettingsItem::ValueHasChangedCompareToStart()
 {
 	return IndexInitialOption != IndexCurrentOption;
+}
+
+bool UGameSettingsItem::ValueHasChangedCompareToDefault()
+{
+	return IndexDefaultOption != IndexCurrentOption;
 }
 
 FIntPoint UGameSettingsItem::ConvertIntToFIntPoint(const int Value)

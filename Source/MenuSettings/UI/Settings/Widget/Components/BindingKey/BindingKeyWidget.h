@@ -34,6 +34,7 @@ public :
 
 	void Refresh();
 	void SetInternalFocus();
+	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
 	
 	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
 	
