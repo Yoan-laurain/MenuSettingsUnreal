@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "CommonInputTypeEnum.h"
 #include "Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
 
 #include "SettingsManager.generated.h"
@@ -30,6 +31,7 @@ public:
 	UGameSettingsCollection* GetAudioSettings() const { return AudioSettings; }
 	UGameSettingsCollection* GetMouseAndKeyboardSettings() const { return MouseAndKeyboardSettings; }
 	UGameSettingsCollection* GetGameplaySettings() const { return GameplaySettings; }
+	UGameSettingsCollection* GetGamepadSettings() const { return GamepadSettings; }
 	
 	UGameSettingsCollection* GetSettings(const FString SettingsName) const { return SettingsMap.FindRef(SettingsName); }
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
@@ -43,7 +45,7 @@ protected :
 	
 	UGameSettingsCollection* InitializeVideoSettings();
 	UGameSettingsCollection* InitializeAudioSettings();
-	UGameSettingsCollection* InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer);
+	UGameSettingsCollection* InitializeBindingsSettings(const ULocalPlayerCustom* InLocalPlayer,ECommonInputType InputType);
 	UGameSettingsCollection* InitializeGameplaySettings();
 	
 	UPROPERTY()
@@ -54,6 +56,9 @@ protected :
 
 	UPROPERTY()
 	TObjectPtr<UGameSettingsCollection> MouseAndKeyboardSettings;
+
+	UPROPERTY()
+	TObjectPtr<UGameSettingsCollection> GamepadSettings;
 
 	UPROPERTY()
 	TObjectPtr<UGameSettingsCollection> GameplaySettings;

@@ -8,13 +8,21 @@
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
-UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(const ULocalPlayerCustom* InLocalPlayer)
+UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULocalPlayerCustom* InLocalPlayer,ECommonInputType InputType)
 {
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
 	
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
-	Screen->SetTitle(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
 
+	if ( InputType == ECommonInputType::MouseAndKeyboard )
+	{
+		Screen->SetTitle(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
+	}
+	else if (  InputType == ECommonInputType::Gamepad )
+	{
+		Screen->SetTitle(LOCTEXT("GamepadCollection_Name", "Gamepad"));
+	}
+	
 	// Bindings for Mouse & Keyboard - Automatically Generated
 	////////////////////////////////////////////////////////////////////////////////////
 	{
@@ -37,7 +45,7 @@ UGameSettingsCollection* USettingsManager::InitializeMouseAndKeyboardSettings(co
 				for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
 				{
 					// TODO : Handle gamepad
-					if (InputConfigPair.Type != ECommonInputType::MouseAndKeyboard) 
+					if (InputConfigPair.Type != InputType) 
 					{
 						continue;
 					}

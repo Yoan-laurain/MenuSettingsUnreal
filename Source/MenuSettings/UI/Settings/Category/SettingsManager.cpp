@@ -147,7 +147,8 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	
 	VideoSettings = InitializeVideoSettings();
 	AudioSettings = InitializeAudioSettings();
-	MouseAndKeyboardSettings = InitializeMouseAndKeyboardSettings(InLocalPlayer);
+	MouseAndKeyboardSettings = InitializeBindingsSettings(InLocalPlayer,ECommonInputType::MouseAndKeyboard);
+	GamepadSettings = InitializeBindingsSettings(InLocalPlayer,ECommonInputType::Gamepad);
 	GameplaySettings = InitializeGameplaySettings();
 	
 	LocalPlayer = InLocalPlayer;
@@ -158,11 +159,13 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	NavigationTexts.Add(LOCTEXT("VideoCollection_Name", "Video"));
 	NavigationTexts.Add(LOCTEXT("Audio", "Audio"));
 	NavigationTexts.Add(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
+	NavigationTexts.Add(LOCTEXT("GamepadCollection_Name", "Gamepad"));
 
 	SettingsMap.Add(NavigationTexts[0].ToString(), GameplaySettings);
 	SettingsMap.Add(NavigationTexts[1].ToString(), VideoSettings);
 	SettingsMap.Add(NavigationTexts[2].ToString(), AudioSettings);
 	SettingsMap.Add(NavigationTexts[3].ToString(), MouseAndKeyboardSettings);
+	SettingsMap.Add(NavigationTexts[4].ToString(), GamepadSettings);
 }
 
 TArray<FString>* USettingsManager::InitializeNavigationsButtons() const

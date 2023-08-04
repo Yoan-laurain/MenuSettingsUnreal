@@ -8,9 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ac5867a-bfaa-4c35-bf8b-f018a78f95f0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/BindingsSettingsLoader.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MenuSettings/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Pause/WBP_Pause.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Pause/WBP_Pause.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Foundation/DT_SaveActions.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Foundation/DT_SaveActions.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Components/ActionBar/WBP_BoundActionButton.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Components/ActionBar/WBP_BoundActionButton.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Options/WBP_MenuSettingsWidget.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/UI/Settings/Start/WBP_StartMenu.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UI/Settings/Start/WBP_StartMenu.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/Mouse&amp;Keyboard/MouseKeyBoardSettingsLoader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/MenuSettings/UI/Settings/Category/SettingsManager.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
