@@ -112,13 +112,15 @@ public :
 	FDataTableRowHandle ApplyInputActionData;
 
 	UPROPERTY(EditDefaultsOnly)
-	FDataTableRowHandle CancelChangesInputActionData;
+	FDataTableRowHandle ResetChangesInputActionData;
 
 	FUIActionBindingHandle BackHandle;
 	FUIActionBindingHandle ApplyHandle;
-	FUIActionBindingHandle CancelChangesHandle;
+	FUIActionBindingHandle ResetChangesHandle;
 
 #pragma endregion Actions
+
+	void SetHasBindBackAction(const bool bHasBindBackAction);
 	
 private :
 
@@ -130,6 +132,8 @@ private :
 
 	UPROPERTY()
 	UWidget* ItemToFocusAtFirst;
+
+	bool hasBindBackAction;
 	
 protected :
 

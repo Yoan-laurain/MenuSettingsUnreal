@@ -9,7 +9,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "../UI/Settings/LocalSettings.h"
-#include "../UI/Settings/Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
+#include "../UI/Settings/Category/Bindings/Configuration/MappableConfigPair.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMyProjectCharacter
@@ -96,6 +96,15 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 	{	
 		// Tell enhanced input about any custom keymappings that the player may have customized
 		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerInputConfig())
+		{
+			if (Pair.Key != NAME_None /*&& Pair.Value.IsValid()*/)
+			{
+				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
+			}
+		}
+
+		// load gamepad mappings customizations by the player
+		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerGamePadInputConfig())
 		{
 			if (Pair.Key != NAME_None /*&& Pair.Value.IsValid()*/)
 			{

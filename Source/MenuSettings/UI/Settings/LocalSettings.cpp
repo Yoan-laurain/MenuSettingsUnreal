@@ -1,13 +1,11 @@
 ﻿#include "LocalSettings.h"
-
-#include "CommonInputSubsystem.h"
 #include "EnhancedActionKeyMapping.h"
 #include "EnhancedInputSubsystems.h"
 #include "../../Player/LocalPlayerCustom.h"
 #include "PlayerMappableInputConfig.h"
 #include "Category/GameSettingsCollection.h"
 #include "Category/SettingsManager.h"
-#include "Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "Category/Bindings/Configuration/BindingConfiguration.h"
 #include "Internationalization/Culture.h"
 
 ULocalSettings* ULocalSettings::Get()
@@ -46,12 +44,14 @@ int32 ULocalSettings::UnregisterInputConfig(const UPlayerMappableInputConfig* Co
 	return INDEX_NONE;
 }
 
-void ULocalSettings::GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& OutActionNames)
+void ULocalSettings::GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& OutActionNames, bool isKeyboard)
 {
 	if (InKey == EKeys::Invalid)
 	{
 		return;
 	}
+
+	TMap<FName, FKey>& CustomConfig = isKeyboard ? CustomKeyboardConfig : CustomGamepadConfig;
 
 	// adding any names of actions that are bound to that key
 	for (const FLoadedMappableConfigPair& Pair : RegisteredInputConfigs)
@@ -63,7 +63,7 @@ void ULocalSettings::GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& 
 				FName MappingName(Mapping.PlayerMappableOptions.DisplayName.ToString());
 				FName ActionName = Mapping.PlayerMappableOptions.Name;
 				// make sure it isn't custom bound as well
-				if (const FKey* MappingKey = CustomKeyboardConfig.Find(ActionName))
+				if (const FKey* MappingKey = CustomConfig.Find(ActionName))
 				{
 					if (*MappingKey == InKey)
 					{
@@ -94,12 +94,14 @@ const UPlayerMappableInputConfig* ULocalSettings::GetInputConfigByName(FName Con
 	return nullptr;
 }
 
-void ULocalSettings::AddOrUpdateCustomKeyboardBindings(const FName MappingName, const FKey NewKey,ULocalPlayerCustom* LocalPlayer)
+void ULocalSettings::AddOrUpdateCustomBindings(const FName MappingName, const FKey NewKey,ULocalPlayerCustom* LocalPlayer, bool isKeyboard)
 {
 	if (MappingName == NAME_None)
 	{
 		return;
 	}
+
+	TMap<FName, FKey>& UsedConfig = isKeyboard ? CustomKeyboardConfig : CustomGamepadConfig;
 	
 	if (InputConfigName != TEXT("Custom"))
 	{
@@ -112,7 +114,7 @@ void ULocalSettings::AddOrUpdateCustomKeyboardBindings(const FName MappingName, 
 				// if someone has marked a mapping as "Player Mappable" but deleted the default field value
 				if (Mapping.PlayerMappableOptions.Name != NAME_None)
 				{
-					CustomKeyboardConfig.Add(Mapping.PlayerMappableOptions.Name, Mapping.Key);
+					UsedConfig.Add(Mapping.PlayerMappableOptions.Name, Mapping.Key);
 				}
 			}
 		}
@@ -120,14 +122,14 @@ void ULocalSettings::AddOrUpdateCustomKeyboardBindings(const FName MappingName, 
 		InputConfigName = TEXT("Custom");
 	} 
 
-	if (FKey* ExistingMapping = CustomKeyboardConfig.Find(MappingName))
+	if (FKey* ExistingMapping = UsedConfig.Find(MappingName))
 	{
 		// Change the key to the new one
-		CustomKeyboardConfig[MappingName] = NewKey;
+		UsedConfig[MappingName] = NewKey;
 	}
 	else
 	{
-		CustomKeyboardConfig.Add(MappingName, NewKey);
+		UsedConfig.Add(MappingName, NewKey);
 	}
 
 	// Tell the enhanced input subsystem for this local player that we should remap some input! Woo
@@ -138,7 +140,7 @@ void ULocalSettings::AddOrUpdateCustomKeyboardBindings(const FName MappingName, 
 }
 
 void ULocalSettings::GetAllBindingConfigurationsFromKey(int32 InKeyBindSlot, FKey Key,
-	TArray<UBindingConfiguration*>& OutBindingConfiguration) const
+                                                        TArray<UBindingConfiguration*>& OutBindingConfiguration) const
 {
 	const USettingsManager* SettingsManager = USettingsManager::Get();
 

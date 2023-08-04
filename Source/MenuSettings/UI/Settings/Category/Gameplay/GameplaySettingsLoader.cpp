@@ -12,6 +12,7 @@ UGameSettingsCollection* USettingsManager::InitializeGameplaySettings()
 	
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(FText::FromString("Gameplay"));
+	Screen->SetCategory(ESettingsCategory::Gameplay);
 
 	{
 		UGameSettingsCollection* LanguageSubsection = NewObject<UGameSettingsCollection>();

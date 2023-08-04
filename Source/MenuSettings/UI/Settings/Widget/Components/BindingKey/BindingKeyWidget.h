@@ -4,6 +4,7 @@
 #include "../UiSettingsParentClass.h"
 #include "BindingKeyWidget.generated.h"
 
+enum class ECommonInputType : uint8;
 class UChooseAKeyWidget;
 class UTextBlock;
 class UButtonBase;
@@ -32,11 +33,16 @@ public :
 #pragma endregion WidgetComponents
 
 	void Refresh();
+	void SetInternalFocus();
+	
+	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
 	
 private :
 
 	UPROPERTY()
 	UChooseAKeyWidget* ChooseAKeyWidget;
+
+	ECommonInputType ExpectedInputType;
 	
 protected :
 	virtual void NativeOnInitialized() override;

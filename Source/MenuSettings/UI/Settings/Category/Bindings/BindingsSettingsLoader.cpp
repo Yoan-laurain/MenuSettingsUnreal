@@ -17,13 +17,15 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 	if ( InputType == ECommonInputType::MouseAndKeyboard )
 	{
 		Screen->SetTitle(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
+		Screen->SetCategory(ESettingsCategory::MouseAndKeyboard);
 	}
 	else if (  InputType == ECommonInputType::Gamepad )
 	{
 		Screen->SetTitle(LOCTEXT("GamepadCollection_Name", "Gamepad"));
+		Screen->SetCategory(ESettingsCategory::Gamepad);
 	}
 	
-	// Bindings for Mouse & Keyboard - Automatically Generated
+	// Bindings - Automatically Generated
 	////////////////////////////////////////////////////////////////////////////////////
 	{
 		UGameSettingsCollection* Bindings = NewObject<UGameSettingsCollection>();
@@ -44,7 +46,6 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 				// For all PMI ( Player Mappable Input ) configs
 				for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
 				{
-					// TODO : Handle gamepad
 					if (InputConfigPair.Type != InputType) 
 					{
 						continue;
@@ -93,6 +94,8 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 								{
 									LocalSettings->ApplySettings(false);
 								});
+								
+								InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
 								
 								InputBinding->ClearOptions();
 								InputBinding->AddOption(InputBinding->GetPrimaryKeyText());

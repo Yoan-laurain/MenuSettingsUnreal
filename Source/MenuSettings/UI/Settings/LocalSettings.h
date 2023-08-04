@@ -2,7 +2,7 @@
 
 #include "GameFramework/GameUserSettings.h"
 #include "Engine/DeveloperSettings.h"
-#include "Category/Mouse&Keyboard/Configuration/MappableConfigPair.h"
+#include "Category/Bindings/Configuration/MappableConfigPair.h"
 #include "LocalSettings.generated.h"
 
 DECLARE_EVENT_OneParam(ULocalSettings, FInputConfigDelegate, const FLoadedMappableConfigPair&);
@@ -130,7 +130,7 @@ public :
 	 * @param InKey The key to check for current mappings of
 	 * @param OutActionNames Array to store display names of actions of bound keys
 	 */
-	void GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& OutActionNames);
+	void GetAllMappingNamesFromKey(const FKey InKey, TArray<FName>& OutActionNames, bool isKeyboard);
 
 	/** Get an input config with a certain name. If the config doesn't exist then nullptr will be returned. */
 	UFUNCTION(BlueprintCallable)
@@ -143,8 +143,8 @@ public :
 	 * @param NewKey		The new key to bind this option to
 	 * @param LocalPlayer   local player to reset the keybinding on
 	 */
-	void AddOrUpdateCustomKeyboardBindings(const FName MappingName, const FKey NewKey,ULocalPlayerCustom* LocalPlayer);
-
+	void AddOrUpdateCustomBindings(const FName MappingName, const FKey NewKey,ULocalPlayerCustom* LocalPlayer, bool isKeyboard);
+	
 	void GetAllBindingConfigurationsFromKey(int32 InKeyBindSlot,FKey Key,TArray<UBindingConfiguration*>& OutBindingConfiguration) const;
 	
 	/**
@@ -161,6 +161,7 @@ public :
 	void ResetKeybindingsToDefault(ULocalPlayerCustom* LocalPlayer);
 
 	const TMap<FName, FKey>& GetCustomPlayerInputConfig() const { return CustomKeyboardConfig; }
+	const TMap<FName, FKey>& GetCustomPlayerGamePadInputConfig() const { return CustomGamepadConfig; }
 
 	/** The name of the current input config that the user has selected. */
 	UPROPERTY(Config)
@@ -177,6 +178,10 @@ public :
 	/** Array of custom key mappings that have been set by the player. Empty by default. */
 	UPROPERTY(Config)
 	TMap<FName, FKey> CustomKeyboardConfig;
+
+	/** Array of custom key mappings that have been set by the player. Empty by default. */
+	UPROPERTY(Config)
+	TMap<FName, FKey> CustomGamepadConfig;
 
 #pragma endregion KeyBindings
 

@@ -10,6 +10,7 @@ UGameSettingsCollection* USettingsManager::InitializeAudioSettings()
 	
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(FText::FromString("Audio"));
+	Screen->SetCategory(ESettingsCategory::AudioSystem);
 	
 	TArray<int> TechnicalOption;
 	for (int i = 0; i <= 100; i++)

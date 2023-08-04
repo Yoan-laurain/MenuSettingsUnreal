@@ -3,6 +3,7 @@
 #include "Blueprint/UserWidget.h"
 #include "ChooseAKeyWidget.generated.h"
 
+enum class ECommonInputType : uint8;
 class UBindingKeyWidget;
 class UTextBlock;
 
@@ -26,6 +27,8 @@ public :
 	void HandleKeySelection(const FKey& Key);
 	void HandleKeyChange(const FKey& Key);
 	void ValidateKey(const FKey& Key);
+	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
+	void ExitHandle(const FKey& Key);
 
 private :
 
@@ -37,6 +40,7 @@ private :
 	TArray<FText> MessagesToDisplay;
 	
 	int IndexCurrentMessage = 0;
+	ECommonInputType ExpectedInputType;
 	
     virtual void NativeConstruct() override;
 	

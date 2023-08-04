@@ -7,3 +7,12 @@ enum ESettingsType
 	InputConfig,
 	Language,
 };
+
+enum ESettingsCategory
+{
+	Video,
+	AudioSystem,
+	Gameplay,
+	MouseAndKeyboard,
+	Gamepad,
+};

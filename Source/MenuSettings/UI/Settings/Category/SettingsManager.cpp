@@ -1,10 +1,10 @@
 ﻿#include "SettingsManager.h"
 #include "GameSettingsCollection.h"
-#include "Mouse&Keyboard/AssetManager/AssetManagerCustom.h"
+#include "Bindings/AssetManager/AssetManagerCustom.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../InputDataAsset.h"
 #include "../LocalSettings.h"
-#include "Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "Bindings/Configuration/BindingConfiguration.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -163,8 +163,8 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 
 	SettingsMap.Add(NavigationTexts[0].ToString(), GameplaySettings);
 	SettingsMap.Add(NavigationTexts[1].ToString(), VideoSettings);
-	SettingsMap.Add(NavigationTexts[2].ToString(), AudioSettings);
 	SettingsMap.Add(NavigationTexts[3].ToString(), MouseAndKeyboardSettings);
+	SettingsMap.Add(NavigationTexts[2].ToString(), AudioSettings);
 	SettingsMap.Add(NavigationTexts[4].ToString(), GamepadSettings);
 }
 

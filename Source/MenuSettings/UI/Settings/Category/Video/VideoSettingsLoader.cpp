@@ -9,6 +9,7 @@ UGameSettingsCollection* USettingsManager::InitializeVideoSettings()
 	ULocalSettings* LocalSettings = ULocalSettings::Get();
 	UGameSettingsCollection* Screen = NewObject<UGameSettingsCollection>();
 	Screen->SetTitle(LOCTEXT("VideoCollection_Name", "Video"));
+	Screen->SetCategory(ESettingsCategory::Video);
 
 	TArray<int32> GenericQualityOptions;
 			

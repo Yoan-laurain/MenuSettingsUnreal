@@ -26,7 +26,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 	BackHandle = RegisterUIActionBinding(FBindUIActionArgs(BackInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::OnCloseClicked)));
 	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CallPopUpInternal)));
-	CancelChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(CancelChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
+	ResetChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(ResetChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
 	OnSettingsDirtyStateChanged_Implementation(false);
 	
 	USettingsManager* SettingsManager = USettingsManager::Get();
@@ -56,16 +56,21 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 void UMenuSettingsWidget::OnCloseClicked()
 {
-	const USettingsManager* SettingsManager = USettingsManager::Get();
+	if ( !hasBindBackAction )
+	{
+		const USettingsManager* SettingsManager = USettingsManager::Get();
 	
-	if ( SettingsManager->GetHasPendingModifications() )
-	{
-		CreatePopUpValidation(true);
+		if ( SettingsManager->GetHasPendingModifications() )
+		{
+			CreatePopUpValidation(true);
+		}
+		else
+		{
+			Close();
+		}
 	}
-	else
-	{
-		Close();
-	}
+
+	hasBindBackAction = false;
 }
 
 FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
@@ -83,6 +88,11 @@ FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
 	}
 	
 	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
+}
+
+void UMenuSettingsWidget::SetHasBindBackAction(const bool bHasBindBackAction)
+{
+	hasBindBackAction = bHasBindBackAction;
 }
 
 void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection)
@@ -118,6 +128,15 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 							else if ( Setting->GetWidgetType() == ESettingsType::InputConfig )
 							{
 								SettingsWidget = CreateWidget<UBindingKeyWidget>(GetWorld(), SettingsInputConfigWidgetClass);
+
+								if (SettingsCollection->GetCategory() == ESettingsCategory::MouseAndKeyboard)
+								{
+									static_cast<UBindingKeyWidget*>(SettingsWidget)->SetTypeInputExpected(ECommonInputType::MouseAndKeyboard);
+								}
+								else if (SettingsCollection->GetCategory() == ESettingsCategory::Gamepad)
+								{
+									static_cast<UBindingKeyWidget*>(SettingsWidget)->SetTypeInputExpected(ECommonInputType::Gamepad);
+								}
 							}
 
 							if ( SettingsWidget )
@@ -129,7 +148,6 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 								if ( !ItemToFocusAtFirst )
 								{
 									ItemToFocusAtFirst = SettingsWidget->GetPrimaryGamepadFocusWidget();
-
 									SetFocusInternal();
 								}
 							}
@@ -202,14 +220,17 @@ void UMenuSettingsWidget::CreatePopUpValidation(const bool bShouldCloseMenuSetti
 {
 	UValidationPopUpWidget* ValidationPopUpWidget = CreateWidget<UValidationPopUpWidget>(GetWorld(), ValidationPopUpWidgetClass);
 	ValidationPopUpWidget->SetMenuSettingsWidget(this);
+	
 	ValidationPopUpWidget->SetTitleText(LOCTEXT("UnsavedChanges", "You have unsaved changes. Do you want to save them ?"));
+	
 	ValidationPopUpWidget->SetShouldCloseMenuSettingsWidget( bShouldCloseMenuSettings );
-	ValidationPopUpWidget->AddToViewport();
-
+	
 	// prevent menu settings Widget to get focus with gamepad
 	this->SetIsEnabled(false);
 	
 	ValidationPopUpWidget->GetPrimaryGamepadFocusWidget()->SetKeyboardFocus();
+
+	ValidationPopUpWidget->AddToViewport();
 }
 
 void UMenuSettingsWidget::ApplySettings()
@@ -246,15 +267,14 @@ void UMenuSettingsWidget::OnSettingsDirtyStateChanged_Implementation(bool bSetti
 		{
 			AddActionBinding(ApplyHandle);
 		}
-		if (!GetActionBindings().Contains(CancelChangesHandle))
+		if (!GetActionBindings().Contains(ResetChangesHandle))
 		{
-			AddActionBinding(CancelChangesHandle);
+			AddActionBinding(ResetChangesHandle);
 		}
 	}
 	else
 	{
 		RemoveActionBinding(ApplyHandle);
-		RemoveActionBinding(CancelChangesHandle);
 	}
 }
 
@@ -276,8 +296,7 @@ void UMenuSettingsWidget::ResetValues()
 
 void UMenuSettingsWidget::SetFocusInternal()
 {
-	if ( ItemToFocusAtFirst )
-	{
-		ItemToFocusAtFirst->SetFocus();
-	}
+	ensure(ItemToFocusAtFirst );
+
+	ItemToFocusAtFirst->SetFocus();
 }

@@ -2,13 +2,27 @@
 #include "ChooseAKeyWidget.h"
 #include "../../../../Components/ButtonBase.h"
 #include "Components/TextBlock.h"
-#include "MenuSettings/UI/Settings/Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 void UBindingKeyWidget::Refresh()
 {
 	const UBindingConfiguration* Item = Cast<UBindingConfiguration>(GetSettingsItem());
 	SetCurrentValue(Item->GetPrimaryKeyText());
+}
+
+void UBindingKeyWidget::SetInternalFocus()
+{
+	SetIsEnabled(true);
+	if ( Button )
+	{
+		Button->SetFocus();
+	}
+}
+
+void UBindingKeyWidget::SetTypeInputExpected(ECommonInputType InTypeInputExpected)
+{
+	ExpectedInputType = InTypeInputExpected;
 }
 
 void UBindingKeyWidget::UpdateHUD()
@@ -43,9 +57,11 @@ void UBindingKeyWidget::OnTryKeyChange()
 		ChooseAKeyWidget = CreateWidget<UChooseAKeyWidget>(GetWorld(), ChooseAKeyWidgetClass);
 		if ( ChooseAKeyWidget )
 		{
+			this->SetIsEnabled(false);
 			ChooseAKeyWidget->AddToViewport();
 			ChooseAKeyWidget->SetFocus();
 			ChooseAKeyWidget->SetParent(this);
+			ChooseAKeyWidget->SetTypeInputExpected(ExpectedInputType);
 			ChooseAKeyWidget->Message->SetText(ChooseAKeyWidget->GetMessagesToDisplay()[0]);
 		}
 	}

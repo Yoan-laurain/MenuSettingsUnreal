@@ -72,6 +72,13 @@ public:
 
 	virtual bool ValueHasChanged() override;
 
+	void SetIsKeyboard(bool InIsKeyboard) { isKeyboard = InIsKeyboard; }
+	bool GetIsKeyboard() const { return isKeyboard; }
+
+private :
+
+	bool isKeyboard;
+
 protected:
 
 	FKeyboardOption FirstMappableOption;

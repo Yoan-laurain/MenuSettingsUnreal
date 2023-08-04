@@ -3,7 +3,7 @@
 #include "Components/TextBlock.h"
 #include "Input/Events.h"
 #include "../../../LocalSettings.h"
-#include "../../../Category/Mouse&Keyboard/Configuration/BindingConfiguration.h"
+#include "../../../Category/Bindings/Configuration/BindingConfiguration.h"
 #include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
@@ -24,13 +24,6 @@ void UChooseAKeyWidget::HandleKeyChange(const FKey& Key)
 {
 	if (Key.IsValid())
 	{
-		// if its esc
-		if ( Key == EKeys::Escape)
-		{
-			RemoveFromParent();
-			return;
-		}
-
 		// if its enter
 		if ( Key == EKeys::Enter)
 		{
@@ -105,23 +98,58 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	ensure(Parent);
 	ensure(Parent->GetParentWidget());
 	Parent->GetParentWidget()->SetPendingModificationState(true);
+
+	if ( Key == EKeys::Gamepad_FaceButton_Right) // prevent closing menu if bind B button
+	{
+		Parent->GetParentWidget()->SetHasBindBackAction(true);
+	}
 	
 	Parent->Refresh();
+	Parent->SetInternalFocus();
 	RemoveFromParent();
+}
+
+void UChooseAKeyWidget::SetTypeInputExpected(ECommonInputType InTypeInputExpected)
+{
+	ExpectedInputType = InTypeInputExpected;
+}
+
+void UChooseAKeyWidget::ExitHandle(const FKey& Key)
+{
+	// if its esc or B button
+	if ( Key == EKeys::Escape || Key == EKeys::Gamepad_Special_Right)
+	{
+		Parent->SetInternalFocus();
+		RemoveFromParent();
+		return;
+	}
 }
 
 void UChooseAKeyWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	
-	MessagesToDisplay.Add(LOCTEXT("ChooseAKeyWidget_Title", "Press a key to bind or esc to cancel"));
+
+	if ( ULocalSettings::Get()->CurrentInputType == ECommonInputType::MouseAndKeyboard)
+	{
+		MessagesToDisplay.Add(LOCTEXT("ChooseAKeyWidget_Title", "Press a key to bind or esc to cancel"));
+	}
+	else
+	{
+		MessagesToDisplay.Add(LOCTEXT("ChooseAKeyWidget_TitleGamepad", "Press a button to bind or start to cancel"));
+	}
+
 }
 
 FReply UChooseAKeyWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
 	FReply Reply =  Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 
-	HandleKeyChange(InKeyEvent.GetKey());
+	ExitHandle(InKeyEvent.GetKey());
+	
+	if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
+	{
+		HandleKeyChange(InKeyEvent.GetKey());
+	}
 	
 	return Reply;
 }
@@ -129,7 +157,11 @@ FReply UChooseAKeyWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKe
 FReply UChooseAKeyWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	FReply Reply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
-	HandleKeyChange(InMouseEvent.GetEffectingButton());
+	
+	if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
+	{
+		HandleKeyChange(InMouseEvent.GetEffectingButton());
+	}
 	
 	return Reply;
 }

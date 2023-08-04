@@ -186,6 +186,12 @@ public:
 	FText GetTitle() const { return Title; }
 	void SetTitle(const FText& Value) { Title = Value; }
 
+	void SetCategory(const ESettingsCategory Value) { Category = Value; }
+	ESettingsCategory GetCategory() const { return Category; }
+
+private :
+	ESettingsCategory Category;
+
 protected :
 
 	/* All the settings of this category ( Potentially empty if we have more categories ) */

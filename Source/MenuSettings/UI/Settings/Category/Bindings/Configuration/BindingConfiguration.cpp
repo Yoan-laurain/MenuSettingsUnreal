@@ -70,7 +70,7 @@ void UBindingConfiguration::ResetToDefault()
 
 	if ( ULocalSettings* LocalSettings = USettingsManager::Get()->GetLocalPlayer()->GetLocalSettings() )
 	{
-		LocalSettings->AddOrUpdateCustomKeyboardBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, FirstMappableOption.InputMapping.Key, USettingsManager::Get()->GetLocalPlayer());
+		LocalSettings->AddOrUpdateCustomBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, FirstMappableOption.InputMapping.Key, USettingsManager::Get()->GetLocalPlayer(), isKeyboard);
 	}
 }
 
@@ -87,37 +87,22 @@ bool UBindingConfiguration::ChangeBinding(int32 InKeyBindSlot, FKey NewKey)
 	{
 		return false;
 	}
-
-	if (!NewKey.IsGamepadKey())
+	
+	ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer();
+	
+	ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
+	if (InKeyBindSlot == 0)
 	{
-		ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer();
-		
-		ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
-		if (InKeyBindSlot == 0)
-		{
-			LocalSettings->AddOrUpdateCustomKeyboardBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, NewKey, LocalPlayer);
-			FirstMappableOption.InputMapping.Key = NewKey;
-		}
-		else if (InKeyBindSlot == 1)
-		{
-			// If there is no default secondary binding then we can create one based off of data from the primary binding
-			if (SecondaryMappableOption.InputMapping.PlayerMappableOptions.Name == NAME_None)
-			{
-				SecondaryMappableOption = FKeyboardOption(FirstMappableOption);
-			}
-			
-			LocalSettings->AddOrUpdateCustomKeyboardBindings(SecondaryMappableOption.InputMapping.PlayerMappableOptions.Name, NewKey, LocalPlayer);
-			SecondaryMappableOption.InputMapping.Key = NewKey;
-		}
-		else
-		{
-			ensureMsgf(false, TEXT("Invalid key bind slot provided!"));
-		}
-
-		return true;
+		LocalSettings->AddOrUpdateCustomBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, NewKey, LocalPlayer, !NewKey.IsGamepadKey());
+		FirstMappableOption.InputMapping.Key = NewKey;
+	}
+	// slot 2 removed for now
+	else
+	{
+		ensureMsgf(false, TEXT("Invalid key bind slot provided!"));
 	}
 
-	return false;
+	return true;
 }
 
 void UBindingConfiguration::GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey Key,
@@ -141,7 +126,7 @@ void UBindingConfiguration::GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey
 	if (const ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer())
 	{
 		ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
-		LocalSettings->GetAllMappingNamesFromKey(Key, OutActionNames);
+		LocalSettings->GetAllMappingNamesFromKey(Key, OutActionNames,isKeyboard);
 	}
 }
 
