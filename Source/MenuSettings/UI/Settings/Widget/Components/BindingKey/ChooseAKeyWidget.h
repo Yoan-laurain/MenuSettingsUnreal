@@ -29,9 +29,8 @@ public :
 	void HandleKeyChange(const FKey& Key);
 	void ValidateKey(const FKey& Key);
 	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
-	void ExitHandle(const FKey& Key);
-
-	virtual UWidget* NativeGetDesiredFocusTarget() const override;
+	bool ExitHandle(const FKey& Key);
+	
 private :
 
 	FKey CurrentKey;
@@ -45,6 +44,7 @@ private :
 	ECommonInputType ExpectedInputType;
 	
     virtual void NativeConstruct() override;
+	virtual void NativeDestruct() override;
 	
 	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;

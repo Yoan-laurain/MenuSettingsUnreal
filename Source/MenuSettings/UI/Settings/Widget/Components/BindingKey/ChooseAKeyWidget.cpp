@@ -98,16 +98,9 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	ensure(Parent);
 	ensure(Parent->GetParentWidget());
 	Parent->GetParentWidget()->SetPendingModificationState(true);
-
-	// prevent from triggering ( bottom action ) when binding with gamepad
-	if ( Key == EKeys::Gamepad_FaceButton_Right || Key == EKeys::Gamepad_FaceButton_Top || Key == EKeys::Gamepad_FaceButton_Left ) 
-	{
-		Parent->GetParentWidget()->SetHasBindSpecialAction(true);
-	}
 	
 	Parent->Refresh();
 	Parent->SetInternalFocus();
-	Parent->GetParentWidget()->SetCanUseBottomActions(true);
 	RemoveFromParent();
 }
 
@@ -116,22 +109,16 @@ void UChooseAKeyWidget::SetTypeInputExpected(ECommonInputType InTypeInputExpecte
 	ExpectedInputType = InTypeInputExpected;
 }
 
-void UChooseAKeyWidget::ExitHandle(const FKey& Key)
+bool UChooseAKeyWidget::ExitHandle(const FKey& Key)
 {
 	// if its esc or B button
 	if ( Key == EKeys::Escape || Key == EKeys::Gamepad_Special_Right)
 	{
 		Parent->SetInternalFocus();
-		Parent->GetParentWidget()->SetCanUseBottomActions(true);
 		RemoveFromParent();
-		return;
+		return true;
 	}
-}
-
-UWidget* UChooseAKeyWidget::NativeGetDesiredFocusTarget() const
-{
-	UE_LOG(LogTemp, Warning, TEXT("NativeGetDesiredFocusTarget"));
-	return const_cast<UChooseAKeyWidget*>(this);
+	return false;
 }
 
 void UChooseAKeyWidget::NativeConstruct()
@@ -148,18 +135,34 @@ void UChooseAKeyWidget::NativeConstruct()
 	}
 
 	Message->SetText( MessagesToDisplay[0] );
+	SetIsFocusable(true);
+
+	if ( Parent && Parent->GetParentWidget() )
+	{
+		Parent->GetParentWidget()->DeactivateWidget();
+	}
+}
+
+void UChooseAKeyWidget::NativeDestruct()
+{
+	Super::NativeDestruct();
+
+	if ( Parent && Parent->GetParentWidget() )
+	{
+		Parent->GetParentWidget()->ActivateWidget();
+	}
 }
 
 FReply UChooseAKeyWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
 	FReply Reply =  Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 
-	ExitHandle(InKeyEvent.GetKey());
-	
-	if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
+	if ( !ExitHandle(InKeyEvent.GetKey() ) )
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Key pressed : %s"), *InKeyEvent.GetKey().ToString());
-		HandleKeyChange(InKeyEvent.GetKey());
+		if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
+		{
+			HandleKeyChange(InKeyEvent.GetKey());
+		}
 	}
 	
 	return Reply;
@@ -171,7 +174,6 @@ FReply UChooseAKeyWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, c
 	
 	if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Key pressed : %s"), *InMouseEvent.GetEffectingButton().ToString());
 		HandleKeyChange(InMouseEvent.GetEffectingButton());
 	}
 	

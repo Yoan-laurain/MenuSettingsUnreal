@@ -120,9 +120,7 @@ public :
 	FUIActionBindingHandle ResetChangesHandle;
 
 #pragma endregion Actions
-
-	void SetHasBindSpecialAction(const bool bHasBindSpecialAction);
-	void SetCanUseBottomActions(const bool bCanUseBottomActions);
+	
 	void SetItemToFocusAtFirst(UWidget* ItemToFocusAtFirst);
 	
 private :
@@ -132,9 +130,6 @@ private :
 	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
 	
 	FString CurrentMenuName;
-	
-	bool hasBindSpecialAction;
-	bool CanUseBottomActions;
 	
 protected :
 

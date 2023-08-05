@@ -21,7 +21,7 @@ public :
 	UPROPERTY(meta = (BindWidget), EditAnywhere,BlueprintReadWrite)
 	UButtonBase* DecreaseButton;
 
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget), EditAnywhere,BlueprintReadWrite)
 	UButtonBase* IncreaseButton;
 	
 	UPROPERTY( meta = (BindWidget) )

@@ -17,11 +17,7 @@
 
 void UMenuSettingsWidget::CallPopUpInternal()
 {
-	if ( !hasBindSpecialAction && CanUseBottomActions )
-	{
-		CreatePopUpValidation(false);
-	}
-	SetHasBindSpecialAction(false);
+	CreatePopUpValidation(false);
 }
 
 void UMenuSettingsWidget::NativeOnInitialized()
@@ -32,7 +28,6 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	ApplyHandle = RegisterUIActionBinding(FBindUIActionArgs(ApplyInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::CallPopUpInternal)));
 	ResetChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(ResetChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
 	OnSettingsDirtyStateChanged_Implementation(false);
-	CanUseBottomActions = true;
 	
 	USettingsManager* SettingsManager = USettingsManager::Get();
 
@@ -61,21 +56,16 @@ void UMenuSettingsWidget::NativeOnInitialized()
 
 void UMenuSettingsWidget::OnCloseClicked()
 {
-	if ( !hasBindSpecialAction && CanUseBottomActions )
-	{
-		const USettingsManager* SettingsManager = USettingsManager::Get();
-	
-		if ( SettingsManager->GetHasPendingModifications() )
-		{
-			CreatePopUpValidation(true);
-		}
-		else
-		{
-			Close();
-		}
-	}
+	const USettingsManager* SettingsManager = USettingsManager::Get();
 
-	hasBindSpecialAction = false;
+	if ( SettingsManager->GetHasPendingModifications() )
+	{
+		CreatePopUpValidation(true);
+	}
+	else
+	{
+		Close();
+	}
 }
 
 FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
@@ -93,16 +83,6 @@ FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
 	}
 	
 	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
-}
-
-void UMenuSettingsWidget::SetHasBindSpecialAction(const bool bHasBindSpecialAction)
-{
-	hasBindSpecialAction = bHasBindSpecialAction;
-}
-
-void UMenuSettingsWidget::SetCanUseBottomActions(const bool bCanUseBottomActions)
-{
-	CanUseBottomActions = bCanUseBottomActions;
 }
 
 void UMenuSettingsWidget::SetItemToFocusAtFirst(UWidget* _ItemToFocusAtFirst)
@@ -211,7 +191,7 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString& SettingsName)
 		return;
 	}
 
-	if ( const USettingsManager* SettingsManager = USettingsManager::Get() )
+	if ( USettingsManager* SettingsManager = USettingsManager::Get() )
 	{
 		SettingsScrollBox->ClearChildren();
 		SetContent(SettingsManager->GetSettings(SettingsName));
@@ -240,12 +220,12 @@ void UMenuSettingsWidget::CreatePopUpValidation(const bool bShouldCloseMenuSetti
 	
 	ValidationPopUpWidget->SetShouldCloseMenuSettingsWidget( bShouldCloseMenuSettings );
 	
-	// prevent menu settings Widget to get focus with gamepad
+	// Prevent from using save , reset etc .. 
+	this->DeactivateWidget();
 	this->SetIsEnabled(false);
-	
-	ValidationPopUpWidget->GetPrimaryGamepadFocusWidget()->SetKeyboardFocus();
 
 	ValidationPopUpWidget->AddToViewport();
+	ValidationPopUpWidget->GetPrimaryGamepadFocusWidget()->SetFocus();
 }
 
 void UMenuSettingsWidget::ApplySettings()
@@ -304,13 +284,10 @@ void UMenuSettingsWidget::Cancel()
 
 void UMenuSettingsWidget::ResetValues()
 {
-	if ( !hasBindSpecialAction && CanUseBottomActions )
-	{
-		USettingsManager* SettingsManager = USettingsManager::Get();
-		SettingsManager->ResetToDefault();
-		OnSettingsDirtyStateChanged_Implementation(false);
-	}
-	SetHasBindSpecialAction(false);
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	SettingsManager->ResetToDefault();
+	OnSettingsDirtyStateChanged_Implementation(false);
+	SettingsManager->SetHasPendingModifications(false);
 }
 
 void UMenuSettingsWidget::SetFocusInternal()

@@ -43,7 +43,7 @@ void USettingsManager::SaveChanges()
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		SetOptionToBase(Setting.Value);
+		SetOptionToBase(Setting);
 	}
 }
 
@@ -78,7 +78,7 @@ void USettingsManager::CancelChanges()
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		CancelLocalSettings(Setting.Value);
+		CancelLocalSettings(Setting);
 	}
 
 	ULocalSettings::Get()->ApplySettings(false);
@@ -115,7 +115,7 @@ void USettingsManager::ResetToDefault()
 {
 	for (const auto& Setting : SettingsMap)
 	{
-		ResetLocalSettings(Setting.Value);
+		ResetLocalSettings(Setting);
 	}
 
 	ULocalSettings::Get()->ApplySettings(false);
@@ -141,6 +141,18 @@ void USettingsManager::LoadAndRegisterInputConfigs()
 	}
 }
 
+UGameSettingsCollection* USettingsManager::GetSettings(const FString& SettingsName)
+{
+	for (const auto& Setting : SettingsMap)
+	{
+		if (Setting->GetTitle().ToString() == SettingsName)
+		{
+			return Setting;
+		}
+	}
+	return nullptr;
+}
+
 void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 {
 	LoadAndRegisterInputConfigs();
@@ -152,20 +164,12 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	GameplaySettings = InitializeGameplaySettings();
 	
 	LocalPlayer = InLocalPlayer;
-	
-	TArray<FText> NavigationTexts;
 
-	NavigationTexts.Add(LOCTEXT("Gameplay", "Gameplay"));
-	NavigationTexts.Add(LOCTEXT("VideoCollection_Name", "Video"));
-	NavigationTexts.Add(LOCTEXT("Audio", "Audio"));
-	NavigationTexts.Add(LOCTEXT("MouseAndKeyboardCollection_Name", "Mouse & Keyboard"));
-	NavigationTexts.Add(LOCTEXT("GamepadCollection_Name", "Gamepad"));
-
-	SettingsMap.Add(NavigationTexts[0].ToString(), GameplaySettings);
-	SettingsMap.Add(NavigationTexts[1].ToString(), VideoSettings);
-	SettingsMap.Add(NavigationTexts[3].ToString(), MouseAndKeyboardSettings);
-	SettingsMap.Add(NavigationTexts[2].ToString(), AudioSettings);
-	SettingsMap.Add(NavigationTexts[4].ToString(), GamepadSettings);
+	SettingsMap.Add(GameplaySettings);
+	SettingsMap.Add(VideoSettings);
+	SettingsMap.Add(MouseAndKeyboardSettings);
+	SettingsMap.Add(AudioSettings);
+	SettingsMap.Add(GamepadSettings);
 }
 
 TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
@@ -174,7 +178,7 @@ TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
 
 	for (auto& Setting : SettingsMap)
 	{
-		NavigationButtons->Add(Setting.Key);
+		NavigationButtons->Add(Setting->GetTitle().ToString());
 	}
 
 	return NavigationButtons;

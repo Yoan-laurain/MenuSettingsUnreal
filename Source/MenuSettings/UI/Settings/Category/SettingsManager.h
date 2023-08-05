@@ -31,7 +31,7 @@ public:
 	UGameSettingsCollection* GetGameplaySettings() const { return GameplaySettings; }
 	UGameSettingsCollection* GetGamepadSettings() const { return GamepadSettings; }
 	
-	UGameSettingsCollection* GetSettings(const FString SettingsName) const { return SettingsMap.FindRef(SettingsName); }
+	UGameSettingsCollection* GetSettings(const FString& SettingsName);
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);
 
 	ULocalPlayerCustom* GetLocalPlayer() const { return LocalPlayer; }
@@ -62,7 +62,7 @@ protected :
 	TObjectPtr<UGameSettingsCollection> GameplaySettings;
 
 	UPROPERTY()
-	TMap<FString, UGameSettingsCollection*> SettingsMap;
+	TArray<UGameSettingsCollection*> SettingsMap;
 
 	UPROPERTY()
 	ULocalPlayerCustom* LocalPlayer;

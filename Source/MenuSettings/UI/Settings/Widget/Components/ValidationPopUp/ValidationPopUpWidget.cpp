@@ -34,6 +34,7 @@ void UValidationPopUpWidget::HandleButtonClick(const bool bIsValidateButton)
 			MenuSettingsWidget->SetFocusInternal();
 		}
 
+		MenuSettingsWidget->ActivateWidget();
 		RemoveFromParent();
 	}
 }
