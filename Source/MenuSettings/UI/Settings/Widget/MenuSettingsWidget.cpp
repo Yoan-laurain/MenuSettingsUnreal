@@ -29,8 +29,6 @@ void UMenuSettingsWidget::NativeOnInitialized()
 	ResetChangesHandle = RegisterUIActionBinding(FBindUIActionArgs(ResetChangesInputActionData, true, FSimpleDelegate::CreateUObject(this, &ThisClass::ResetValues)));
 	OnSettingsDirtyStateChanged_Implementation(false);
 	
-	USettingsManager* SettingsManager = USettingsManager::Get();
-
 	if ( ULocalSettings* LocalSettings = ULocalSettings::Get() )
 	{
 		if ( LocalSettings->ShouldRunAutoBenchmarkAtStartup() )
@@ -38,12 +36,17 @@ void UMenuSettingsWidget::NativeOnInitialized()
 			LocalSettings->RunAutoBenchmark(true);
 		}
 	}
+
+	USettingsManager* SettingsManager = USettingsManager::Get();
 	
 	if ( SettingsManager )
 	{
-		if (ULocalPlayerCustom* InLocalPlayer = Cast<ULocalPlayerCustom>(GetOwningLocalPlayer()) )
+		if ( SettingsManager->GetSettingsMap().IsEmpty() )
 		{
-			SettingsManager->OnInitialize(InLocalPlayer);
+			if (ULocalPlayerCustom* InLocalPlayer = Cast<ULocalPlayerCustom>(GetOwningLocalPlayer()) )
+			{
+				SettingsManager->OnInitialize(InLocalPlayer);
+			}
 		}
 		
 		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());

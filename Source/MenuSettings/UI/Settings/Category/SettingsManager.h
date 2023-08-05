@@ -30,6 +30,8 @@ public:
 	UGameSettingsCollection* GetMouseAndKeyboardSettings() const { return MouseAndKeyboardSettings; }
 	UGameSettingsCollection* GetGameplaySettings() const { return GameplaySettings; }
 	UGameSettingsCollection* GetGamepadSettings() const { return GamepadSettings; }
+
+	TArray<UGameSettingsCollection*> GetSettingsMap() const { return SettingsMap; }
 	
 	UGameSettingsCollection* GetSettings(const FString& SettingsName);
 	void OnInitialize(ULocalPlayerCustom* InLocalPlayer);

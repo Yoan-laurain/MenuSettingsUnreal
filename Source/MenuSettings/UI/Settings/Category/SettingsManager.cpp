@@ -180,6 +180,5 @@ TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
 	{
 		NavigationButtons->Add(Setting->GetTitle().ToString());
 	}
-
 	return NavigationButtons;
 }
