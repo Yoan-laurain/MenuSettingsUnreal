@@ -166,10 +166,10 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	LocalPlayer = InLocalPlayer;
 
 	SettingsMap.Add(GameplaySettings);
-	SettingsMap.Add(VideoSettings);
 	SettingsMap.Add(MouseAndKeyboardSettings);
-	SettingsMap.Add(AudioSettings);
+	SettingsMap.Add(VideoSettings);
 	SettingsMap.Add(GamepadSettings);
+	SettingsMap.Add(AudioSettings);
 }
 
 TArray<FString>* USettingsManager::InitializeNavigationsButtons() const

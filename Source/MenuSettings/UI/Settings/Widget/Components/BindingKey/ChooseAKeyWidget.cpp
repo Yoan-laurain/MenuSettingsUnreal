@@ -172,7 +172,7 @@ FReply UChooseAKeyWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, c
 {
 	FReply Reply = Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
 	
-	if (ULocalSettings::Get()->CurrentInputType == ExpectedInputType )
+	if (ULocalSettings::Get()->CurrentInputType != ECommonInputType::Gamepad )
 	{
 		HandleKeyChange(InMouseEvent.GetEffectingButton());
 	}

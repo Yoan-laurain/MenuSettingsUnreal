@@ -10,7 +10,7 @@ class UTextBlock;
 class UButtonBase;
 
 UCLASS()
-class MENUSETTINGS_API UBindingKeyWidget final : public UiSettingsParentClass
+class MENUSETTINGS_API UBindingKeyWidget : public UiSettingsParentClass
 {
 	GENERATED_BODY()
 
@@ -20,7 +20,7 @@ public :
 	virtual void UpdateHUD() override;
 	// UiSettingsParentClass implementation End
 
-	virtual void SetCurrentValue(FText NewText) override;
+	virtual void SetCurrentValue(FText NewText) override; 
 
 #pragma region WidgetComponents
 	
@@ -32,7 +32,7 @@ public :
 
 #pragma endregion WidgetComponents
 
-	void Refresh();
+	virtual void Refresh();
 	void SetInternalFocus();
 	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
 	

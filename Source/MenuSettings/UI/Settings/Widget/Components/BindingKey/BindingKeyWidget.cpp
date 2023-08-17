@@ -63,14 +63,12 @@ void UBindingKeyWidget::OnTryKeyChange()
 	if ( ChooseAKeyWidgetClass )
 	{
 		ChooseAKeyWidget = CreateWidget<UChooseAKeyWidget>(GetWorld(), ChooseAKeyWidgetClass);
+		
 		if ( ChooseAKeyWidget )
 		{
 			ChooseAKeyWidget->SetParent(this);
 			ChooseAKeyWidget->SetTypeInputExpected(ExpectedInputType);
-			
 			ChooseAKeyWidget->AddToViewport();
-			ParentWidget->SetItemToFocusAtFirst(ChooseAKeyWidget);
-			ChooseAKeyWidget->SetFocus();
 		}
 	}
 }

@@ -22,6 +22,8 @@ struct FKeyboardOption
 	/** Get the most recently stored initial value */
 	FKey GetInitialStoredValue() const { return InitialMapping; };
 
+	FKey GetKey() const { return InputMapping.Key; }
+
 private:
 
 	/** The key that this option is bound to initially, used in case the user wants to cancel their mapping */

@@ -10,6 +10,7 @@
 #include "Components/Navigation/NavigationButtonWidget.h"
 #include "Input/CommonUIInputTypes.h"
 #include "../Category/SettingsManager.h"
+#include "Components/BindingKey/BindingKeyWidgetGamepad.h"
 #include "Components/Navigation/NavigationButtonsContainer.h"
 #include "Components/ValidationPopUp/ValidationPopUpWidget.h"
 
@@ -125,14 +126,14 @@ void UMenuSettingsWidget::SetContent(UGameSettingsCollection* SettingsCollection
 							}
 							else if ( Setting->GetWidgetType() == ESettingsType::InputConfig )
 							{
-								SettingsWidget = CreateWidget<UBindingKeyWidget>(GetWorld(), SettingsInputConfigWidgetClass);
-
 								if (SettingsCollection->GetCategory() == ESettingsCategory::MouseAndKeyboard)
 								{
+									SettingsWidget = CreateWidget<UBindingKeyWidget>(GetWorld(), SettingsInputConfigWidgetClass);
 									static_cast<UBindingKeyWidget*>(SettingsWidget)->SetTypeInputExpected(ECommonInputType::MouseAndKeyboard);
 								}
 								else if (SettingsCollection->GetCategory() == ESettingsCategory::Gamepad)
 								{
+									SettingsWidget = CreateWidget<UBindingKeyWidgetGamepad>(GetWorld(), SettingsInputConfigWidgetGamepadClass);
 									static_cast<UBindingKeyWidget*>(SettingsWidget)->SetTypeInputExpected(ECommonInputType::Gamepad);
 								}
 							}
