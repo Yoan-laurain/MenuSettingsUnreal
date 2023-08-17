@@ -8,6 +8,8 @@ enum class ECommonInputType : uint8;
 class UChooseAKeyWidget;
 class UTextBlock;
 class UButtonBase;
+class UImage;
+class UEnhancedInputLocalPlayerSubsystem;
 
 UCLASS()
 class MENUSETTINGS_API UBindingKeyWidget : public UiSettingsParentClass
@@ -20,7 +22,8 @@ public :
 	virtual void UpdateHUD() override;
 	// UiSettingsParentClass implementation End
 
-	virtual void SetCurrentValue(FText NewText) override; 
+	virtual void SetCurrentValue(FText NewText) override;
+	virtual void SetCurrentValue(const FKey& Key);
 
 #pragma region WidgetComponents
 	
@@ -30,6 +33,9 @@ public :
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> ChooseAKeyWidgetClass;
 
+	UPROPERTY(BlueprintReadWrite,EditAnywhere,meta=(BindWidget))
+	UImage* IconImage;
+
 #pragma endregion WidgetComponents
 
 	virtual void Refresh();
@@ -37,6 +43,10 @@ public :
 	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
 	
 	void SetTypeInputExpected(ECommonInputType InTypeInputExpected);
+
+	virtual FSlateBrush GetIconWithName(const FKey& Key) const;
+
+	virtual UEnhancedInputLocalPlayerSubsystem* GetEnhancedInputSubsystem() const;
 	
 private :
 

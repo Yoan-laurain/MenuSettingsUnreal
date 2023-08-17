@@ -56,9 +56,6 @@ public :
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsInputConfigWidgetClass;
 
-	UPROPERTY( EditAnywhere )
-	TSubclassOf<UUserWidget> SettingsInputConfigWidgetGamepadClass;
-
 	/** The widget of a category title */
 	UPROPERTY( EditAnywhere )
 	TSubclassOf<UUserWidget> SettingsCategoryTitleWidgetClass;
