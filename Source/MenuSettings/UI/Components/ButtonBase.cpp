@@ -1,7 +1,7 @@
 ﻿#include "ButtonBase.h"
 #include "CommonActionWidget.h"
 #include "CommonInputTypeEnum.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "../Settings/LocalSettings.h"
 
 void UButtonBase::SetButtonText(const FText& InText)
 {

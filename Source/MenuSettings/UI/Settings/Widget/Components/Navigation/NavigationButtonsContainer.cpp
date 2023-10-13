@@ -2,8 +2,8 @@
 #include "CommonInputTypeEnum.h"
 #include "Components/HorizontalBox.h"
 #include "Components/Image.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Widget/Components/Navigation/NavigationButtonWidget.h"
+#include "../../../LocalSettings.h"
+#include "NavigationButtonWidget.h"
 
 void UNavigationButtonsContainer::AddNavigationButton(UNavigationButtonWidget* Button)
 {

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
+#include "../../../Category/GameSettingsCollection.h"
 #include "LanguageConfiguration.generated.h"
 
 UCLASS()

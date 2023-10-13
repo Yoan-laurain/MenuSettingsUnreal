@@ -5,8 +5,8 @@
 #include "../../../../Components/ButtonBase.h"
 #include "Components/Image.h"
 #include "EnhancedInputSubsystems.h"
-#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/BindingConfiguration.h"
-#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
+#include "../../../Category/Bindings/Configuration/BindingConfiguration.h"
+#include "../../../../Settings/Widget/MenuSettingsWidget.h"
 
 void UBindingKeyWidget::Refresh()
 {

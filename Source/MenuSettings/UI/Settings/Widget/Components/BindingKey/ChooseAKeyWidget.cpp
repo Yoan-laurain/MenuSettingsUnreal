@@ -4,7 +4,7 @@
 #include "Input/Events.h"
 #include "../../../LocalSettings.h"
 #include "../../../Category/Bindings/Configuration/BindingConfiguration.h"
-#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
+#include "../../MenuSettingsWidget.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 

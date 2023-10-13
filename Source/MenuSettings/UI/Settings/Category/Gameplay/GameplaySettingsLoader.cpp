@@ -1,8 +1,8 @@
 ﻿#include "Configuration/LanguageConfiguration.h"
 #include "Internationalization/Culture.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
-#include "MenuSettings/UI/Settings/Category/GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
+#include "../../LocalSettings.h"
+#include "../../Category/GameSettingsCollection.h"
+#include "../../Category/SettingsManager.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 

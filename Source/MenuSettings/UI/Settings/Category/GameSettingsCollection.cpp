@@ -1,6 +1,6 @@
 #include "GameSettingsCollection.h"
-#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
-#include "MenuSettings/UI/Settings/Widget/Components/UiSettingsParentClass.h"
+#include "../Widget/MenuSettingsWidget.h"
+#include "../Widget/Components/UiSettingsParentClass.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 

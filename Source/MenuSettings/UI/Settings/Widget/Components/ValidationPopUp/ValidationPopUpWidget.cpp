@@ -1,6 +1,6 @@
 #include "ValidationPopUpWidget.h"
 #include "Components/TextBlock.h"
-#include "MenuSettings/UI/Settings/Widget/MenuSettingsWidget.h"
+#include "../../MenuSettingsWidget.h"
 
 void UValidationPopUpWidget::OnValidateButtonClicked()
 {

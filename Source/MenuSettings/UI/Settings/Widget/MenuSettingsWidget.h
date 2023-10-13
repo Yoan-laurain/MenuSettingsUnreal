@@ -2,7 +2,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Engine/DataTable.h"
-#include "MenuSettings/UI/Foundation/CustomActivatableWidget.h"
+#include "../../Foundation/CustomActivatableWidget.h"
 #include "MenuSettingsWidget.generated.h"
 
 class UiSettingsParentClass;

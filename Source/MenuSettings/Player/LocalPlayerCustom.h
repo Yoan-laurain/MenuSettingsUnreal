@@ -2,7 +2,7 @@
 
 #include "Engine/LocalPlayer.h"
 #include "InputMappingContext.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "../UI/Settings/LocalSettings.h"
 #include "LocalPlayerCustom.generated.h"
 
 class ULocalSettings;

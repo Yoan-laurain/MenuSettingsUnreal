@@ -2,7 +2,7 @@
 #include "CommonInputTypeEnum.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "../../../LocalSettings.h"
 
 void UNavigationButtonWidget::InitWidget(const FString& Text)
 {

@@ -1,7 +1,7 @@
 #include "SettingsWidget.h"
 #include "../../../Category/GameSettingsCollection.h"
 #include "../../MenuSettingsWidget.h"
-#include "MenuSettings/UI/Components/ButtonBase.h"
+#include "../../../../Components/ButtonBase.h"
 
 void USettingsWidget::NativeOnInitialized()
 {

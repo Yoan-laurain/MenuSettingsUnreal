@@ -1,6 +1,6 @@
 ﻿#include "LanguageConfiguration.h"
 
-#include "MenuSettings/UI/Settings/LocalSettings.h"
+#include "../../../LocalSettings.h"
 
 static constexpr int32 SettingSystemDefaultLanguageIndex = 0;
 

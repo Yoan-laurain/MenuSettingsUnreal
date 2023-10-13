@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "MenuSettings/UI/Foundation/CustomActivatableWidget.h"
+#include "../../../../Foundation/CustomActivatableWidget.h"
 #include "ChooseAKeyWidget.generated.h"
 
 enum class ECommonInputType : uint8;
