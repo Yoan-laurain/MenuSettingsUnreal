@@ -4,6 +4,7 @@
 #include "Engine/DeveloperSettings.h"
 #include "LocalSettings.generated.h"
 
+enum class ECommonInputType : uint8;
 class ULocalPlayerCustom;
 class UPlayerMappableInputConfig;
 class USoundControlBus;

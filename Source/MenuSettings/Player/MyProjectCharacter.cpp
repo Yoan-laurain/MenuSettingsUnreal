@@ -8,9 +8,10 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "InputMappingContext.h"
 #include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputBinding.h"
 #include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputContextMapping.h"
-#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/LyraInputComponent.h"
+#include "..\UI\Settings\Category\Bindings\Configuration\CustomInputComponent.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -97,19 +98,19 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 		}
 	}
 
-	// The Lyra Input Component has some additional functions to map Gameplay Tags to an Input Action.
+	// The Custom Input Component has some additional functions to map Gameplay Tags to an Input Action.
 	// If you want this functionality but still want to change your input component class, make it a subclass
-	// of the ULyraInputComponent or modify this component accordingly.
-	ULyraInputComponent* LyraIC = Cast<ULyraInputComponent>(PlayerInputComponent);
-	if (ensureMsgf(LyraIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to ULyraInputComponent or a subclass of it.")))
+	// of the UCustomInputComponent or modify this component accordingly.
+	UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(PlayerInputComponent);
+	if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
 	{
 		// Add the key mappings that may have been set by the player
-		LyraIC->AddInputMappings(InputConfig, Subsystem);
+		CustomIC->AddInputMappings(InputConfig, Subsystem);
 
 		// This is where we actually bind and input action to a gameplay tag, which means that Gameplay Ability Blueprints will
 		// be triggered directly by these input actions Triggered events. 
 		TArray<uint32> BindHandles;
-		//LyraIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+		CustomIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
 	}
 }
 
@@ -173,7 +174,7 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AMyProjectCharacter::AddAdditionalInputConfig(const ULyraInputConfig* NewInputConfig)
+void AMyProjectCharacter::AddAdditionalInputConfig(const UCustomInputConfig* NewInputConfig)
 {
 	TArray<uint32> BindHandles;
 	
@@ -186,36 +187,36 @@ void AMyProjectCharacter::AddAdditionalInputConfig(const ULyraInputConfig* NewIn
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 	check(Subsystem);
 
-	ULyraInputComponent* LyraIC = Cast<ULyraInputComponent>(InputComponent);
-	if (ensureMsgf(LyraIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to ULyraInputComponent or a subclass of it.")))
+	UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(InputComponent);
+	if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
 	{
-		LyraIC->BindAbilityActions(NewInputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+		CustomIC->BindAbilityActions(NewInputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
 	}
 	
 }
 
-void AMyProjectCharacter::RemoveAdditionalInputConfig(const ULyraInputConfig* NewInputConfig)
+void AMyProjectCharacter::RemoveAdditionalInputConfig(const UCustomInputConfig* NewInputConfig)
 {
 }
 
 void AMyProjectCharacter::Input_AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	// if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+	// if (const UCustomPawnExtensionComponent* PawnExtComp = UCustomPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
 	// {
-	// 	if (ULyraAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+	// 	if (UCustomAbilitySystemComponent* CustomASC = PawnExtComp->GetCustomAbilitySystemComponent())
 	// 	{
-	// 		LyraASC->AbilityInputTagPressed(InputTag);
+	// 		CustomASC->AbilityInputTagPressed(InputTag);
 	// 	}
 	// }	
 }
 
 void AMyProjectCharacter::Input_AbilityInputTagReleased(FGameplayTag InputTag)
 {
-	// if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+	// if (const UCustomPawnExtensionComponent* PawnExtComp = UCustomPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
 	// {
-	// 	if (ULyraAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+	// 	if (UCustomAbilitySystemComponent* CustomASC = PawnExtComp->GetCustomAbilitySystemComponent())
 	// 	{
-	// 		LyraASC->AbilityInputTagReleased(InputTag);
+	// 		CustomASC->AbilityInputTagReleased(InputTag);
 	// 	}
 	// }
 }

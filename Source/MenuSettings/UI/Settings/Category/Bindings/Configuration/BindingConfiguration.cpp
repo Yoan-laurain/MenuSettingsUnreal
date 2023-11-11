@@ -1,20 +1,11 @@
 ﻿#include "BindingConfiguration.h"
-#include "PlayerMappableInputConfig.h"
 #include "../../../../../Player/LocalPlayerCustom.h"
 #include "../../../LocalSettings.h"
 #include "../../SettingsManager.h"
 
 void FKeyboardOption::ResetToDefault()
 {
-	if (OwningConfig)
-	{
-		InputMapping = OwningConfig->GetMappingByName(InputMapping.PlayerMappableOptions.Name);	
-	}
-	// If we don't have an owning config, then there is no default binding for this and it can simply be removed
-	else
-	{
-		InputMapping = FEnhancedActionKeyMapping();
-	}
+	InputMapping.Key = EKeys::Invalid;
 }
 
 void FKeyboardOption::SetInitialValue(FKey InKey)

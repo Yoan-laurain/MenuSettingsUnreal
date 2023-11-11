@@ -45,12 +45,7 @@ public:
 	FKeyboardOption& GetFirstMappableOption() { return FirstMappableOption; }
 	FKeyboardOption& GetSecondaryMappableOption() { return SecondaryMappableOption; }
 
-	FText GetSettingDisplayName() const { return FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName; }
-
 #pragma endregion GetterSetters
-
-	/** Initalize this setting widget based off the given mapping */
-	void SetInputData(FEnhancedActionKeyMapping& BaseMapping, const UPlayerMappableInputConfig* InOwningConfig, int32 InKeyBindSlot);
 	
 	virtual void StoreInitial();
 

@@ -9,7 +9,7 @@ class UInputMappingContext;
 class UPlayer;
 class APlayerController;
 struct FComponentRequestHandle;
-class ULyraInputConfig;
+class UCustomInputConfig;
 
 /**
  * Adds InputMappingContext to local players' EnhancedInput system. 
@@ -33,7 +33,7 @@ public:
 	//~ End UObject interface
 
 	UPROPERTY(EditAnywhere, Category="Input", meta=(AssetBundles="Client,Server"))
-	TArray<TSoftObjectPtr<const ULyraInputConfig>> InputConfigs;
+	TArray<TSoftObjectPtr<const UCustomInputConfig>> InputConfigs;
 
 private:
 	struct FPerContextData

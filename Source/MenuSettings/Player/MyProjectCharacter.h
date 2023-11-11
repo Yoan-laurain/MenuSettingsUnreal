@@ -5,7 +5,7 @@
 #include "MyProjectCharacter.generated.h"
 
 struct FInputMappingContextAndPriority;
-class ULyraInputConfig;
+class UCustomInputConfig;
 struct FGameplayTag;
 
 UCLASS(config=Game)
@@ -41,9 +41,9 @@ public:
 
 	/** True if this is controlled by a real player and has progressed far enough in initialization where additional input bindings can be added */
 	bool IsReadyToBindInputs() const;
-	void AddAdditionalInputConfig(const ULyraInputConfig* InputConfig);
+	void AddAdditionalInputConfig(const UCustomInputConfig* InputConfig);
 	/** Removes a mode-specific input config if it has been added */
-	void RemoveAdditionalInputConfig(const ULyraInputConfig* InputConfig);
+	void RemoveAdditionalInputConfig(const UCustomInputConfig* InputConfig);
 
 protected:
 
@@ -67,8 +67,8 @@ protected:
 	TArray<FInputMappingContextAndPriority> DefaultInputMappings;
 	
 	// Input configuration used by player controlled pawns to create input mappings and bind input actions.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lyra|Input")
-	TObjectPtr<ULyraInputConfig> InputConfig;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Custom|Input")
+	TObjectPtr<UCustomInputConfig> InputConfig;
 
 
 protected:

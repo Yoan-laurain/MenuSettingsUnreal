@@ -48,7 +48,7 @@ EDataValidationResult UGameFeatureAction_AddInputBinding::IsDataValid(FDataValid
 
 	int32 Index = 0;
 
-	for (const TSoftObjectPtr<const ULyraInputConfig>& Entry : InputConfigs)
+	for (const TSoftObjectPtr<const UCustomInputConfig>& Entry : InputConfigs)
 	{
 		if (Entry.IsNull())
 		{
@@ -127,9 +127,9 @@ void UGameFeatureAction_AddInputBinding::AddInputMappingForPlayer(APawn* Pawn, F
 			 
 			// if (HeroComponent && HeroComponent->IsReadyToBindInputs())
 			// {
-			// 	for (const TSoftObjectPtr<const ULyraInputConfig>& Entry : InputConfigs)
+			// 	for (const TSoftObjectPtr<const UCustomInputConfig>& Entry : InputConfigs)
 			// 	{
-			// 		if (const ULyraInputConfig* BindSet = Entry.Get())
+			// 		if (const UCustomInputConfig* BindSet = Entry.Get())
 			// 		{
 			// 			HeroComponent->AddAdditionalInputConfig(BindSet);
 			// 		}
@@ -150,9 +150,9 @@ void UGameFeatureAction_AddInputBinding::RemoveInputMapping(APawn* Pawn, FPerCon
 		{
 			// if (AMyProjectCharacter* HeroComponent = Pawn->FindComponentByClass<AMyProjectCharacter>())
 			// {
-			// 	for (const TSoftObjectPtr<const ULyraInputConfig>& Entry : InputConfigs)
+			// 	for (const TSoftObjectPtr<const UCustomInputConfig>& Entry : InputConfigs)
 			// 	{
-			// 		if (const ULyraInputConfig* InputConfig = Entry.Get())
+			// 		if (const UCustomInputConfig* InputConfig = Entry.Get())
 			// 		{
 			// 			HeroComponent->RemoveAdditionalInputConfig(InputConfig);
 			// 		}

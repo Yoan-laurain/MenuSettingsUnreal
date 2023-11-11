@@ -1,7 +1,10 @@
-﻿#include "../GameSettingsCollection.h"
+﻿#include "EnhancedInputSubsystems.h"
+#include "../GameSettingsCollection.h"
 #include "../../../../Player/LocalPlayerCustom.h"
 #include "../../LocalSettings.h"
 #include "../SettingsManager.h"
+#include "Configuration/BindingConfiguration.h"
+#include "UserSettings/EnhancedInputUserSettings.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -23,90 +26,99 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 	}
 	
 	// Bindings - Automatically Generated
-	////////////////////////////////////////////////////////////////////////////////////
-	// {
-	// 	UGameSettingsCollection* Bindings = NewObject<UGameSettingsCollection>();
-	// 	Bindings->SetTitle(LOCTEXT("Bindings_Name", "Bindings"));
-	// 	
-	// 	Screen->AddSettingCollection(Bindings);
-	//
-	// 	//----------------------------------------------------------------------------------
-	// 	{ 
-	// 		static TSet<FName> AddedSettings;
-	// 		AddedSettings.Reset();
-	//
-	// 		//----------------------------------------------------------------------------------
-	// 		{
-	// 			const TArray<FLoadedMappableConfigPair>& RegisteredConfigs = InLocalPlayer->GetLocalSettings()->GetAllRegisteredInputConfigs();	
-	// 			const TMap<FName, FKey>& CustomKeyMap = InLocalPlayer->GetLocalSettings()->GetCustomPlayerInputConfig();
-	//
-	// 			// For all PMI ( Player Mappable Input ) configs
-	// 			for (const FLoadedMappableConfigPair& InputConfigPair : RegisteredConfigs)
-	// 			{
-	// 				if (InputConfigPair.Type != InputType) 
-	// 				{
-	// 					continue;
-	// 				}
-	// 			
-	// 				TArray<FEnhancedActionKeyMapping> ConfigMappings = InputConfigPair.Config->GetPlayerMappableKeys();
-	//
-	// 				// For all IA ( Input Action ) configs
-	// 				for ( FEnhancedActionKeyMapping& Mapping : ConfigMappings )
-	// 				{
-	// 					UBindingConfiguration* ExistingSetting = nullptr;
-	//
-	// 					// Check if the player has already bound a key to this action
-	// 					for (UGameSettingsItem* Setting : Bindings->GetChildSettings()) 
-	// 					{
-	// 						UBindingConfiguration* KeyboardSetting = Cast<UBindingConfiguration>(Setting);
-	//
-	// 						if (KeyboardSetting->GetSettingDisplayName().EqualToCaseIgnored(Mapping.PlayerMappableOptions.DisplayName)) 
-	// 						{
-	// 							ExistingSetting = KeyboardSetting; 
-	// 							break;
-	// 						}
-	// 					}
-	// 			
-	// 					FEnhancedActionKeyMapping MappingSynthesized(Mapping);
-	// 					
-	// 					// If the player has bound a custom key to this action, then set it to that
-	// 					if (const FKey* PlayerBoundKey = CustomKeyMap.Find(Mapping.PlayerMappableOptions.Name))
-	// 					{
-	// 						MappingSynthesized.Key = *PlayerBoundKey;
-	// 					}
-	//
-	// 					if (MappingSynthesized.PlayerMappableOptions.Name != NAME_None && !MappingSynthesized.PlayerMappableOptions.DisplayName.IsEmpty())
-	// 					{
-	// 						// Create the settings widget and initialize it, adding it to this config's section
-	// 						UBindingConfiguration* InputBinding = ExistingSetting ? ExistingSetting : NewObject<UBindingConfiguration>();
-	// 				
-	// 						InputBinding->SetInputData(MappingSynthesized, InputConfigPair.Config, !ExistingSetting ? 0 : 1);
-	// 				
-	// 						if (!ExistingSetting)
-	// 						{
-	// 							InputBinding->SetOptionName(Mapping.PlayerMappableOptions.DisplayName);
-	// 							InputBinding->SetWidgetType(ESettingsType::InputConfig);
-	//
-	// 							InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
-	// 							{
-	// 								LocalSettings->ApplySettings(false);
-	// 							});
-	// 							
-	// 							InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
-	// 							
-	// 							InputBinding->ClearOptions();
-	// 							InputBinding->AddOption(InputBinding->GetPrimaryKeyText());
-	// 							
-	// 							Bindings->AddSetting(InputBinding);	
-	// 						}
-	// 				
-	// 						AddedSettings.Add(MappingSynthesized.PlayerMappableOptions.Name);
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
+	{
+		UGameSettingsCollection* KeyBinding = NewObject<UGameSettingsCollection>();
+		KeyBinding->SetTitle(LOCTEXT("Bindings_Name", "Bindings"));
+		
+		Screen->AddSettingCollection(KeyBinding);
 
+		//---------------------------------------------------------------------------------
+		{
+			static TSet<FName> AddedSettings;
+			AddedSettings.Reset();
+		}
+
+			//----------------------------------------------------------------------------------
+			{
+				const UEnhancedInputLocalPlayerSubsystem* EISubsystem = InLocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+				const UEnhancedInputUserSettings* UserSettings = EISubsystem->GetUserSettings();
+
+				// A map of key bindings mapped to their display category
+				TMap<FString, UGameSettingsCollection*> CategoryToSettingCollection;
+
+				// Returns an existing setting collection for the display category if there is one.
+				// If there isn't one, then it will create a new one and initialize it
+				auto GetOrCreateSettingCollection = [&CategoryToSettingCollection, &Screen](FText DisplayCategory) -> UGameSettingsCollection*
+				{
+					FString DisplayCatString = DisplayCategory.ToString();
+				
+					if (UGameSettingsCollection** ExistingCategory = CategoryToSettingCollection.Find(DisplayCatString))
+					{
+						return *ExistingCategory;
+					}
+				
+					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
+
+					Screen->AddSetting(ConfigSettingCollection);
+					CategoryToSettingCollection.Add(DisplayCatString, ConfigSettingCollection);
+				
+					return ConfigSettingCollection;
+				};
+
+			//----------------------------------------------------------------------------------
+			
+				static TSet<FName> CreatedMappingNames;
+				CreatedMappingNames.Reset();
+					
+				for (const TPair<FGameplayTag, TObjectPtr<UEnhancedPlayerMappableKeyProfile>>& ProfilePair : UserSettings->GetAllSavedKeyProfiles())
+				{
+					const FGameplayTag& ProfileName = ProfilePair.Key;
+					const TObjectPtr<UEnhancedPlayerMappableKeyProfile>& Profile = ProfilePair.Value;
+
+					for (const TPair<FName, FKeyMappingRow>& RowPair : Profile->GetPlayerMappingRows())
+					{
+						// Create a setting row for anything with valid mappings and that we haven't created yet
+						if (RowPair.Value.HasAnyMappings() /* && !CreatedMappingNames.Contains(RowPair.Key)*/)
+						{
+							// We only want keyboard keys on this settings screen, so we will filter down by mappings
+							// that are set to keyboard keys
+							FPlayerMappableKeyQueryOptions Options = {};
+							Options.KeyToMatch = EKeys::W;
+							Options.bMatchBasicKeyTypes = true;
+																
+							const FText& DesiredDisplayCategory = RowPair.Value.Mappings.begin()->GetDisplayCategory();
+						
+							if (UGameSettingsCollection* Collection = GetOrCreateSettingCollection(DesiredDisplayCategory))
+							{
+								// Create the settings widget and initialize it, adding it to this config's section
+								UBindingConfiguration* InputBinding = NewObject<UBindingConfiguration>();
+
+								//InputBinding->SetOptionName( RowPair.Value. );
+								InputBinding->SetWidgetType(ESettingsType::InputConfig);
+								
+								InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
+								{
+									LocalSettings->ApplySettings(false);
+								});
+
+								InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
+								
+								InputBinding->ClearOptions();
+								InputBinding->AddOption(InputBinding->GetPrimaryKeyText());
+
+								KeyBinding->AddSetting(InputBinding);	
+
+								CreatedMappingNames.Add(RowPair.Key);
+							}
+							else
+							{
+								ensure(false);
+							}
+						}
+					}
+				}
+			}
+	}
+	
 	return Screen;
 }
