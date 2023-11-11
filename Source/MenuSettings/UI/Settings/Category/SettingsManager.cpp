@@ -2,9 +2,7 @@
 #include "GameSettingsCollection.h"
 #include "Bindings/AssetManager/AssetManagerCustom.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
-#include "../InputDataAsset.h"
 #include "../LocalSettings.h"
-#include "Bindings/Configuration/BindingConfiguration.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -121,26 +119,6 @@ void USettingsManager::ResetToDefault()
 	ULocalSettings::Get()->ApplySettings(false);
 }
 
-void USettingsManager::LoadAndRegisterInputConfigs()
-{
-	const UInputManager* InputManager = GetDefault<UInputManager>();
-	InputManager->InputDataAsset.LoadSynchronous();
-
-	// Check if the asset is valid after loading
-	if (InputManager->InputDataAsset.IsValid())
-	{
-		UInputDataAsset* InputData = InputManager->InputDataAsset.Get();
-
-		if (InputData)
-		{
-			for (const FMappableConfigPair& Pair : InputData->InputConfigs)
-			{
-				FMappableConfigPair::RegisterPair(Pair);
-			}
-		}
-	}
-}
-
 UGameSettingsCollection* USettingsManager::GetSettings(const FString& SettingsName)
 {
 	for (const auto& Setting : SettingsMap)
@@ -155,8 +133,6 @@ UGameSettingsCollection* USettingsManager::GetSettings(const FString& SettingsNa
 
 void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 {
-	LoadAndRegisterInputConfigs();
-	
 	VideoSettings = InitializeVideoSettings();
 	AudioSettings = InitializeAudioSettings();
 	MouseAndKeyboardSettings = InitializeBindingsSettings(InLocalPlayer,ECommonInputType::MouseAndKeyboard);

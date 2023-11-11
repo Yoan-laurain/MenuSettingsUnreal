@@ -4,7 +4,9 @@
 #include "InputActionValue.h"
 #include "MyProjectCharacter.generated.h"
 
-struct FMappableConfigPair;
+struct FInputMappingContextAndPriority;
+class ULyraInputConfig;
+struct FGameplayTag;
 
 UCLASS(config=Game)
 class AMyProjectCharacter : public ACharacter
@@ -37,6 +39,12 @@ class AMyProjectCharacter : public ACharacter
 public:
 	AMyProjectCharacter();
 
+	/** True if this is controlled by a real player and has progressed far enough in initialization where additional input bindings can be added */
+	bool IsReadyToBindInputs() const;
+	void AddAdditionalInputConfig(const ULyraInputConfig* InputConfig);
+	/** Removes a mode-specific input config if it has been added */
+	void RemoveAdditionalInputConfig(const ULyraInputConfig* InputConfig);
+
 protected:
 
 	/** Called for movement input */
@@ -48,8 +56,20 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void Escape();
 
+
+	void Input_AbilityInputTagPressed(FGameplayTag InputTag);
+	void Input_AbilityInputTagReleased(FGameplayTag InputTag);
+
+	/** True when player input bindings have been applied, will never be true for non - players */
+	bool bReadyToBindInputs;
+
 	UPROPERTY(EditAnywhere)
-	TArray<FMappableConfigPair> DefaultInputConfigs;
+	TArray<FInputMappingContextAndPriority> DefaultInputMappings;
+	
+	// Input configuration used by player controlled pawns to create input mappings and bind input actions.
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Lyra|Input")
+	TObjectPtr<ULyraInputConfig> InputConfig;
+
 
 protected:
 	// APawn interface

@@ -22,31 +22,6 @@ void FKeyboardOption::SetInitialValue(FKey InKey)
 	InitialMapping = InKey;
 }
 
-void UBindingConfiguration::SetInputData(FEnhancedActionKeyMapping& BaseMapping,
-                                         const UPlayerMappableInputConfig* InOwningConfig, int32 InKeyBindSlot)
-{
-	if (InKeyBindSlot == 0)
-	{
-		FirstMappableOption.InputMapping = BaseMapping;
-		FirstMappableOption.OwningConfig = InOwningConfig;
-		FirstMappableOption.SetInitialValue(BaseMapping.Key);
-	}
-	else if (InKeyBindSlot == 1)
-	{
-		SecondaryMappableOption.InputMapping = BaseMapping;
-		SecondaryMappableOption.OwningConfig = InOwningConfig;
-		SecondaryMappableOption.SetInitialValue(BaseMapping.Key);
-	}
-	else
-	{
-		ensureMsgf(false, TEXT("Invalid key bind slot provided!"));
-	}
-
-	ensure(FirstMappableOption.InputMapping.PlayerMappableOptions.Name != NAME_None && !FirstMappableOption.InputMapping.PlayerMappableOptions.DisplayName.IsEmpty());
-
-	const FString NameString = TEXT("KBM_Input_") + FirstMappableOption.InputMapping.PlayerMappableOptions.Name.ToString();
-}
-
 FText UBindingConfiguration::GetPrimaryKeyText() const
 {
 	return FirstMappableOption.InputMapping.Key.GetDisplayName();
@@ -70,7 +45,7 @@ void UBindingConfiguration::ResetToDefault()
 
 	if ( ULocalSettings* LocalSettings = USettingsManager::Get()->GetLocalPlayer()->GetLocalSettings() )
 	{
-		LocalSettings->AddOrUpdateCustomBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, FirstMappableOption.InputMapping.Key, USettingsManager::Get()->GetLocalPlayer(), isKeyboard);
+		//
 	}
 }
 
@@ -93,7 +68,7 @@ bool UBindingConfiguration::ChangeBinding(int32 InKeyBindSlot, FKey NewKey)
 	ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
 	if (InKeyBindSlot == 0)
 	{
-		LocalSettings->AddOrUpdateCustomBindings(FirstMappableOption.InputMapping.PlayerMappableOptions.Name, NewKey, LocalPlayer, !NewKey.IsGamepadKey());
+		//
 		FirstMappableOption.InputMapping.Key = NewKey;
 	}
 	// slot 2 removed for now
@@ -126,7 +101,7 @@ void UBindingConfiguration::GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey
 	if (const ULocalPlayerCustom* LocalPlayer = USettingsManager::Get()->GetLocalPlayer())
 	{
 		ULocalSettings* LocalSettings = LocalPlayer->GetLocalSettings();
-		LocalSettings->GetAllMappingNamesFromKey(Key, OutActionNames,isKeyboard);
+		//
 	}
 }
 

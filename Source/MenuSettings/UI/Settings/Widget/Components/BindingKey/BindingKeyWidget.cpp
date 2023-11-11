@@ -5,8 +5,8 @@
 #include "../../../../Components/ButtonBase.h"
 #include "Components/Image.h"
 #include "EnhancedInputSubsystems.h"
-#include "../../../Category/Bindings/Configuration/BindingConfiguration.h"
 #include "../../../../Settings/Widget/MenuSettingsWidget.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
 
 void UBindingKeyWidget::Refresh()
 {

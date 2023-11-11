@@ -8,8 +8,10 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "../UI/Settings/LocalSettings.h"
-#include "../UI/Settings/Category/Bindings/Configuration/MappableConfigPair.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputBinding.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputContextMapping.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/LyraInputComponent.h"
+#include "UserSettings/EnhancedInputUserSettings.h"
 
 //////////////////////////////////////////////////////////////////////////
 // AMyProjectCharacter
@@ -63,8 +65,8 @@ void AMyProjectCharacter::BeginPlay()
 
 void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComponent)
 {
-	ensure(PlayerInputComponent != nullptr);
-
+	check(PlayerInputComponent);
+	
 	const APlayerController* PC = GetController<APlayerController>();
 	check(PC);
 
@@ -75,33 +77,39 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 	check(Subsystem);
 
 	Subsystem->ClearAllMappings();
-	// Register any default input configs with the settings so that they will be applied to the player during AddInputMappings
-	for (const FMappableConfigPair& Pair : DefaultInputConfigs)
-	{
-		if (Pair.bShouldActivateAutomatically)
-		{
-			FModifyContextOptions Options = {};
-			Options.bIgnoreAllPressedKeysUntilRelease = false;
-			// Actually add the config to the local player							
-			Subsystem->AddPlayerMappableConfig(Pair.Config.LoadSynchronous(), Options);	
-		}
-	}
 	
-	// Add the key mappings that may have been set by the player
-	const ULocalPlayer* LocalPlayer = Subsystem->GetLocalPlayer<ULocalPlayer>();
-	check(LocalPlayer);
-
-	// Add any registered input mappings from the settings!
-	if (const ULocalSettings* LocalSettings = ULocalSettings::Get())
-	{	
-		// Tell enhanced input about any custom keymappings that the player may have customized
-		for (const TPair<FName, FKey>& Pair : LocalSettings->GetCustomPlayerInputConfig())
+	for (const FInputMappingContextAndPriority& Mapping : DefaultInputMappings)
+	{
+		if (UInputMappingContext* IMC = Mapping.InputMapping.Get())
 		{
-			if (Pair.Key != NAME_None /*&& Pair.Value.IsValid()*/)
+			if (Mapping.bRegisterWithSettings)
 			{
-				Subsystem->AddPlayerMappedKeyInSlot(Pair.Key, Pair.Value);
+				if (UEnhancedInputUserSettings* Settings = Subsystem->GetUserSettings())
+				{
+					Settings->RegisterInputMappingContext(IMC);
+				}
+				
+				FModifyContextOptions Options = {};
+				Options.bIgnoreAllPressedKeysUntilRelease = false;
+				// Actually add the config to the local player							
+				Subsystem->AddMappingContext(IMC, Mapping.Priority, Options);
 			}
 		}
+	}
+
+	// The Lyra Input Component has some additional functions to map Gameplay Tags to an Input Action.
+	// If you want this functionality but still want to change your input component class, make it a subclass
+	// of the ULyraInputComponent or modify this component accordingly.
+	ULyraInputComponent* LyraIC = Cast<ULyraInputComponent>(PlayerInputComponent);
+	if (ensureMsgf(LyraIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to ULyraInputComponent or a subclass of it.")))
+	{
+		// Add the key mappings that may have been set by the player
+		LyraIC->AddInputMappings(InputConfig, Subsystem);
+
+		// This is where we actually bind and input action to a gameplay tag, which means that Gameplay Ability Blueprints will
+		// be triggered directly by these input actions Triggered events. 
+		TArray<uint32> BindHandles;
+		//LyraIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
 	}
 }
 
@@ -163,4 +171,56 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AMyProjectCharacter::AddAdditionalInputConfig(const ULyraInputConfig* NewInputConfig)
+{
+	TArray<uint32> BindHandles;
+	
+	const APlayerController* PC = GetController<APlayerController>();
+	check(PC);
+
+	const ULocalPlayer* LP = PC->GetLocalPlayer();
+	check(LP);
+
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
+	check(Subsystem);
+
+	ULyraInputComponent* LyraIC = Cast<ULyraInputComponent>(InputComponent);
+	if (ensureMsgf(LyraIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to ULyraInputComponent or a subclass of it.")))
+	{
+		LyraIC->BindAbilityActions(NewInputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+	}
+	
+}
+
+void AMyProjectCharacter::RemoveAdditionalInputConfig(const ULyraInputConfig* NewInputConfig)
+{
+}
+
+void AMyProjectCharacter::Input_AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	// if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+	// {
+	// 	if (ULyraAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+	// 	{
+	// 		LyraASC->AbilityInputTagPressed(InputTag);
+	// 	}
+	// }	
+}
+
+void AMyProjectCharacter::Input_AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	// if (const ULyraPawnExtensionComponent* PawnExtComp = ULyraPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
+	// {
+	// 	if (ULyraAbilitySystemComponent* LyraASC = PawnExtComp->GetLyraAbilitySystemComponent())
+	// 	{
+	// 		LyraASC->AbilityInputTagReleased(InputTag);
+	// 	}
+	// }
+}
+
+bool AMyProjectCharacter::IsReadyToBindInputs() const
+{
+	return bReadyToBindInputs;
 }

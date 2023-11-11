@@ -1,5 +1,6 @@
 #include "ChooseAKeyWidget.h"
 #include "BindingKeyWidget.h"
+#include "CommonInputTypeEnum.h"
 #include "Components/TextBlock.h"
 #include "Input/Events.h"
 #include "../../../LocalSettings.h"
@@ -78,7 +79,7 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 
 	if (Settings)
 	{
-		Settings->GetAllBindingConfigurationsFromKey(0,Key , OutBindingConfiguration);
+		//Settings->GetAllBindingConfigurationsFromKey(0,Key , OutBindingConfiguration);
 	}
 	
 	if (!OutBindingConfiguration.IsEmpty())

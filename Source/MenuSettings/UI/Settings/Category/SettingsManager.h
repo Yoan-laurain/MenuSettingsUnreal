@@ -21,7 +21,6 @@ public:
 	void SaveChanges();
 	void CancelChanges();
 	void ResetToDefault();
-	void LoadAndRegisterInputConfigs();
 
 	TArray<FString>* InitializeNavigationsButtons() const;
 	
