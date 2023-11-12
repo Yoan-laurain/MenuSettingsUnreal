@@ -10,6 +10,7 @@ class UPlayerMappableInputConfig;
 class USoundControlBus;
 class USoundControlBusMix;
 class UBindingConfiguration;
+class UInputMappingContext;
 
 UCLASS(config = Game, defaultconfig, meta = (DisplayName = "AudioSettingsStaff"))
 class MENUSETTINGS_API UAudioSettingsStaff final : public UDeveloperSettings
@@ -41,13 +42,29 @@ public :
 #pragma endregion Buses
 };
 
+USTRUCT()
+struct FInputMappingContextAndPriority
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category="Input", meta=(AssetBundles="Client,Server"))
+	TSoftObjectPtr<UInputMappingContext> InputMapping;
+
+	// Higher priority input mappings will be prioritized over mappings with a lower priority.
+	UPROPERTY(EditAnywhere, Category="Input")
+	int32 Priority = 0;
+		
+	/** If true, then this mapping context will be registered with the settings when this game feature action is registered. */
+	UPROPERTY(EditAnywhere, Category="Input")
+	bool bRegisterWithSettings = true;
+};
+
 UCLASS()
 class ULocalSettings final : public UGameUserSettings
 {
 	GENERATED_BODY()
 	
 public:
-	
 	static ULocalSettings* Get();
 
 #pragma region Audio
@@ -103,7 +120,13 @@ public :
 	
 	//////////////////////////////////////////////////////////////////
 	// KeyBindings
+	
+	UPROPERTY(EditAnywhere, Category="Input")
+	TArray<FInputMappingContextAndPriority> InputMappings;
 
+	/** Registers owned Input Mapping Contexts to the Input Registry Subsystem for a specified Local Player. This also gets called when a Local Player is added. */
+	void RegisterInputMappingContextsForLocalPlayer(ULocalPlayer* LocalPlayer);
+	
 #pragma endregion KeyBindings
 
 #pragma region GeneralSettings

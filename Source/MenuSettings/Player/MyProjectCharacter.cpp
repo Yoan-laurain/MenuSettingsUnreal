@@ -12,6 +12,7 @@
 #include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputBinding.h"
 #include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputContextMapping.h"
 #include "..\UI\Settings\Category\Bindings\Configuration\CustomInputComponent.h"
+#include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 
 //////////////////////////////////////////////////////////////////////////
@@ -71,12 +72,12 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 	const APlayerController* PC = GetController<APlayerController>();
 	check(PC);
 
-	const ULocalPlayer* LP = Cast<ULocalPlayer>(PC->GetLocalPlayer());
+	ULocalPlayer* LP = Cast<ULocalPlayer>(PC->GetLocalPlayer());
 	check(LP);
 
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 	check(Subsystem);
-
+	
 	Subsystem->ClearAllMappings();
 	
 	for (const FInputMappingContextAndPriority& Mapping : DefaultInputMappings)
@@ -112,6 +113,8 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 		TArray<uint32> BindHandles;
 		CustomIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
 	}
+
+	ULocalSettings::Get()->RegisterInputMappingContextsForLocalPlayer( LP );
 }
 
 //////////////////////////////////////////////////////////////////////////

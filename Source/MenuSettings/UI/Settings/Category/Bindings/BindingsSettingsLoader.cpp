@@ -1,9 +1,9 @@
-﻿#include "EnhancedInputSubsystems.h"
+﻿#include "CustomSettingKeyboardInput.h"
+#include "EnhancedInputSubsystems.h"
 #include "../GameSettingsCollection.h"
 #include "../../../../Player/LocalPlayerCustom.h"
 #include "../../LocalSettings.h"
 #include "../SettingsManager.h"
-#include "Configuration/BindingConfiguration.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
@@ -78,7 +78,7 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 					for (const TPair<FName, FKeyMappingRow>& RowPair : Profile->GetPlayerMappingRows())
 					{
 						// Create a setting row for anything with valid mappings and that we haven't created yet
-						if (RowPair.Value.HasAnyMappings() /* && !CreatedMappingNames.Contains(RowPair.Key)*/)
+						if (RowPair.Value.HasAnyMappings()  && !CreatedMappingNames.Contains(RowPair.Key))
 						{
 							// We only want keyboard keys on this settings screen, so we will filter down by mappings
 							// that are set to keyboard keys
@@ -91,7 +91,7 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 							if (UGameSettingsCollection* Collection = GetOrCreateSettingCollection(DesiredDisplayCategory))
 							{
 								// Create the settings widget and initialize it, adding it to this config's section
-								UBindingConfiguration* InputBinding = NewObject<UBindingConfiguration>();
+								UCustomSettingKeyboardInput* InputBinding = NewObject<UCustomSettingKeyboardInput>();
 
 								//InputBinding->SetOptionName( RowPair.Value. );
 								InputBinding->SetWidgetType(ESettingsType::InputConfig);
@@ -104,7 +104,7 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 								InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
 								
 								InputBinding->ClearOptions();
-								InputBinding->AddOption(InputBinding->GetPrimaryKeyText());
+								InputBinding->AddOption(InputBinding->GetKeyTextFromSlot( EPlayerMappableKeySlot::First ) );
 
 								KeyBinding->AddSetting(InputBinding);	
 

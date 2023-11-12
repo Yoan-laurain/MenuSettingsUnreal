@@ -1,5 +1,9 @@
 ﻿#include "LocalSettings.h"
+#include "InputMappingContext.h"
+#include "EnhancedInputSubsystems.h"
+#include "Category/Bindings/AssetManager/AssetManagerCustom.h"
 #include "Internationalization/Culture.h"
+#include "UserSettings/EnhancedInputUserSettings.h"
 
 ULocalSettings* ULocalSettings::Get()
 {
@@ -89,3 +93,32 @@ void ULocalSettings::ResetToDefaultCulture()
 }
 
 //////////////////////////////////////////////////////////////////////
+
+void ULocalSettings::RegisterInputMappingContextsForLocalPlayer(ULocalPlayer* LocalPlayer)
+{
+	if (ensure(LocalPlayer))
+	{
+		UAssetManagerCustom& AssetManager = UAssetManagerCustom::Get();
+		
+		if (UEnhancedInputLocalPlayerSubsystem* EISubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+		{
+			if (UEnhancedInputUserSettings* Settings = EISubsystem->GetUserSettings())
+			{
+				for (const FInputMappingContextAndPriority& Entry : InputMappings)
+				{
+					// Skip entries that don't want to be registered
+					if (!Entry.bRegisterWithSettings)
+					{
+						continue;
+					}
+
+					// Register this IMC with the settings!
+					if (UInputMappingContext* IMC = AssetManager.GetAsset(Entry.InputMapping))
+					{
+						Settings->RegisterInputMappingContext(IMC);
+					}
+				}
+			}
+		}
+	}
+}

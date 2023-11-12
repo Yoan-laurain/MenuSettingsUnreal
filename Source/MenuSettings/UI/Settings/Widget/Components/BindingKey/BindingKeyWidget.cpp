@@ -6,17 +6,20 @@
 #include "Components/Image.h"
 #include "EnhancedInputSubsystems.h"
 #include "../../../../Settings/Widget/MenuSettingsWidget.h"
-#include "MenuSettings/Player/LocalPlayerCustom.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/CustomSettingKeyboardInput.h"
 
 void UBindingKeyWidget::Refresh()
 {
-	UBindingConfiguration* Item = Cast<UBindingConfiguration>(GetSettingsItem());
-	SetCurrentValue(Item->GetFirstMappableOption().GetKey());
+	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(GetSettingsItem());
+
+	//TODO : HERE
+	//FText FirstKeyName = Item->GetAllMappedActionsFromKey(
+	//SetCurrentValue(Item->GetAllMappedActionsFromKey( 
 
 	// if we do not have icon for this key then set it by text
 	if ( IconImage->GetVisibility() == ESlateVisibility::Hidden )
 	{
-		SetCurrentValue(Item->GetPrimaryKeyText());
+		SetCurrentValue(Item->GetKeyTextFromSlot(  EPlayerMappableKeySlot::First ));
 	}
 }
 

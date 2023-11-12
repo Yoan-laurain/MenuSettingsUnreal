@@ -4,8 +4,8 @@
 #include "Components/TextBlock.h"
 #include "Input/Events.h"
 #include "../../../LocalSettings.h"
-#include "../../../Category/Bindings/Configuration/BindingConfiguration.h"
 #include "../../MenuSettingsWidget.h"
+#include "MenuSettings/UI/Settings/Category/Bindings/CustomSettingKeyboardInput.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -37,7 +37,7 @@ void UChooseAKeyWidget::HandleKeyChange(const FKey& Key)
 		
 		if ( Message->GetText().EqualTo(FText::FromString(MessagesToDisplay[0].ToString())))
 		{
-			const UBindingConfiguration* Item = Cast<UBindingConfiguration>(Parent->GetSettingsItem());
+			const UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(Parent->GetSettingsItem());
 
 			TArray<FName> MappedActions;
 			Item->GetAllMappedActionsFromKey(0,Key,MappedActions);
@@ -72,10 +72,10 @@ void UChooseAKeyWidget::SetParent(UBindingKeyWidget* InParent)
 
 void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 {
-	UBindingConfiguration* Item = Cast<UBindingConfiguration>(Parent->GetSettingsItem());
+	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(Parent->GetSettingsItem());
 	const ULocalSettings* Settings = ULocalSettings::Get();
 	
-	TArray<UBindingConfiguration*> OutBindingConfiguration;
+	TArray<UCustomSettingKeyboardInput*> OutBindingConfiguration;
 
 	if (Settings)
 	{
@@ -84,9 +84,9 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	
 	if (!OutBindingConfiguration.IsEmpty())
 	{
-		for (UBindingConfiguration* BindingConfiguration : OutBindingConfiguration)
+		for (UCustomSettingKeyboardInput* BindingConfiguration : OutBindingConfiguration)
 		{
-			BindingConfiguration->ClearBindings();
+			BindingConfiguration->ResetToDefault();
 
 			UBindingKeyWidget* BindingKeyWidget = Cast<UBindingKeyWidget>(BindingConfiguration->GetWidget());
 			BindingKeyWidget->Refresh();

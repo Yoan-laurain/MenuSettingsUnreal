@@ -42,4 +42,3 @@ void UGameFeatureAction_WorldActionBase::HandleGameInstanceStart(UGameInstance* 
 		}
 	}
 }
-
