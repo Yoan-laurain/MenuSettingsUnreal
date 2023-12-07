@@ -9,8 +9,6 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
-#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputBinding.h"
-#include "MenuSettings/UI/Settings/Category/Bindings/Configuration/GameFeatureAction_AddInputContextMapping.h"
 #include "..\UI\Settings\Category\Bindings\Configuration\CustomInputComponent.h"
 #include "MenuSettings/UI/Settings/LocalSettings.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
@@ -98,21 +96,13 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 			}
 		}
 	}
-
-	// The Custom Input Component has some additional functions to map Gameplay Tags to an Input Action.
-	// If you want this functionality but still want to change your input component class, make it a subclass
-	// of the UCustomInputComponent or modify this component accordingly.
-	UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(PlayerInputComponent);
-	if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
-	{
-		// Add the key mappings that may have been set by the player
-		CustomIC->AddInputMappings(InputConfig, Subsystem);
-
-		// This is where we actually bind and input action to a gameplay tag, which means that Gameplay Ability Blueprints will
-		// be triggered directly by these input actions Triggered events. 
-		TArray<uint32> BindHandles;
-		CustomIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
-	}
+	
+	 UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(PlayerInputComponent);
+	 if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
+	 {
+	 	TArray<uint32> BindHandles;
+	 	CustomIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+	 }
 
 	ULocalSettings::Get()->RegisterInputMappingContextsForLocalPlayer( LP );
 }

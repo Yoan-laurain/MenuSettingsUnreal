@@ -23,19 +23,13 @@ class UCustomInputComponent : public UEnhancedInputComponent
 	GENERATED_BODY()
 
 public:
-
-	UCustomInputComponent(const FObjectInitializer& ObjectInitializer);
-
-	void AddInputMappings(const UCustomInputConfig* InputConfig, UEnhancedInputLocalPlayerSubsystem* InputSubsystem) const;
-	void RemoveInputMappings(const UCustomInputConfig* InputConfig, UEnhancedInputLocalPlayerSubsystem* InputSubsystem) const;
-
+	
 	template<class UserClass, typename FuncType>
 	void BindNativeAction(const UCustomInputConfig* InputConfig, const FGameplayTag& InputTag, ETriggerEvent TriggerEvent, UserClass* Object, FuncType Func, bool bLogIfNotFound);
 
 	template<class UserClass, typename PressedFuncType, typename ReleasedFuncType>
 	void BindAbilityActions(const UCustomInputConfig* InputConfig, UserClass* Object, PressedFuncType PressedFunc, ReleasedFuncType ReleasedFunc, TArray<uint32>& BindHandles);
-
-	void RemoveBinds(TArray<uint32>& BindHandles);
+	
 };
 
 

@@ -133,13 +133,13 @@ UGameSettingsCollection* USettingsManager::GetSettings(const FString& SettingsNa
 
 void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 {
+	LocalPlayer = InLocalPlayer;
+	
 	VideoSettings = InitializeVideoSettings();
 	AudioSettings = InitializeAudioSettings();
 	MouseAndKeyboardSettings = InitializeBindingsSettings(InLocalPlayer,ECommonInputType::MouseAndKeyboard);
 	GamepadSettings = InitializeBindingsSettings(InLocalPlayer,ECommonInputType::Gamepad);
 	GameplaySettings = InitializeGameplaySettings();
-	
-	LocalPlayer = InLocalPlayer;
 
 	SettingsMap.Add(GameplaySettings);
 	SettingsMap.Add(MouseAndKeyboardSettings);

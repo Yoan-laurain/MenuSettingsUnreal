@@ -12,15 +12,9 @@ void UBindingKeyWidget::Refresh()
 {
 	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(GetSettingsItem());
 
-	//TODO : HERE
-	//FText FirstKeyName = Item->GetAllMappedActionsFromKey(
-	//SetCurrentValue(Item->GetAllMappedActionsFromKey( 
-
-	// if we do not have icon for this key then set it by text
-	if ( IconImage->GetVisibility() == ESlateVisibility::Hidden )
-	{
-		SetCurrentValue(Item->GetKeyTextFromSlot(  EPlayerMappableKeySlot::First ));
-	}
+	FText KeyText = Item->GetOptions()[0];
+	
+	SetCurrentValue(KeyText);
 }
 
 void UBindingKeyWidget::SetInternalFocus()
