@@ -93,7 +93,7 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 								// Create the settings widget and initialize it, adding it to this config's section
 								UCustomSettingKeyboardInput* InputBinding = NewObject<UCustomSettingKeyboardInput>();
 
-								//InputBinding->SetOptionName( RowPair.Value. );
+								InputBinding->SetOptionName( RowPair.Value.Mappings.begin()->GetDisplayName() );
 								InputBinding->SetWidgetType(ESettingsType::InputConfig);
 								
 								InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
@@ -106,7 +106,8 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 								InputBinding->ClearOptions();
 								InputBinding->AddOption(InputBinding->GetKeyTextFromSlot( EPlayerMappableKeySlot::First ) );
 
-								KeyBinding->AddSetting(InputBinding);	
+								KeyBinding->AddSetting(InputBinding);
+								Collection->AddSetting(InputBinding);
 
 								CreatedMappingNames.Add(RowPair.Key);
 							}

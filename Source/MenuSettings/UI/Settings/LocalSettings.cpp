@@ -104,18 +104,21 @@ void ULocalSettings::RegisterInputMappingContextsForLocalPlayer(ULocalPlayer* Lo
 		{
 			if (UEnhancedInputUserSettings* Settings = EISubsystem->GetUserSettings())
 			{
-				for (const FInputMappingContextAndPriority& Entry : InputMappings)
+				if ( const UInputBindings* InputBinding = GetDefault<UInputBindings>() )
 				{
-					// Skip entries that don't want to be registered
-					if (!Entry.bRegisterWithSettings)
+					for (const FInputMappingContextAndPriority& Entry : InputBinding->InputMappingContexts)
 					{
-						continue;
-					}
+						// Skip entries that don't want to be registered
+						if (!Entry.bRegisterWithSettings)
+						{
+							continue;
+						}
 
-					// Register this IMC with the settings!
-					if (UInputMappingContext* IMC = AssetManager.GetAsset(Entry.InputMapping))
-					{
-						Settings->RegisterInputMappingContext(IMC);
+						// Register this IMC with the settings!
+						if (UInputMappingContext* IMC = AssetManager.GetAsset(Entry.InputMapping))
+						{
+							Settings->RegisterInputMappingContext(IMC);
+						}
 					}
 				}
 			}

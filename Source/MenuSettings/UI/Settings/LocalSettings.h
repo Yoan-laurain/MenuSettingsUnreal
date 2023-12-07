@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "InputMappingContext.h"
 #include "GameFramework/GameUserSettings.h"
 #include "Engine/DeveloperSettings.h"
 #include "LocalSettings.generated.h"
@@ -58,6 +59,19 @@ struct FInputMappingContextAndPriority
 	UPROPERTY(EditAnywhere, Category="Input")
 	bool bRegisterWithSettings = true;
 };
+
+
+UCLASS(config = Game, defaultconfig, meta = (DisplayName = "InputBindngs"))
+class MENUSETTINGS_API UInputBindings final : public UDeveloperSettings
+{
+	GENERATED_BODY()
+
+public :
+	
+	UPROPERTY(config, EditAnywhere, Category = Input, meta = (AllowedClasses = "/Script/MenuSettings.InputMappingContext"))
+	TArray<FInputMappingContextAndPriority> InputMappingContexts;
+};
+
 
 UCLASS()
 class ULocalSettings final : public UGameUserSettings
@@ -120,10 +134,6 @@ public :
 	
 	//////////////////////////////////////////////////////////////////
 	// KeyBindings
-	
-	UPROPERTY(EditAnywhere, Category="Input")
-	TArray<FInputMappingContextAndPriority> InputMappings;
-
 	/** Registers owned Input Mapping Contexts to the Input Registry Subsystem for a specified Local Player. This also gets called when a Local Player is added. */
 	void RegisterInputMappingContextsForLocalPlayer(ULocalPlayer* LocalPlayer);
 	

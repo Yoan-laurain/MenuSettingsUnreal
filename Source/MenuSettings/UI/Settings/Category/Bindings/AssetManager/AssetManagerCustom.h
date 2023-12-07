@@ -31,6 +31,8 @@ private :
 
 	// Used for a scope lock when modifying the list of load assets.
 	FCriticalSection LoadedAssetsCritical;
+
+
 };
 
 template<typename AssetType>

@@ -17,7 +17,7 @@ UObject* UAssetManagerCustom::SynchronousLoadAsset(const FSoftObjectPath& AssetP
 	if (AssetPath.IsValid())
 	{
 
-		if (UAssetManager::IsValid())
+		if (UAssetManager::IsInitialized())
 		{
 			return UAssetManager::GetStreamableManager().LoadSynchronous(AssetPath, false);
 		}

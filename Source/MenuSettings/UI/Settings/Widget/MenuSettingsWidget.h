@@ -138,4 +138,6 @@ protected :
 
 	virtual void NativeOnInitialized() override;
 	virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
+	
+	virtual void NativeConstruct() override;
 };

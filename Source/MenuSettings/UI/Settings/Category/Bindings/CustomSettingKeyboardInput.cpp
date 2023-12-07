@@ -71,7 +71,8 @@ UEnhancedPlayerMappableKeyProfile* UCustomSettingKeyboardInput::FindMappableKeyP
 
 UEnhancedInputUserSettings* UCustomSettingKeyboardInput::GetUserSettings() const
 {
-	if(ULocalPlayerCustom* CustomLocalPlayer = USettingsManager::Get()->GetLocalPlayer())
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	if(ULocalPlayerCustom* CustomLocalPlayer = SettingsManager->GetLocalPlayer())
 	{
 		// Map the key to the player key profile
 		if (UEnhancedInputLocalPlayerSubsystem* System = CustomLocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())

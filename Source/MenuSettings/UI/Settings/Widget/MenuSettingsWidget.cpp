@@ -88,6 +88,15 @@ FReply UMenuSettingsWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
 	return Super::NativeOnKeyDown(InGeometry, InKeyEvent);
 }
 
+void UMenuSettingsWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	// ULocalPlayer* LP = Cast<ULocalPlayer>(GetOwningPlayer());
+	//
+	// ULocalSettings::Get()->RegisterInputMappingContextsForLocalPlayer( LP );
+}
+
 void UMenuSettingsWidget::SetItemToFocusAtFirst(UWidget* _ItemToFocusAtFirst)
 {
 	this->ItemToFocusAtFirst = _ItemToFocusAtFirst;
