@@ -8,10 +8,26 @@
 #include "../../../../Settings/Widget/MenuSettingsWidget.h"
 #include "MenuSettings/UI/Settings/Category/Bindings/CustomSettingKeyboardInput.h"
 
+void UBindingKeyWidget::UnMapKey()
+{
+	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(GetSettingsItem());
+
+	Item->ClearOptions();
+
+	Refresh();
+}
+
 void UBindingKeyWidget::Refresh()
 {
 	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(GetSettingsItem());
 
+	if ( Item->GetOptions().Num() == 0 )
+	{
+		SetCurrentValue(FText::GetEmpty());
+		return;
+	}
+
+	// TODO : GetKeyTextFromSlot(EPlayerMappableKeySlot::First))
 	FText KeyText = Item->GetOptions()[0];
 	
 	SetCurrentValue(KeyText);

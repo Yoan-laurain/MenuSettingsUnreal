@@ -214,6 +214,35 @@ void UCustomSettingKeyboardInput::GetAllMappedActionsFromKey(int32 InKeyBindSlot
 	}
 }
 
+TArray<UCustomSettingKeyboardInput*> UCustomSettingKeyboardInput::GetAllMappedItemFromKey(TArray<FName>& OutActionNames)
+{
+	USettingsManager* SettingsManager = USettingsManager::Get();
+
+	TArray<UCustomSettingKeyboardInput*> Items;
+
+	UGameSettingsCollection* Collection = SettingsManager->GetMouseAndKeyboardSettings();
+	
+	for (UGameSettingsCollection* Category : Collection->GetChildSettingsCollection())
+	{
+		for ( UGameSettingsItem* Item : Category->GetChildSettings() )
+		{
+			if (UCustomSettingKeyboardInput* KeyboardInput = Cast<UCustomSettingKeyboardInput>(Item))
+			{
+				for (const FName& ActionName : OutActionNames)
+				{
+					if (KeyboardInput->ActionMappingName == ActionName)
+					{
+						Items.Add(KeyboardInput);
+					}
+				}
+			}
+		}
+	}
+
+	return Items;
+}
+
+
 bool UCustomSettingKeyboardInput::IsMappingCustomized() const
 {
 	bool bResult = false;

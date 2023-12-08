@@ -101,7 +101,7 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 	 if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
 	 {
 	 	TArray<uint32> BindHandles;
-	 	CustomIC->BindAbilityActions(InputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
+	 	CustomIC->BindNativeAction(InputConfig, FGameplayTag::EmptyTag,ETriggerEvent::Triggered, this, &AMyProjectCharacter::Move,false);
 	 }
 
 	ULocalSettings::Get()->RegisterInputMappingContextsForLocalPlayer( LP );

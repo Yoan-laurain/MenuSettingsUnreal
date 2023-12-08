@@ -1,8 +1,11 @@
 ﻿#include "SettingsManager.h"
+
+#include "EnhancedInputSubsystems.h"
 #include "GameSettingsCollection.h"
 #include "Bindings/AssetManager/AssetManagerCustom.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../LocalSettings.h"
+#include "Bindings/CustomSettingKeyboardInput.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -33,6 +36,13 @@ void SetOptionToBase(UGameSettingsCollection* Setting)
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
 			Option->SetInitialIndex(Option->GetIndexCurrentOption());
+
+			// TODO : Clear 
+			if ( Option->IsA( UCustomSettingKeyboardInput::StaticClass() ))
+			{
+				UCustomSettingKeyboardInput* CustomSettingKeyboardInput = Cast<UCustomSettingKeyboardInput>(Option);
+				CustomSettingKeyboardInput->StoreInitial();
+			}
 		}
 	}
 } 
@@ -43,6 +53,17 @@ void USettingsManager::SaveChanges()
 	{
 		SetOptionToBase(Setting);
 	}
+
+	// TODO : utile ?
+	// ULocalPlayer* LP = Cast<ULocalPlayer>(LocalPlayer);
+	//
+	// if (UEnhancedInputLocalPlayerSubsystem* System = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LP))
+	// {
+	// 	if (UEnhancedInputUserSettings* InputSettings = System->GetUserSettings())
+	// 	{
+	// 		InputSettings->ApplySettings();
+	// 	}
+	// }
 }
 
 void CancelLocalSettings( UGameSettingsCollection* Setting )

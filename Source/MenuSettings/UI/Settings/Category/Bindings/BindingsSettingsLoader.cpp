@@ -42,29 +42,7 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 			{
 				const UEnhancedInputLocalPlayerSubsystem* EISubsystem = InLocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
 				const UEnhancedInputUserSettings* UserSettings = EISubsystem->GetUserSettings();
-
-				// A map of key bindings mapped to their display category
-				TMap<FString, UGameSettingsCollection*> CategoryToSettingCollection;
-
-				// Returns an existing setting collection for the display category if there is one.
-				// If there isn't one, then it will create a new one and initialize it
-				auto GetOrCreateSettingCollection = [&CategoryToSettingCollection, &Screen](FText DisplayCategory) -> UGameSettingsCollection*
-				{
-					FString DisplayCatString = DisplayCategory.ToString();
-				
-					if (UGameSettingsCollection** ExistingCategory = CategoryToSettingCollection.Find(DisplayCatString))
-					{
-						return *ExistingCategory;
-					}
-				
-					UGameSettingsCollection* ConfigSettingCollection = NewObject<UGameSettingsCollection>();
-
-					Screen->AddSetting(ConfigSettingCollection);
-					CategoryToSettingCollection.Add(DisplayCatString, ConfigSettingCollection);
-				
-					return ConfigSettingCollection;
-				};
-
+			
 			//----------------------------------------------------------------------------------
 			
 				static TSet<FName> CreatedMappingNames;
@@ -85,39 +63,33 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 							FPlayerMappableKeyQueryOptions Options = {};
 							Options.KeyToMatch = EKeys::W;
 							Options.bMatchBasicKeyTypes = true;
-																
-							const FText& DesiredDisplayCategory = RowPair.Value.Mappings.begin()->GetDisplayCategory();
-						
-							if (UGameSettingsCollection* Collection = GetOrCreateSettingCollection(DesiredDisplayCategory))
+							
+							// Create the settings widget and initialize it, adding it to this config's section
+							UCustomSettingKeyboardInput* InputBinding = NewObject<UCustomSettingKeyboardInput>();
+
+							InputBinding->SetOptionName( RowPair.Value.Mappings.begin()->GetDisplayName() );
+							InputBinding->SetWidgetType(ESettingsType::InputConfig);
+							
+							InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
 							{
-								// Create the settings widget and initialize it, adding it to this config's section
-								UCustomSettingKeyboardInput* InputBinding = NewObject<UCustomSettingKeyboardInput>();
+								LocalSettings->ApplySettings(false);
+							});
 
-								InputBinding->SetOptionName( RowPair.Value.Mappings.begin()->GetDisplayName() );
-								InputBinding->SetWidgetType(ESettingsType::InputConfig);
-								
-								InputBinding->GetCurrentOptionValueDelegate().BindLambda([LocalSettings]() -> void
-								{
-									LocalSettings->ApplySettings(false);
-								});
+							InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
+							
+							InputBinding->ClearOptions();
 
-								InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
-								
-								InputBinding->ClearOptions();
-								
-								FText KeyText = RowPair.Value.Mappings.begin()->GetCurrentKey().GetDisplayName();
-								
-								InputBinding->AddOption(KeyText);
+							// TODO : GetKeyTextFromSlot(EPlayerMappableKeySlot::First))
+							FText KeyText = RowPair.Value.Mappings.begin()->GetCurrentKey().GetDisplayName();
+							
+							InputBinding->AddOption(KeyText);
+							
+							InputBinding->InitializeInputData(Profile, RowPair.Value, Options);
+							InputBinding->StoreInitial();
+							
+							KeyBinding->AddSetting(InputBinding);
 
-								KeyBinding->AddSetting(InputBinding);
-								Collection->AddSetting(InputBinding);
-
-								CreatedMappingNames.Add(RowPair.Key);
-							}
-							else
-							{
-								ensure(false);
-							}
+							CreatedMappingNames.Add(RowPair.Key);
 						}
 					}
 				}

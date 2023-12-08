@@ -75,21 +75,23 @@ void UChooseAKeyWidget::ValidateKey(const FKey& Key)
 	UCustomSettingKeyboardInput* Item = Cast<UCustomSettingKeyboardInput>(Parent->GetSettingsItem());
 	const ULocalSettings* Settings = ULocalSettings::Get();
 	
-	TArray<UCustomSettingKeyboardInput*> OutBindingConfiguration;
+	TArray<FName> OutBindingConfiguration;
 
 	if (Settings)
 	{
-		//Settings->GetAllBindingConfigurationsFromKey(0,Key , OutBindingConfiguration);
+		Item->GetAllMappedActionsFromKey(0,Key , OutBindingConfiguration);
 	}
 	
 	if (!OutBindingConfiguration.IsEmpty())
 	{
-		for (UCustomSettingKeyboardInput* BindingConfiguration : OutBindingConfiguration)
+		TArray<UCustomSettingKeyboardInput*> Items = Item->GetAllMappedItemFromKey(OutBindingConfiguration);
+		
+		for (UCustomSettingKeyboardInput* BindingConfiguration : Items)
 		{
-			BindingConfiguration->ResetToDefault();
-
+			BindingConfiguration->ChangeBinding(0, EKeys::Invalid);
+		
 			UBindingKeyWidget* BindingKeyWidget = Cast<UBindingKeyWidget>(BindingConfiguration->GetWidget());
-			BindingKeyWidget->Refresh();
+			BindingKeyWidget->UnMapKey();
 		}
 	}
 	

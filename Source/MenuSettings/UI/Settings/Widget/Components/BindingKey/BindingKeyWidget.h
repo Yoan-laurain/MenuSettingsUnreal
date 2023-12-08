@@ -38,6 +38,7 @@ public :
 
 #pragma endregion WidgetComponents
 
+	void UnMapKey();
 	virtual void Refresh();
 	void SetInternalFocus();
 	virtual void InitWidget(UGameSettingsItem* SettingsItem) override;
