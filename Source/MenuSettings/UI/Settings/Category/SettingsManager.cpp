@@ -1,8 +1,6 @@
 ﻿#include "SettingsManager.h"
-
 #include "EnhancedInputSubsystems.h"
 #include "GameSettingsCollection.h"
-#include "Bindings/AssetManager/AssetManagerCustom.h"
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../LocalSettings.h"
 #include "Bindings/CustomSettingKeyboardInput.h"
@@ -11,6 +9,11 @@
 #define LOCTEXT_NAMESPACE "MySettings"
 
 USettingsManager* USettingsManager::Registry = nullptr;
+
+USettingsManager::USettingsManager() : SettingsMap(TArray<UGameSettingsCollection*>()), LocalPlayer(nullptr), HasPendingModifications(false)
+{
+	 
+}
 
 USettingsManager* USettingsManager::Get()
 {
@@ -132,6 +135,15 @@ void USettingsManager::ResetToDefault()
 	}
 
 	ULocalSettings::Get()->ApplySettings(false);
+}
+
+void USettingsManager::CleanUp()
+{
+	if ( Registry )
+	{
+		Registry->RemoveFromRoot();
+		Registry = nullptr;
+	}
 }
 
 UGameSettingsCollection* USettingsManager::GetSettings(const FString& SettingsName)

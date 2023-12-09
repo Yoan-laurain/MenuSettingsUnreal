@@ -16,11 +16,15 @@ class USettingsManager final : public UObject
 	
 public:
 
+	USettingsManager();
+	
 	static USettingsManager* Get();
 
 	void SaveChanges();
 	void CancelChanges();
 	void ResetToDefault();
+
+	void CleanUp();
 
 	TArray<FString>* InitializeNavigationsButtons() const;
 	
