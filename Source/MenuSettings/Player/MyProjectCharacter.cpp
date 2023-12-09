@@ -97,13 +97,6 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 		}
 	}
 	
-	 UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(PlayerInputComponent);
-	 if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
-	 {
-	 	TArray<uint32> BindHandles;
-	 	CustomIC->BindNativeAction(InputConfig, FGameplayTag::EmptyTag,ETriggerEvent::Triggered, this, &AMyProjectCharacter::Move,false);
-	 }
-
 	ULocalSettings::Get()->RegisterInputMappingContextsForLocalPlayer( LP );
 }
 
@@ -165,56 +158,4 @@ void AMyProjectCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
-}
-
-void AMyProjectCharacter::AddAdditionalInputConfig(const UCustomInputConfig* NewInputConfig)
-{
-	TArray<uint32> BindHandles;
-	
-	const APlayerController* PC = GetController<APlayerController>();
-	check(PC);
-
-	const ULocalPlayer* LP = PC->GetLocalPlayer();
-	check(LP);
-
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
-	check(Subsystem);
-
-	UCustomInputComponent* CustomIC = Cast<UCustomInputComponent>(InputComponent);
-	if (ensureMsgf(CustomIC, TEXT("Unexpected Input Component class! The Gameplay Abilities will not be bound to their inputs. Change the input component to UCustomInputComponent or a subclass of it.")))
-	{
-		CustomIC->BindAbilityActions(NewInputConfig, this, &ThisClass::Input_AbilityInputTagPressed, &ThisClass::Input_AbilityInputTagReleased, /*out*/ BindHandles);
-	}
-	
-}
-
-void AMyProjectCharacter::RemoveAdditionalInputConfig(const UCustomInputConfig* NewInputConfig)
-{
-}
-
-void AMyProjectCharacter::Input_AbilityInputTagPressed(FGameplayTag InputTag)
-{
-	// if (const UCustomPawnExtensionComponent* PawnExtComp = UCustomPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
-	// {
-	// 	if (UCustomAbilitySystemComponent* CustomASC = PawnExtComp->GetCustomAbilitySystemComponent())
-	// 	{
-	// 		CustomASC->AbilityInputTagPressed(InputTag);
-	// 	}
-	// }	
-}
-
-void AMyProjectCharacter::Input_AbilityInputTagReleased(FGameplayTag InputTag)
-{
-	// if (const UCustomPawnExtensionComponent* PawnExtComp = UCustomPawnExtensionComponent::FindPawnExtensionComponent(Pawn))
-	// {
-	// 	if (UCustomAbilitySystemComponent* CustomASC = PawnExtComp->GetCustomAbilitySystemComponent())
-	// 	{
-	// 		CustomASC->AbilityInputTagReleased(InputTag);
-	// 	}
-	// }
-}
-
-bool AMyProjectCharacter::IsReadyToBindInputs() const
-{
-	return bReadyToBindInputs;
 }

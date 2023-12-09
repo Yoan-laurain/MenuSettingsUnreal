@@ -54,7 +54,7 @@ public:
 	int GetParentUniqueOption() const { return ParentUniqueBaseOption; }
 	void SetParentUniqueOption(const int Value) { ParentUniqueBaseOption = Value; }
 
-	void SetInitialIndex(const int Value) { IndexInitialOption = Value; }
+	virtual void SetInitialIndex(const int Value) { IndexInitialOption = Value; }
 	int GetInitialIndex() const { return IndexInitialOption; }
 
 #pragma endregion GettersSetters

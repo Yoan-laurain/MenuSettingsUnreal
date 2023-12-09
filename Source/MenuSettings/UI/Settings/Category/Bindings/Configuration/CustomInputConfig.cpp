@@ -1,9 +1,6 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "CustomInputConfig.h"
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(CustomInputConfig)
-
 
 UCustomInputConfig::UCustomInputConfig(const FObjectInitializer& ObjectInitializer)
 {

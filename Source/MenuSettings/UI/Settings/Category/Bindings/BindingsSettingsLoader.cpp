@@ -78,9 +78,8 @@ UGameSettingsCollection* USettingsManager::InitializeBindingsSettings(const ULoc
 							InputBinding->SetIsKeyboard(InputType == ECommonInputType::MouseAndKeyboard);
 							
 							InputBinding->ClearOptions();
-
-							// TODO : GetKeyTextFromSlot(EPlayerMappableKeySlot::First))
-							FText KeyText = RowPair.Value.Mappings.begin()->GetCurrentKey().GetDisplayName();
+							
+							FText KeyText = InputBinding->GetKeyTextFromSlot(EPlayerMappableKeySlot::First);
 							
 							InputBinding->AddOption(KeyText);
 							

@@ -22,13 +22,12 @@ public:
 	virtual void StoreInitial() ;
 	virtual void ResetToDefault() override;
 	virtual void RestoreToInitial();
+	virtual void CancelChanges() override;
+	virtual void SetInitialIndex(const int Value) override;
 
 	bool ChangeBinding(int32 InKeyBindSlot, FKey NewKey);
 	void GetAllMappedActionsFromKey(int32 InKeyBindSlot, FKey Key, TArray<FName>& OutActionNames) const;
 	TArray<UCustomSettingKeyboardInput*> GetAllMappedItemFromKey(TArray<FName>& OutActionNames);
-
-	/** Returns true if mappings on this setting have been customized */
-	bool IsMappingCustomized() const;
 	
 	FText GetSettingDisplayName() const;
 	FText GetSettingDisplayCategory() const;
@@ -48,6 +47,7 @@ public:
 protected:
 
 	bool isKeyboard;
+	bool HasChanged;
 
 protected:
 

@@ -6,6 +6,7 @@
 #include "../Widget/Components/Basic/SettingsWidget.h"
 #include "../LocalSettings.h"
 #include "Bindings/CustomSettingKeyboardInput.h"
+#include "MenuSettings/Player/LocalPlayerCustom.h"
 
 #define LOCTEXT_NAMESPACE "MySettings"
 
@@ -36,13 +37,6 @@ void SetOptionToBase(UGameSettingsCollection* Setting)
 		for ( const auto& Option : Setting->GetChildSettings() )
 		{
 			Option->SetInitialIndex(Option->GetIndexCurrentOption());
-
-			// TODO : Clear 
-			if ( Option->IsA( UCustomSettingKeyboardInput::StaticClass() ))
-			{
-				UCustomSettingKeyboardInput* CustomSettingKeyboardInput = Cast<UCustomSettingKeyboardInput>(Option);
-				CustomSettingKeyboardInput->StoreInitial();
-			}
 		}
 	}
 } 
@@ -53,17 +47,17 @@ void USettingsManager::SaveChanges()
 	{
 		SetOptionToBase(Setting);
 	}
+	
+	LocalPlayer->GetLocalSettings()->ApplySettings(false);
 
-	// TODO : utile ?
-	// ULocalPlayer* LP = Cast<ULocalPlayer>(LocalPlayer);
-	//
-	// if (UEnhancedInputLocalPlayerSubsystem* System = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LP))
-	// {
-	// 	if (UEnhancedInputUserSettings* InputSettings = System->GetUserSettings())
-	// 	{
-	// 		InputSettings->ApplySettings();
-	// 	}
-	// }
+	if (UEnhancedInputLocalPlayerSubsystem* System = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+	{
+		if (UEnhancedInputUserSettings* InputSettings = System->GetUserSettings())
+		{
+			InputSettings->ApplySettings();
+			InputSettings->AsyncSaveSettings();
+		}
+	}
 }
 
 void CancelLocalSettings( UGameSettingsCollection* Setting )

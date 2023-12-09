@@ -86,14 +86,25 @@ UEnhancedInputUserSettings* UCustomSettingKeyboardInput::GetUserSettings() const
 
 bool UCustomSettingKeyboardInput::ValueHasChangedCompareToStart()
 {
-	// return InitialKeyMappings[EPlayerMappableKeySlot::First] != GetKeyFromSlot(EPlayerMappableKeySlot::First) ||
-	// 		InitialKeyMappings[EPlayerMappableKeySlot::Second] != GetKeyFromSlot(EPlayerMappableKeySlot::Second);
-	return false;
+	return HasChanged;
 }
 
 bool UCustomSettingKeyboardInput::ValueHasChangedCompareToDefault()
 {
-	// TODO	:	HERE
+	if (const UEnhancedPlayerMappableKeyProfile* Profile = FindMappableKeyProfile())
+	{
+		if (const FKeyMappingRow* Row = FindKeyMappingRow())
+		{
+			for (const FPlayerKeyMapping& Mapping : Row->Mappings)
+			{
+				if (Profile->DoesMappingPassQueryOptions(Mapping, QueryOptions))
+				{
+					return Mapping.GetCurrentKey() != Mapping.GetDefaultKey();
+				}
+			}
+		}
+	}
+	
 	return false;
 }
 
@@ -156,6 +167,7 @@ void UCustomSettingKeyboardInput::ResetToDefault()
 
 		FGameplayTagContainer FailureReason;
 		Settings->ResetAllPlayerKeysInRow(Args, FailureReason);
+		HasChanged = false;
 	}
 }
 
@@ -181,8 +193,21 @@ void UCustomSettingKeyboardInput::RestoreToInitial()
 {
 	for (TPair<EPlayerMappableKeySlot, FKey> Pair : InitialKeyMappings)
 	{
-		ChangeBinding((int32)Pair.Key, Pair.Value);	
+		ChangeBinding((int32)Pair.Key, Pair.Value);
+		HasChanged = false;
 	}
+}
+
+void UCustomSettingKeyboardInput::CancelChanges()
+{
+	Super::CancelChanges();
+	RestoreToInitial();
+}
+
+void UCustomSettingKeyboardInput::SetInitialIndex(const int Value)
+{
+	Super::SetInitialIndex(Value);
+	StoreInitial();
 }
 
 bool UCustomSettingKeyboardInput::ChangeBinding(int32 InKeyBindSlot, FKey NewKey)
@@ -198,6 +223,7 @@ bool UCustomSettingKeyboardInput::ChangeBinding(int32 InKeyBindSlot, FKey NewKey
 		{
 			FGameplayTagContainer FailureReason;
 			Settings->MapPlayerKey(Args, FailureReason);
+			HasChanged = true;
 		}
 
 		return true;
@@ -240,30 +266,6 @@ TArray<UCustomSettingKeyboardInput*> UCustomSettingKeyboardInput::GetAllMappedIt
 	}
 
 	return Items;
-}
-
-
-bool UCustomSettingKeyboardInput::IsMappingCustomized() const
-{
-	bool bResult = false;
-
-	if (const UEnhancedPlayerMappableKeyProfile* Profile = FindMappableKeyProfile())
-	{
-		FPlayerMappableKeyQueryOptions QueryOptionsForSlot = QueryOptions;
-
-		if (const FKeyMappingRow* Row = FindKeyMappingRow())
-		{
-			for (const FPlayerKeyMapping& Mapping : Row->Mappings)
-			{
-				if (Profile->DoesMappingPassQueryOptions(Mapping, QueryOptionsForSlot))
-				{
-					bResult |= Mapping.IsCustomized();
-				}
-			}
-		}
-	}
-
-	return bResult;
 }
 
 #undef LOCTEXT_NAMESPACE
