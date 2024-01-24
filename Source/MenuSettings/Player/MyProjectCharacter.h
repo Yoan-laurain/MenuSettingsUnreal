@@ -7,34 +7,48 @@
 struct FInputMappingContextAndPriority;
 class UCustomInputConfig;
 struct FGameplayTag;
+class UInputAction;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS(config=Game)
 class AMyProjectCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+#pragma region Components
+
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class USpringArmComponent* CameraBoom;
+	USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
+	UCameraComponent* FollowCamera;
 
+#pragma endregion Components
+
+#pragma region Inputs
+	
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* JumpAction;
+	UInputAction* JumpAction;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* MoveAction;
+	UInputAction* MoveAction;
 
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* LookAction;
+	UInputAction* LookAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* LookActionGamepad;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* EscapeAction;
+	UInputAction* EscapeAction;
+
+#pragma endregion Inputs
 
 public:
 	AMyProjectCharacter();
@@ -68,8 +82,7 @@ protected:
 
 public:
 	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
-

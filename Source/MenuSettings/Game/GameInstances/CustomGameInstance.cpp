@@ -1,6 +1,5 @@
 #include "CustomGameInstance.h"
-
-#include "UI/Settings/Category/SettingsManager.h"
+#include "MenuSettings/UI/Settings/Category/SettingsManager.h"
 
 void UCustomGameInstance::Shutdown()
 {
