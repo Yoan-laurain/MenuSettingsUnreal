@@ -53,6 +53,14 @@ class AMyProjectCharacter : public ACharacter
 public:
 	AMyProjectCharacter();
 
+	// APawn interface
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void InitializePlayerInput(UInputComponent* PlayerInputComponent);
+
+	UPROPERTY(EditAnywhere)
+	TArray<FInputMappingContextAndPriority> DefaultInputMappings;
+	
 protected:
 
 	/** Called for movement input */
@@ -63,20 +71,12 @@ protected:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Escape();
-
-	UPROPERTY(EditAnywhere)
-	TArray<FInputMappingContextAndPriority> DefaultInputMappings;
 	
 	// Input configuration used by player controlled pawns to create input mappings and bind input actions.
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Custom|Input")
 	TObjectPtr<UCustomInputConfig> InputConfig;
 
-
 protected:
-	// APawn interface
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	virtual void InitializePlayerInput(UInputComponent* PlayerInputComponent);
 	
 	virtual void BeginPlay() override;
 

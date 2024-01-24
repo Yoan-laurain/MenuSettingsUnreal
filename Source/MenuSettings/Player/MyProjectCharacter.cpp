@@ -77,7 +77,7 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 	check(Subsystem);
 	
 	Subsystem->ClearAllMappings();
-	
+
 	for (const FInputMappingContextAndPriority& Mapping : DefaultInputMappings)
 	{
 		if (UInputMappingContext* IMC = Mapping.InputMapping.Get())
@@ -88,7 +88,7 @@ void AMyProjectCharacter::InitializePlayerInput(UInputComponent* PlayerInputComp
 				{
 					Settings->RegisterInputMappingContext(IMC);
 				}
-				
+			
 				FModifyContextOptions Options = {};
 				Options.bIgnoreAllPressedKeysUntilRelease = false;
 				// Actually add the config to the local player							

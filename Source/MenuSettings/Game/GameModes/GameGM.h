@@ -8,5 +8,7 @@ UCLASS()
 class MENUSETTINGS_API AGameGM : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void BeginPlay() override;
 };

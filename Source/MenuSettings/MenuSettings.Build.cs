@@ -23,9 +23,9 @@ public class MenuSettings : ModuleRules
 			"CommonInput",
 			"AudioMixer",
 			"AudioModulation",
-			"DeveloperSettings",
 			"PropertyPath", 
-			"ModularGameplay"
+			"EngineSettings",
+			"ModularGameplay",
 		});
 	}
 }
