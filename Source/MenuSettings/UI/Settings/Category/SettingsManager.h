@@ -25,8 +25,6 @@ public:
 	void ResetToDefault();
 
 	void CleanUp();
-
-	TArray<FString>* InitializeNavigationsButtons() const;
 	
 	UGameSettingsCollection* GetVideoSettings() const { return VideoSettings; }
 	UGameSettingsCollection* GetAudioSettings() const { return AudioSettings; }

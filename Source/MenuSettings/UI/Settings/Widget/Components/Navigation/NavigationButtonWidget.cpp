@@ -3,12 +3,13 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "../../../LocalSettings.h"
+#include "../../../Category/GameSettingsCollection.h"
 
-void UNavigationButtonWidget::InitWidget(const FString& Text)
+void UNavigationButtonWidget::InitWidget(const UGameSettingsCollection* Setting)
 {
 	if ( NavigationText )
 	{
-		NavigationText->SetText(FText::FromString(Text));
+		NavigationText->SetText(Setting->GetTitle());
 	}
 
 	if ( NavigationButton )

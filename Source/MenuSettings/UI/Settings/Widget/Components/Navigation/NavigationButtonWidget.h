@@ -3,6 +3,7 @@
 #include "Blueprint/UserWidget.h"
 #include "NavigationButtonWidget.generated.h"
 
+class UGameSettingsCollection;
 class UButton;
 class UTextBlock;
 
@@ -25,7 +26,7 @@ public :
 
 #pragma endregion WidgetComponents
 
-	void InitWidget(const FString& Text);
+	void InitWidget(const UGameSettingsCollection* Setting);
 
 	UFUNCTION()
 	void OnNavigationButtonClicked();

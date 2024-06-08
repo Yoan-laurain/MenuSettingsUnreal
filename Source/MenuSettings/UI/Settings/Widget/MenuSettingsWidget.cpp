@@ -49,7 +49,7 @@ void UMenuSettingsWidget::NativeOnInitialized()
 			}
 		}
 		
-		CreateSectionsButtons(SettingsManager->InitializeNavigationsButtons());
+		CreateSectionsButtons();
 		
 		SetContent(SettingsManager->GetGameplaySettings());
 	}
@@ -168,28 +168,29 @@ void UMenuSettingsWidget::CreateSubTitle(const FText& Title)
 	}
 }
 
-void UMenuSettingsWidget::CreateSectionsButtons(TArray<FString>* NavigationButtons)
+void UMenuSettingsWidget::CreateSectionsButtons()
 {
-	if ( NavigationButtons )
+	USettingsManager* SettingsManager = USettingsManager::Get();
+	if ( SettingsManager )
 	{
-		for ( const auto& Button : *NavigationButtons )
+		for ( auto& Setting : SettingsManager->GetSettingsMap() )
 		{
 			UNavigationButtonWidget* SettingsWidget = CreateWidget<UNavigationButtonWidget>(GetWorld(), SettingsNavigationWidgetClass);
 			
 			 if ( SettingsWidget )
 			 {
-			 	SettingsWidget->NavigationButtonClickedDelegate.BindLambda( [this, Button] () { OnNavigationButtonClicked(Button); } );
+			 	SettingsWidget->NavigationButtonClickedDelegate.BindLambda( [this, SettingsWidget] () { OnNavigationButtonClicked(SettingsWidget); } );
 			 	
 			 	NavigationButtonsContainer->AddNavigationButton(SettingsWidget);
-			 	SettingsWidget->InitWidget(Button);
+			 	SettingsWidget->InitWidget(Setting);
 			 }
 		}
 	}
 }
 
-void UMenuSettingsWidget::OnNavigationButtonClicked(const FString& SettingsName)
+void UMenuSettingsWidget::OnNavigationButtonClicked(const UNavigationButtonWidget* SettingsWidget)
 {
-	if ( CurrentMenuName == SettingsName )
+	if ( CurrentMenuName == SettingsWidget->NavigationText->GetText().ToString() )
 	{
 		return;
 	}
@@ -197,7 +198,8 @@ void UMenuSettingsWidget::OnNavigationButtonClicked(const FString& SettingsName)
 	if ( USettingsManager* SettingsManager = USettingsManager::Get() )
 	{
 		SettingsScrollBox->ClearChildren();
-		SetContent(SettingsManager->GetSettings(SettingsName));
+		FString NavigationText = SettingsWidget->NavigationText->GetText().ToString();
+		SetContent(SettingsManager->GetSettings(NavigationText));
 	}
 
 	if (SettingsDescriptionWidget)

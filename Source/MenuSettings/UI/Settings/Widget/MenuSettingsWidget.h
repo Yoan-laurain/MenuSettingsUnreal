@@ -15,6 +15,7 @@ class UHorizontalBox;
 class USettingsDescription;
 class UNavigationButtonsContainer;
 class UValidationPopUpWidget;
+class UNavigationButtonWidget;
 
 UCLASS()
 class MENUSETTINGS_API UMenuSettingsWidget final : public UCustomActivatableWidget
@@ -73,7 +74,7 @@ public :
 
 #pragma endregion WidgetClasses
 	
-	void OnNavigationButtonClicked(const FString& SettingsName);
+	void OnNavigationButtonClicked(const UNavigationButtonWidget* SettingsWidget);
 	void ChangeDescription(const FText& Description,const FText& SettingName);
 	void SetPendingModificationState(const bool bIsEnabled);
 	
@@ -127,7 +128,7 @@ private :
 
 	void SetContent(UGameSettingsCollection* SettingsCollection);
 	void CreateSubTitle(const FText& Title);
-	void CreateSectionsButtons(TArray<FString>* NavigationButtons);
+	void CreateSectionsButtons();
 	
 	FString CurrentMenuName;
 	

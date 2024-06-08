@@ -174,14 +174,3 @@ void USettingsManager::OnInitialize(ULocalPlayerCustom* InLocalPlayer)
 	SettingsMap.Add(GamepadSettings);
 	SettingsMap.Add(AudioSettings);
 }
-
-TArray<FString>* USettingsManager::InitializeNavigationsButtons() const
-{
-	TArray<FString>* NavigationButtons = new TArray<FString>();
-
-	for (auto& Setting : SettingsMap)
-	{
-		NavigationButtons->Add(Setting->GetTitle().ToString());
-	}
-	return NavigationButtons;
-}
